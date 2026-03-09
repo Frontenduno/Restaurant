@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/USUARIO/Documents/JYP/Restaurant/src/app/recepcion/page.tsx"],"sourcesContent":["import { redirect } from \"next/navigation\";\r\n\r\nexport default function RecepcionPage() {\r\n  // Redirigimos automáticamente al flujo normal (Mesas)\r\n  redirect(\"/recepcion/mesas\");\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;AAAA;;AAEe,SAAS;IACtB,sDAAsD;IACtD,IAAA,iMAAQ,EAAC;AACX"}}]
-}
