@@ -1,0 +1,8 @@
+{
+  "/mesero/mesas/[mesaId]/comandas/page": "app/mesero/mesas/[mesaId]/comandas/page.js",
+  "/mesero/mesas/[mesaId]/menu/page": "app/mesero/mesas/[mesaId]/menu/page.js",
+  "/mesero/mesas/page": "app/mesero/mesas/page.js",
+  "/page": "app/page.js",
+  "/recepcion/mesas/page": "app/recepcion/mesas/page.js",
+  "/recepcion/page": "app/recepcion/page.js"
+}

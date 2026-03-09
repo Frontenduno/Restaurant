@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/USUARIO/Documents/JYP/Restaurant/src/app/cocinero/historial/page.tsx"],"sourcesContent":["import React from 'react'\r\n\r\nfunction HistorialComandasPage() {\r\n  return (\r\n    <div>aqui va el historial de comandas</div>\r\n  )\r\n}\r\n\r\nexport default HistorialComandasPage"],"names":[],"mappings":";;;;;;AAEA,SAAS;IACP,qBACE,8OAAC;kBAAI;;;;;;AAET;uCAEe"}}]
+}
