@@ -19,32 +19,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored) as User);
-      } catch {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    }
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) setUser(JSON.parse(stored) as User);
+    } catch {}
     setIsLoading(false);
   }, []);
 
   function login(email: string, password: string) {
-    const found = users.find(
-      (u) => u.email === email && u.password === password
-    );
-
-    if (!found) {
-      return { success: false, error: "Credenciales incorrectas" };
-    }
-
-    if (!found.isActive) {
-      return { success: false, error: "Usuario desactivado" };
-    }
+    const found = users.find(u => u.email === email && u.password === password);
+    if (!found) return { success: false, error: "Credenciales incorrectas" };
+    if (!found.isActive) return { success: false, error: "Usuario desactivado" };
 
     const { password: _, ...userWithoutPassword } = found;
-    void _;
     setUser(userWithoutPassword);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(userWithoutPassword));
     return { success: true };
@@ -55,9 +42,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(STORAGE_KEY);
   }
 
-  function getRedirectPath(): string {
-    if (!user) return "/login";
-    return getRolPath(user.rol.nombre);
+  function getRedirectPath() {
+    return user ? getRolPath(user.rol.nombre) : "/login";
   }
 
   return (

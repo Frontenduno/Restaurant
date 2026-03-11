@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "./hooks/useAuth";
 import { getRolPath } from "@/data";
-import { LoginHeader } from "../components/LoginHeader";
-import { LoginForm } from "../components/LoginForm";
+import { LoginHeader } from "./components/LoginHeader";
+import { LoginForm } from "./components/LoginForm";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 export function LoginPage() {
   const [error, setError] = useState("");
@@ -40,16 +41,20 @@ export function LoginPage() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
-      {/* Login card - left side */}
-      <div className="relative z-10 flex items-center justify-start w-full px-8 md:px-16 lg:px-24">
-        <div className="w-full max-w-sm bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8">
-          <LoginHeader />
-          <LoginForm
-            onSubmit={handleLogin}
-            error={error}
-            isSubmitting={isSubmitting}
-          />
-        </div>
+      {/* Login card - centered on tablet, left side on desktop */}
+      <div className="relative z-10 flex items-center justify-center lg:justify-start w-full px-4 lg:px-24">
+        <Card className="w-full max-w-md lg:max-w-sm bg-white backdrop-blur-sm rounded-2xl shadow-2xl border-0 ring-0 p-4 sm:p-6">
+          <CardHeader>
+            <LoginHeader />
+          </CardHeader>
+          <CardContent>
+            <LoginForm
+              onSubmit={handleLogin}
+              error={error}
+              isSubmitting={isSubmitting}
+            />
+          </CardContent>
+        </Card>
       </div>
 
       {/* Restaurant branding - bottom right */}
@@ -64,3 +69,4 @@ export function LoginPage() {
     </div>
   );
 }
+

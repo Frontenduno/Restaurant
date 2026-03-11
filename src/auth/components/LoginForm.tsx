@@ -1,10 +1,12 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, type LoginFormData } from "@/schemas/loginSchema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { UserIcon, LockKeyholeIcon, EyeIcon, EyeOffIcon } from "lucide-react";
-import { loginSchema } from "@/util/validations";
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
@@ -13,34 +15,23 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ onSubmit, error, isSubmitting }: LoginFormProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setFieldErrors({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+  });
 
-    const result = loginSchema.safeParse({ email, password });
-
-    if (!result.success) {
-      const errors: Record<string, string> = {};
-      result.error.errors.forEach((err) => {
-        const field = err.path[0] as string;
-        if (!errors[field]) {
-          errors[field] = err.message;
-        }
-      });
-      setFieldErrors(errors);
-      return;
-    }
-
-    onSubmit(email, password);
-  }
+  const onFormSubmit = (data: LoginFormData) => {
+    onSubmit(data.email, data.password);
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-5 pb-10">
       <div className="space-y-1.5">
         <Label htmlFor="email" className="text-sm font-medium text-neutral-700">
           Usuario
@@ -51,13 +42,12 @@ export function LoginForm({ onSubmit, error, isSubmitting }: LoginFormProps) {
             id="email"
             type="email"
             placeholder="Ingrese el usuario"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="pl-10 h-11 bg-white border-neutral-300 text-neutral-900 placeholder:text-neutral-400 focus-visible:ring-blue-500 focus-visible:border-blue-500"
+            {...register("email")}
           />
         </div>
-        {fieldErrors.email && (
-          <p className="text-xs text-red-500 mt-1">{fieldErrors.email}</p>
+        {errors.email && (
+          <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
 
@@ -71,9 +61,8 @@ export function LoginForm({ onSubmit, error, isSubmitting }: LoginFormProps) {
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="Ingrese la contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className="pl-10 pr-10 h-11 bg-white border-neutral-300 text-neutral-900 placeholder:text-neutral-400 focus-visible:ring-blue-500 focus-visible:border-blue-500"
+            {...register("password")}
           />
           <button
             type="button"
@@ -88,8 +77,8 @@ export function LoginForm({ onSubmit, error, isSubmitting }: LoginFormProps) {
             )}
           </button>
         </div>
-        {fieldErrors.password && (
-          <p className="text-xs text-red-500 mt-1">{fieldErrors.password}</p>
+        {errors.password && (
+          <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>
         )}
       </div>
 
@@ -108,7 +97,7 @@ export function LoginForm({ onSubmit, error, isSubmitting }: LoginFormProps) {
 
       <Button
         type="submit"
-        className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer"
+        className="w-full h-11 bg-[#0D00FF] hover:bg-[#0D00FF]/80 text-white font-semibold rounded-lg transition-colors cursor-pointer"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Ingresando..." : "Ingresar"}
