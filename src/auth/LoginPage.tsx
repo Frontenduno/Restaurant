@@ -60,7 +60,7 @@ export function LoginPage() {
       {/* Restaurant branding - bottom right */}
       <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-10 text-right">
         <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-          Restaurante Mario
+          Restaurante J&P
         </h2>
         <p className="text-lg md:text-xl text-white/80 mt-1 drop-shadow-md">
           Sistema de Automatización de Procesos
