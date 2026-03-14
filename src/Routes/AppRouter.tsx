@@ -9,15 +9,7 @@ import { meseroRoutes } from "./meseroRoutes";
 import { recepcionistaRoutes } from "./recepcionistaRoutes";
 
 function RootRedirect() {
-  const { user, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-950">
-        <div className="text-neutral-400 text-lg animate-pulse">Cargando...</div>
-      </div>
-    );
-  }
+  const { user } = useAuth();
 
   if (!user) {
     return <Navigate to="/login" replace />;

@@ -1,30 +1,18 @@
-import { createContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useState, type ReactNode } from "react";
 import type { User } from "@/types";
 import { users, getRolPath } from "@/data";
 
 type AuthContextType = {
   user: User | null;
-  isLoading: boolean;
-  login: (email: string, password: string) => { success: boolean; error?: string };
+  login: (email: string, password: string) => { success: boolean; user?: User; error?: string };
   logout: () => void;
   getRedirectPath: () => string;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const STORAGE_KEY = "restaurant_auth_user";
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setUser(JSON.parse(stored) as User);
-    } catch {}
-    setIsLoading(false);
-  }, []);
 
   function login(email: string, password: string) {
     const found = users.find(u => u.email === email && u.password === password);
@@ -32,14 +20,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!found.isActive) return { success: false, error: "Usuario desactivado" };
 
     const { password: _, ...userWithoutPassword } = found;
-    setUser(userWithoutPassword);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(userWithoutPassword));
-    return { success: true };
+    const userToSet = userWithoutPassword as User;
+    setUser(userToSet);
+    return { success: true, user: userToSet };
   }
 
   function logout() {
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY);
   }
 
   function getRedirectPath() {
@@ -47,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout, getRedirectPath }}>
+    <AuthContext.Provider value={{ user, login, logout, getRedirectPath }}>
       {children}
     </AuthContext.Provider>
   );

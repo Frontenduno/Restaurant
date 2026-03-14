@@ -20,12 +20,8 @@ export function LoginPage() {
     setTimeout(() => {
       const result = login(email, password);
 
-      if (result.success) {
-        const stored = localStorage.getItem("restaurant_auth_user");
-        if (stored) {
-          const user = JSON.parse(stored);
-          navigate(getRolPath(user.rol.nombre), { replace: true });
-        }
+      if (result.success && result.user) {
+        navigate(getRolPath(result.user.rol.nombre), { replace: true });
       } else {
         setError(result.error ?? "Error al iniciar sesión");
       }
