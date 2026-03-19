@@ -24,22 +24,64 @@
   },
   "ventasSemanales": {
     "ventas": [
-      { "dia": "LUN", "monto": 3100 },
-      { "dia": "MAR", "monto": 4000 },
-      { "dia": "MIER", "monto": 2100 },
-      { "dia": "JUE", "monto": 4700 },
-      { "dia": "VIER", "monto": 3400 },
-      { "dia": "SAB", "monto": 4300 },
-      { "dia": "DOM", "monto": 2900 }
+      {
+        "dia": "Lunes",
+        "monto": 3100
+      },
+      {
+        "dia": "Martes",
+        "monto": 4000
+      },
+      {
+        "dia": "Miercoles",
+        "monto": 2100
+      },
+      {
+        "dia": "Jueves",
+        "monto": 4700
+      },
+      {
+        "dia": "Viernes",
+        "monto": 3400
+      },
+      {
+        "dia": "Sabado",
+        "monto": 4300
+      },
+      {
+        "dia": "Domingo",
+        "monto": 2900
+      }
     ],
     "platillos": [
-      { "dia": "LUN", "cantidad": 150 },
-      { "dia": "MAR", "cantidad": 180 },
-      { "dia": "MIER", "cantidad": 110 },
-      { "dia": "JUE", "cantidad": 220 },
-      { "dia": "VIER", "cantidad": 160 },
-      { "dia": "SAB", "cantidad": 250 },
-      { "dia": "DOM", "cantidad": 190 }
+      {
+        "dia": "Lunes",
+        "cantidad": 150
+      },
+      {
+        "dia": "Martes",
+        "cantidad": 180
+      },
+      {
+        "dia": "Miercoles",
+        "cantidad": 110
+      },
+      {
+        "dia": "Jueves",
+        "cantidad": 220
+      },
+      {
+        "dia": "Viernes",
+        "cantidad": 160
+      },
+      {
+        "dia": "Sabado",
+        "cantidad": 250
+      },
+      {
+        "dia": "Domingo",
+        "cantidad": 190
+      }
     ]
   },
   "alertas": {
