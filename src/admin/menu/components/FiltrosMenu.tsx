@@ -2,6 +2,13 @@ import { useState } from "react";
 import { Search, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FilterCombobox } from "./FilterCombobox";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import type { Tipo, Categoria, SubCategoria, FiltroMenu } from "../types";
 
 interface FiltrosMenuProps {
@@ -15,12 +22,6 @@ interface FiltrosMenuProps {
     onSearch: (term: string) => void;
     onAgregar: () => void;
 }
-
-const ESTADO_OPTIONS = [
-    { id: null, detalle: "Todos" },
-    { id: 1, detalle: "Activo" },
-    { id: 0, detalle: "Inactivo" },
-];
 
 export function FiltrosMenu({
     tipos,
@@ -48,7 +49,7 @@ export function FiltrosMenu({
     return (
         <div className="bg-white rounded-2xl shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-gray-100 p-5 flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-3">
-                <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-[200px] max-w-[340px]">
+                <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-50 max-w-85">
                     <input
                         type="text"
                         placeholder="Buscar por nombre..."
@@ -94,18 +95,28 @@ export function FiltrosMenu({
                 />
 
                 <FilterCombobox
-                    label="Sub"
+                    label="Sub-Categoría"
                     options={subcategorias}
                     value={filtros.subcategoria ?? null}
                     onChange={(val) => onSetFiltro("subcategoria", val)}
                 />
 
-                <FilterCombobox
-                    label="Estado"
-                    options={ESTADO_OPTIONS}
-                    value={filtros.estado ?? null}
-                    onChange={(val) => onSetFiltro("estado", val)}
-                />
+                <div className="flex items-center gap-2">
+                    <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">Estado</span>
+                    <Select
+                        value={filtros.estado === 1 ? "Activo" : filtros.estado === 0 ? "Inactivo" : "Todos"}
+                        onValueChange={(val) => onSetFiltro("estado", val === "Todos" ? null : Number(val))}
+                    >
+                        <SelectTrigger className="w-30 h-8 text-sm rounded-md border-input bg-background/50">
+                            <SelectValue placeholder="Todos" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Todos">Todos</SelectItem>
+                            <SelectItem value="1">Activo</SelectItem>
+                            <SelectItem value="0">Inactivo</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
 
                 <button
                     onClick={onAgregar}

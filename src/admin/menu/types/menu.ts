@@ -10,7 +10,7 @@ export interface Menu {
     tipo: Tipo;
     ingredientes: Ingredientes[];
     imagen_url?: string;
-    estado: boolean;
+    estado: number;
 }
 
 export interface MenuFormData {
@@ -22,7 +22,7 @@ export interface MenuFormData {
     tipoId: number;
     ingredientes: Ingredientes[];
     imagen_url?: string;
-    estado: boolean;
+    estado: number;
 }
 
 export interface FiltroMenu {

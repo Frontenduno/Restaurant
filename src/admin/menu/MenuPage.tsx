@@ -12,6 +12,9 @@ export function MenuPage() {
         tipos,
         categorias,
         subcategorias,
+        rawTipos,
+        rawCategorias,
+        rawSubcategorias,
         displayedItems,
         hasMore,
         activeTab,
@@ -20,6 +23,8 @@ export function MenuPage() {
         setFiltro,
         setSearchTerm,
         loadMore,
+        addItem,
+        updateItem,
     } = useMenu();
 
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -91,8 +96,16 @@ export function MenuPage() {
                 open={formOpen}
                 onClose={() => setFormOpen(false)}
                 item={editingItem}
-                categorias={categorias}
-                subcategorias={subcategorias}
+                tipos={rawTipos}
+                categorias={rawCategorias}
+                subcategorias={rawSubcategorias}
+                onSave={(savedItem) => {
+                    if (editingItem) {
+                        updateItem(savedItem);
+                    } else {
+                        addItem(savedItem);
+                    }
+                }}
             />
         </div>
     );

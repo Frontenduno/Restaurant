@@ -1,6 +1,3 @@
-import { useState, useEffect, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { SquarePen, Plus, Trash2, Pencil } from "lucide-react";
 import {
     Sheet,
@@ -13,31 +10,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
-    Combobox,
-    ComboboxInput,
-    ComboboxContent,
-    ComboboxList,
-    ComboboxItem,
-    ComboboxEmpty,
-} from "@/components/ui/combobox";
-import { menuSchema, type MenuFormValues } from "@/schemas/loginSchema";
-import type { Menu, Categoria, SubCategoria, Ingredientes } from "../types";
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import type { Menu, Tipo, Categoria, SubCategoria } from "../types";
+import { useMenuForm } from "../hooks/useMenuForm";
+import { SearchableCombobox } from "./SearchableCombobox";
 
 interface FormMenuProps {
     open: boolean;
     onClose: () => void;
     item?: Menu | null;
+    tipos: Tipo[];
     categorias: Categoria[];
     subcategorias: SubCategoria[];
+    onSave: (item: Menu) => void;
 }
-
-const INGREDIENTES_DISPONIBLES = [
-    "carne", "pollo", "pescado", "camarón", "papa", "arroz", "cebolla",
-    "tomate", "lechuga", "champiñon", "ají amarillo", "limón", "culantro",
-    "palta", "pasta", "crema", "pan", "queso", "huevo", "mantequilla",
-];
-
-const UNIDADES = ["g", "ml", "kg", "l", "und", "oz", "cdta", "cda"];
 
 const BADGE_COLORS = [
     { bg: "#FEE2E2", text: "#991B1B" },
@@ -50,102 +41,36 @@ const BADGE_COLORS = [
     { bg: "#F3E8FF", text: "#6B21A8" },
 ];
 
-export function FormMenu({
-    open,
-    onClose,
-    item,
-    categorias,
-    subcategorias,
-}: FormMenuProps) {
-    const isEditing = !!item;
+export function FormMenu(props: FormMenuProps) {
+    const { open, onClose, tipos } = props;
 
     const {
-        register,
+        form: { register, setValue, formState: { errors } },
+        isEditing,
+        imagenUrl,
+        tipoId,
+        estado,
+        availableCategorias,
+        availableSubcategorias,
+        selectedCategoria,
+        selectedSubcategoria,
+        ingredientesData,
         handleSubmit,
-        setValue,
-        reset,
-        watch,
-        formState: { errors },
-    } = useForm<MenuFormValues>({
-        resolver: zodResolver(menuSchema),
-        defaultValues: {
-            nombre: "",
-            descripcion: "",
-            precio: 0,
-            categoriaId: 0,
-            subcategoriaId: 0,
-            imagen_url: "",
-            estado: true,
-        },
-    });
+    } = useMenuForm(props);
 
-    const [ingredientes, setIngredientes] = useState<Ingredientes[]>([]);
-    const [ingNombre, setIngNombre] = useState("");
-    const [ingCantidad, setIngCantidad] = useState("");
-    const [ingUnidad, setIngUnidad] = useState("g");
-
-    const imagenUrl = watch("imagen_url");
-    const categoriaId = watch("categoriaId");
-    const subcategoriaId = watch("subcategoriaId");
-    const estado = watch("estado");
-
-    const selectedCategoria = categorias.find(c => c.id === categoriaId)?.detalle ?? "";
-    const selectedSubcategoria = subcategorias.find(s => s.id === subcategoriaId)?.detalle ?? "";
-    const selectedEstado = estado ? "Activo" : "Inactivo";
-
-    useEffect(() => {
-        if (open) {
-            if (item) {
-                reset({
-                    nombre: item.nombre,
-                    descripcion: item.descripcion,
-                    precio: item.precio,
-                    categoriaId: item.categoria.id,
-                    subcategoriaId: item.subcategoria.id,
-                    imagen_url: item.imagen_url ?? "",
-                    estado: item.estado,
-                });
-                setIngredientes([...item.ingredientes]);
-            } else {
-                reset({
-                    nombre: "",
-                    descripcion: "",
-                    precio: 0,
-                    categoriaId: 0,
-                    subcategoriaId: 0,
-                    imagen_url: "",
-                    estado: true,
-                });
-                setIngredientes([]);
-            }
-            setIngNombre("");
-            setIngCantidad("");
-            setIngUnidad("g");
-        }
-    }, [open, item, reset]);
-
-    const handleAddIngrediente = useCallback(() => {
-        if (!ingNombre || !ingCantidad) return;
-        const nuevo: Ingredientes = {
-            id: Date.now(),
-            nombre: ingNombre,
-            cantidad: Number(ingCantidad),
-            unidad: ingUnidad,
-        };
-        setIngredientes((prev) => [...prev, nuevo]);
-        setIngNombre("");
-        setIngCantidad("");
-        setIngUnidad("g");
-    }, [ingNombre, ingCantidad, ingUnidad]);
-
-    const handleRemoveIngrediente = useCallback((id: number) => {
-        setIngredientes((prev) => prev.filter((i) => i.id !== id));
-    }, []);
-
-    const onSubmit = (data: MenuFormValues) => {
-        console.log("Form data:", { ...data, ingredientes });
-        onClose();
-    };
+    const {
+        items: ingredientes,
+        nombre: ingNombre,
+        cantidad: ingCantidad,
+        unidad: ingUnidad,
+        setNombre: setIngNombre,
+        setCantidad: setIngCantidad,
+        setUnidad: setIngUnidad,
+        add: handleAddIngrediente,
+        remove: handleRemoveIngrediente,
+        disponibles: INGREDIENTES_DISPONIBLES,
+        unidades: UNIDADES,
+    } = ingredientesData;
 
     return (
         <Sheet open={open} onOpenChange={(val) => { if (!val) onClose(); }}>
@@ -166,7 +91,7 @@ export function FormMenu({
                     </SheetTitle>
                 </SheetHeader>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1">
+                <form onSubmit={handleSubmit} className="flex flex-col flex-1">
                     <div className="flex-1 overflow-y-auto px-5 pb-4 flex flex-col gap-4">
                         {/* Image preview */}
                         {imagenUrl && (
@@ -214,35 +139,44 @@ export function FormMenu({
                             )}
                         </div>
 
+                        {/* Tipo */}
+                        <div className="flex flex-col gap-1.5">
+                            <Select
+                                value={tipoId ? String(tipoId) : undefined}
+                                onValueChange={(val) => {
+                                    setValue("tipoId", Number(val), { shouldValidate: true });
+                                    setValue("categoriaId", 0);
+                                    setValue("subcategoriaId", 0);
+                                }}
+                            >
+                                <SelectTrigger className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                    <SelectValue placeholder="Seleccione un tipo" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {tipos.map(t => <SelectItem key={t.id} value={String(t.id)}>{t.detalle}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                            {errors.tipoId && (
+                                <span className="text-xs text-red-500">{errors.tipoId.message}</span>
+                            )}
+                        </div>
+
                         {/* Categoría + Subcategoría row */}
                         <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-col gap-1.5">
                                 <Label className="text-xs text-gray-500 uppercase tracking-wide font-semibold">
                                     Categoría
                                 </Label>
-                                <Combobox
+                                <SearchableCombobox
                                     value={selectedCategoria}
                                     onValueChange={(val) => {
-                                        const found = categorias.find(c => c.detalle === val);
+                                        const found = availableCategorias.find(c => c.detalle === val);
                                         setValue("categoriaId", found?.id ?? 0, { shouldValidate: true });
+                                        setValue("subcategoriaId", 0);
                                     }}
-                                >
-                                    <ComboboxInput
-                                        placeholder="Seleccione"
-                                        className="w-full h-8 text-sm"
-                                        showClear={false}
-                                    />
-                                    <ComboboxContent>
-                                        <ComboboxList>
-                                            <ComboboxEmpty>Sin resultados</ComboboxEmpty>
-                                            {categorias.map((cat) => (
-                                                <ComboboxItem key={cat.id} value={cat.detalle}>
-                                                    {cat.detalle}
-                                                </ComboboxItem>
-                                            ))}
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
+                                    options={availableCategorias.map(c => ({ label: c.detalle, value: c.detalle }))}
+                                    placeholder="Seleccione..."
+                                />
                                 {errors.categoriaId && (
                                     <span className="text-xs text-red-500">{errors.categoriaId.message}</span>
                                 )}
@@ -252,29 +186,15 @@ export function FormMenu({
                                 <Label className="text-xs text-gray-500 uppercase tracking-wide font-semibold">
                                     Sub-categoría
                                 </Label>
-                                <Combobox
+                                <SearchableCombobox
                                     value={selectedSubcategoria}
                                     onValueChange={(val) => {
-                                        const found = subcategorias.find(s => s.detalle === val);
+                                        const found = availableSubcategorias.find(s => s.detalle === val);
                                         setValue("subcategoriaId", found?.id ?? 0, { shouldValidate: true });
                                     }}
-                                >
-                                    <ComboboxInput
-                                        placeholder="Seleccione"
-                                        className="w-full h-8 text-sm"
-                                        showClear={false}
-                                    />
-                                    <ComboboxContent>
-                                        <ComboboxList>
-                                            <ComboboxEmpty>Sin resultados</ComboboxEmpty>
-                                            {subcategorias.map((sub) => (
-                                                <ComboboxItem key={sub.id} value={sub.detalle}>
-                                                    {sub.detalle}
-                                                </ComboboxItem>
-                                            ))}
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
+                                    options={availableSubcategorias.map(c => ({ label: c.detalle, value: c.detalle }))}
+                                    placeholder="Seleccione..."
+                                />
                                 {errors.subcategoriaId && (
                                     <span className="text-xs text-red-500">{errors.subcategoriaId.message}</span>
                                 )}
@@ -306,22 +226,18 @@ export function FormMenu({
                                     <Label className="text-xs text-gray-500 uppercase tracking-wide font-semibold">
                                         Estado
                                     </Label>
-                                    <Combobox
-                                        value={selectedEstado}
-                                        onValueChange={(val) => setValue("estado", val === "Activo")}
+                                    <Select
+                                        value={estado ? "1" : "0"}
+                                        onValueChange={(val) => setValue("estado", val === "1", { shouldValidate: true })}
                                     >
-                                        <ComboboxInput
-                                            placeholder="Estado"
-                                            className="w-full h-8 text-sm"
-                                            showClear={false}
-                                        />
-                                        <ComboboxContent>
-                                            <ComboboxList>
-                                                <ComboboxItem value="Activo">Activo</ComboboxItem>
-                                                <ComboboxItem value="Inactivo">Inactivo</ComboboxItem>
-                                            </ComboboxList>
-                                        </ComboboxContent>
-                                    </Combobox>
+                                        <SelectTrigger className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                            <SelectValue placeholder="Seleccione un estado" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="1">Activo</SelectItem>
+                                            <SelectItem value="0">Inactivo</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             )}
                         </div>
@@ -352,26 +268,13 @@ export function FormMenu({
 
                             <div className="flex items-center gap-2">
                                 {/* Ingrediente name combobox */}
-                                <Combobox
+                                <SearchableCombobox
                                     value={ingNombre}
-                                    onValueChange={(val) => setIngNombre(val ?? "")}
-                                >
-                                    <ComboboxInput
-                                        placeholder="Seleccione"
-                                        className="flex-1 h-8 text-sm"
-                                        showClear={false}
-                                    />
-                                    <ComboboxContent>
-                                        <ComboboxList>
-                                            <ComboboxEmpty>Sin resultados</ComboboxEmpty>
-                                            {INGREDIENTES_DISPONIBLES.map((nombre) => (
-                                                <ComboboxItem key={nombre} value={nombre}>
-                                                    {nombre}
-                                                </ComboboxItem>
-                                            ))}
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
+                                    onValueChange={setIngNombre}
+                                    options={INGREDIENTES_DISPONIBLES.map(i => ({ label: i.nombre, value: i.nombre }))}
+                                    placeholder="Seleccione"
+                                    className="flex-1"
+                                />
 
                                 {/* Cantidad */}
                                 <Input
@@ -379,29 +282,17 @@ export function FormMenu({
                                     placeholder="Cant."
                                     value={ingCantidad}
                                     onChange={(e) => setIngCantidad(e.target.value)}
-                                    className="w-[70px]"
+                                    className="w-17.5"
                                 />
 
                                 {/* Unidad combobox */}
-                                <Combobox
+                                <SearchableCombobox
                                     value={ingUnidad}
-                                    onValueChange={(val) => setIngUnidad(val ?? "g")}
-                                >
-                                    <ComboboxInput
-                                        placeholder="Uni."
-                                        className="w-[70px] h-8 text-sm"
-                                        showClear={false}
-                                    />
-                                    <ComboboxContent>
-                                        <ComboboxList>
-                                            {UNIDADES.map((u) => (
-                                                <ComboboxItem key={u} value={u}>
-                                                    {u}
-                                                </ComboboxItem>
-                                            ))}
-                                        </ComboboxList>
-                                    </ComboboxContent>
-                                </Combobox>
+                                    onValueChange={setIngUnidad}
+                                    options={UNIDADES.map(u => ({ label: u.abreviatura, value: u.abreviatura }))}
+                                    placeholder="Uni."
+                                    className="w-20"
+                                />
 
                                 <Button
                                     type="button"

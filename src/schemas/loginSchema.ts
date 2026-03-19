@@ -22,6 +22,7 @@ export const menuSchema = z.object({
   nombre: z.string().min(1, "El nombre es requerido"),
   descripcion: z.string().min(1, "La descripción es requerida"),
   precio: z.number().min(0.01, "El precio debe ser mayor a 0"),
+  tipoId: z.number().min(1, "Seleccione un tipo"),
   categoriaId: z.number().min(1, "Seleccione una categoría"),
   subcategoriaId: z.number().min(1, "Seleccione una subcategoría"),
   imagen_url: z.string().optional(),
