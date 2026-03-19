@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { AdminHeader } from "../components/AdminHeader";
 import { PackageIcon } from 'lucide-react'
+import { useInventario } from "./hooks/useInventario";
+import FiltrosInventario from "./components/FiltrosInventario";
 
 export function InventarioPage() {
+  const { categorias, estados } = useInventario();
+
   return (
     <div className="w-full flex flex-col font-sans">
       
@@ -23,8 +27,8 @@ export function InventarioPage() {
               </Button>
           </div>
         </div>
-
-
+      
+        <FiltrosInventario categoria={categorias} estado={estados} />
         
       </div>
       
