@@ -1,0 +1,7 @@
+[
+  { "id": 1, "nombre": "Administrador", "idArea": 5 },
+  { "id": 2, "nombre": "Cajero", "idArea": 3 },
+  { "id": 3, "nombre": "Cocinero", "idArea": 1 },
+  { "id": 4, "nombre": "Mesero", "idArea": 2 },
+  { "id": 5, "nombre": "Recepcionista", "idArea": 4 }
+]

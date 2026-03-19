@@ -1,0 +1,5 @@
+[
+  { "id": 1, "detalle": "disponible" },
+  { "id": 2, "detalle": "ocupado" },
+  { "id": 3, "detalle": "reservado" }
+]
