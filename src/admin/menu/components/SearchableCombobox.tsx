@@ -13,6 +13,7 @@ interface SearchableComboboxProps {
     onValueChange: (val: string) => void;
     placeholder?: string;
     className?: string;
+    disabled?: boolean;
 }
 
 export function SearchableCombobox({
@@ -21,6 +22,7 @@ export function SearchableCombobox({
     onValueChange,
     placeholder = "Seleccione...",
     className = "w-full",
+    disabled = false,
 }: SearchableComboboxProps) {
     const [inputValue, setInputValue] = useState(value);
     const [open, setOpen] = useState(false);
@@ -34,13 +36,10 @@ export function SearchableCombobox({
     }, [onValueChange]);
 
     const handleOpenChange = useCallback((newOpen: boolean) => {
+        if (disabled) return;
         setOpen(newOpen);
-        if (newOpen) {
-            setInputValue(""); // Clear when opened to see all
-        } else {
-            setInputValue(value); // Reset when closed
-        }
-    }, [value]);
+        setInputValue(newOpen ? "" : value);
+    }, [value, disabled]);
 
     const itemsToRender = useMemo(() => {
         if (!inputValue || inputValue === value) return options;
@@ -56,11 +55,13 @@ export function SearchableCombobox({
             onInputValueChange={setInputValue}
             open={open}
             onOpenChange={handleOpenChange}
+            disabled={disabled}
         >
             <ComboboxInput
                 placeholder={placeholder}
                 className={`${className} h-8 px-3 py-1 text-sm border-input rounded-md max-w-full relative`}
                 showClear={false}
+                disabled={disabled}
             />
             <ComboboxContent>
                 <ComboboxList>

@@ -25,6 +25,7 @@ export function MenuPage() {
         loadMore,
         addItem,
         updateItem,
+        deleteItem,
     } = useMenu();
 
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -34,11 +35,7 @@ export function MenuPage() {
     const handleScroll = useCallback(() => {
         const el = scrollRef.current;
         if (!el || !hasMore) return;
-
-        const { scrollTop, scrollHeight, clientHeight } = el;
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            loadMore();
-        }
+        if (el.scrollTop + el.clientHeight >= el.scrollHeight - 100) loadMore();
     }, [hasMore, loadMore]);
 
     const handleAgregar = () => {
@@ -49,6 +46,16 @@ export function MenuPage() {
     const handleEditar = (item: Menu) => {
         setEditingItem(item);
         setFormOpen(true);
+    };
+
+    const handleSave = (savedItem: Menu) => {
+        if (editingItem) updateItem(savedItem);
+        else addItem(savedItem);
+    };
+
+    const handleDelete = (id: number) => {
+        deleteItem(id);
+        setFormOpen(false);
     };
 
     return (
@@ -99,13 +106,8 @@ export function MenuPage() {
                 tipos={rawTipos}
                 categorias={rawCategorias}
                 subcategorias={rawSubcategorias}
-                onSave={(savedItem) => {
-                    if (editingItem) {
-                        updateItem(savedItem);
-                    } else {
-                        addItem(savedItem);
-                    }
-                }}
+                onSave={handleSave}
+                onDelete={handleDelete}
             />
         </div>
     );

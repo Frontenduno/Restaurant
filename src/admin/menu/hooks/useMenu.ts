@@ -62,6 +62,10 @@ export function useMenu() {
     setLocalItems((prev) => prev.map(item => item.id === updatedItem.id ? updatedItem : item));
   }, []);
 
+  const deleteItem = useCallback((id: number) => {
+    setLocalItems((prev) => prev.filter(item => item.id !== id));
+  }, []);
+
   const loadMore = useCallback(() => {
     setDisplayCount((prev) => prev + ITEMS_PER_PAGE);
   }, []);
@@ -125,5 +129,6 @@ export function useMenu() {
     loadMore,
     addItem,
     updateItem,
+    deleteItem,
   };
 }

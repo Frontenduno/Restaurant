@@ -14,6 +14,7 @@ interface FilterComboboxProps {
     onChange: (value: number | null) => void;
     placeholder?: string;
     className?: string;
+    disabled?: boolean;
 }
 
 export function FilterCombobox({
@@ -23,6 +24,7 @@ export function FilterCombobox({
     onChange,
     placeholder = "Buscar...",
     className = "w-32.5",
+    disabled = false,
 }: FilterComboboxProps) {
     const allOptions = useMemo(() => {
         return [{ id: null, detalle: "Todos" }, ...options.filter(o => o.id !== null)];
@@ -35,39 +37,26 @@ export function FilterCombobox({
     const [inputValue, setInputValue] = useState(selectedLabel);
     const [open, setOpen] = useState(false);
 
-    // Sync input value when selection changes from outside (if not typing)
     useEffect(() => {
-        if (!open) {
-            setInputValue(selectedLabel);
-        }
+        if (!open) setInputValue(selectedLabel);
     }, [selectedLabel, open]);
 
     const handleValueChange = useCallback((val: string | null) => {
-        if (val === null) {
-            onChange(null);
-            return;
-        }
+        if (val === null) { onChange(null); return; }
         const found = allOptions.find((o) => o.detalle === val);
         onChange(found?.id ?? null);
     }, [allOptions, onChange]);
 
     const handleOpenChange = useCallback((newOpen: boolean) => {
+        if (disabled) return;
         setOpen(newOpen);
-        if (newOpen) {
-            setInputValue(""); // Clear so all options are visible initially
-        } else {
-            setInputValue(selectedLabel); // Reset search input on close
-        }
-    }, [selectedLabel]);
+        setInputValue(newOpen ? "" : selectedLabel);
+    }, [selectedLabel, disabled]);
 
-    // Internal filter to ensure exactly what we want is rendered
     const itemsToRender = useMemo(() => {
         if (!inputValue || inputValue === selectedLabel) return allOptions;
-
         const lowerSearch = inputValue.toLowerCase();
-        return allOptions.filter((opt) =>
-            opt.detalle.toLowerCase().includes(lowerSearch)
-        );
+        return allOptions.filter((opt) => opt.detalle.toLowerCase().includes(lowerSearch));
     }, [allOptions, inputValue, selectedLabel]);
 
     return (
@@ -80,11 +69,13 @@ export function FilterCombobox({
                 onInputValueChange={setInputValue}
                 open={open}
                 onOpenChange={handleOpenChange}
+                disabled={disabled}
             >
                 <ComboboxInput
                     placeholder={placeholder}
                     className={`${className} h-8 text-sm`}
                     showClear={false}
+                    disabled={disabled}
                 />
                 <ComboboxContent>
                     <ComboboxList>

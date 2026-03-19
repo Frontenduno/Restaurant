@@ -59,7 +59,7 @@ export function WeeklyChartCard({ data }: WeeklyChartCardProps) {
           >
             Ventas
           </button>
-          <div className="w-[1px] bg-gray-200 my-2 mx-1 hidden sm:block"></div>
+          <div className="w-px bg-gray-200 my-2 mx-1 hidden sm:block"></div>
           <button
             onClick={() => setActiveTab("platillos")}
             className={cn(
@@ -74,7 +74,7 @@ export function WeeklyChartCard({ data }: WeeklyChartCardProps) {
         </div>
       </div>
 
-      <div className="flex-1 w-full min-h-[300px]">
+      <div className="flex-1 w-full min-h-75">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData as any}

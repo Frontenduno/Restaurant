@@ -99,21 +99,22 @@ export function FiltrosMenu({
                     options={subcategorias}
                     value={filtros.subcategoria ?? null}
                     onChange={(val) => onSetFiltro("subcategoria", val)}
+                    disabled={!filtros.categoria}
                 />
 
                 <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">Estado</span>
                     <Select
                         value={filtros.estado === 1 ? "Activo" : filtros.estado === 0 ? "Inactivo" : "Todos"}
-                        onValueChange={(val) => onSetFiltro("estado", val === "Todos" ? null : Number(val))}
+                        onValueChange={(val) => onSetFiltro("estado", val === "Activo" ? 1 : val === "Inactivo" ? 0 : null)}
                     >
                         <SelectTrigger className="w-30 h-8 text-sm rounded-md border-input bg-background/50">
                             <SelectValue placeholder="Todos" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="Todos">Todos</SelectItem>
-                            <SelectItem value="1">Activo</SelectItem>
-                            <SelectItem value="0">Inactivo</SelectItem>
+                            <SelectItem value="Activo">Activo</SelectItem>
+                            <SelectItem value="Inactivo">Inactivo</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
