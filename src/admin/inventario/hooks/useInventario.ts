@@ -94,12 +94,9 @@ export function useInventario() {
       setAllItems((prev) => [...prev, nuevoInsumo]);
     }
 
-    // Si llegamos aquí, la validación de Zod PASÓ
     setIsModalOpen(false);
     form.reset();
   };
-
-  // ... resto de tus funciones handleEdit, handleAdd y filteredInsumos se mantienen igual
 
   const handleEdit = (insumo: Insumo) => {
     setSelectedInsumo(insumo);

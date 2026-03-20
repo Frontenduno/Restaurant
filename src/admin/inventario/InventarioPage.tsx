@@ -52,7 +52,6 @@ export function InventarioPage() {
           </div>
         </div>
 
-        {/* CONEXIÓN DE FILTROS: Aquí estaba el problema */}
         <FiltrosInventario
           categoria={categorias}
           estado={estados}
@@ -68,7 +67,6 @@ export function InventarioPage() {
           onDelete={(id) => console.log("Eliminar:", id)}
         />
 
-        {/*  Modal */}
         <FormInsumoModal
           open={isModalOpen}
           onOpenChange={setIsModalOpen}

@@ -32,11 +32,11 @@ interface FormInsumoProps {
 }
 
 const ErrorMessage = ({ error }: { error?: any }) => {
-  if (!error) return <div className="h-5" />; // Reservamos el espacio para que no "salte" el layout
+  if (!error) return <div className="h-5" />;
   return (
     <div className="h-5">
       <p className="text-red-500 text-[11px] font-extrabold mt-1 ml-2 animate-in fade-in slide-in-from-top-1">
-        {error.message.toUpperCase()}
+        {error.message}
       </p>
     </div>
   );
