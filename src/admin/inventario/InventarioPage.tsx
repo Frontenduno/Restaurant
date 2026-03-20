@@ -3,9 +3,10 @@ import { AdminHeader } from "../components/AdminHeader";
 import { PackageIcon } from "lucide-react";
 import { useInventario } from "./hooks/useInventario";
 import FiltrosInventario from "./components/FiltrosInventario";
-import TableInventario from "./components/TableInventario";
-import FormInsumoModal from "./components/FormInsumoModal";
-import DeleteInsumoModal from "./components/DeleteInsumoModal";
+import TableInventario from "./components/Insumo/TableInsumo";
+import FormInsumoModal from "./components/Insumo/FormInsumoModal";
+import DeleteInsumoModal from "./components/Insumo/DeleteInsumoModal";
+import FormCategoria from "./components/Categoria/FormCategoria";
 
 export function InventarioPage() {
   const {
@@ -29,6 +30,15 @@ export function InventarioPage() {
     insumoToDelete,
     handleDeleteClick,
     onConfirmDelete,
+    isCategoriaModalOpen,
+    setIsCategoriaModalOpen,
+    handleAddCatClick,
+    handleEditCatClick,
+    handleDeleteCategoria,
+    isCatActionModalOpen,
+    setIsCatActionModalOpen,
+    selectedCatForAction,
+    handleSaveCategoria,
   } = useInventario();
 
   return (
@@ -46,7 +56,10 @@ export function InventarioPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <Button className="bg-[#E9EAED] w-[165px] border border-[#05014B] hover:bg-blue-800 text-[#05014B] font-medium px-6 h-10 rounded-md">
+            <Button
+              onClick={() => setIsCategoriaModalOpen(true)}
+              className="bg-[#E9EAED] w-[165px] border border-[#05014B] hover:bg-blue-800 text-[#05014B] font-medium px-6 h-10 rounded-md"
+            >
               Categoria
             </Button>
             <Button
@@ -89,6 +102,19 @@ export function InventarioPage() {
           onOpenChange={setIsDeleteModalOpen}
           insumo={insumoToDelete}
           onConfirm={onConfirmDelete}
+        />
+
+        <FormCategoria
+          open={isCategoriaModalOpen}
+          onOpenChange={setIsCategoriaModalOpen}
+          categorias={categorias}
+          onAdd={handleAddCatClick}
+          onEdit={handleEditCatClick}
+          onDelete={handleDeleteCategoria}
+          isCatActionModalOpen={isCatActionModalOpen}
+          setIsCatActionModalOpen={setIsCatActionModalOpen}
+          selectedCatForAction={selectedCatForAction}
+          onSaveCategoria={handleSaveCategoria}
         />
       </div>
     </div>

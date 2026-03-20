@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import type { Categoria, Estado } from "../types";
+import type { Categoria, Estado } from "../../types";
 
 interface FormInsumoProps {
   open: boolean;
@@ -78,13 +78,12 @@ function FormInsumoModal({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            e.stopPropagation(); // IMPORTANTE: Evita el cierre automático
+            e.stopPropagation();
             handleSubmit(onSubmit)(e);
           }}
           className="p-9 pt-4"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-            {/* Nombre */}
             <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Nombre
@@ -116,7 +115,6 @@ function FormInsumoModal({
               />
             </div>
 
-            {/* Categoría */}
             <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Categoria
@@ -135,7 +133,7 @@ function FormInsumoModal({
                       <Select
                         onValueChange={(val) => {
                           field.onChange(val);
-                          trigger("idCategoria"); // Valida al cambiar
+                          trigger("idCategoria");
                         }}
                         value={field.value?.toString()}
                       >
@@ -163,7 +161,6 @@ function FormInsumoModal({
               />
             </div>
 
-            {/* Stock */}
             <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Stock
@@ -195,7 +192,6 @@ function FormInsumoModal({
               />
             </div>
 
-            {/* Unidad de medida */}
             <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Unidad
@@ -241,7 +237,6 @@ function FormInsumoModal({
               />
             </div>
 
-            {/* Estado */}
             <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Estado

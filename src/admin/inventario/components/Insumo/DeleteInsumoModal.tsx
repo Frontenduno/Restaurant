@@ -6,7 +6,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import type { Insumo } from "../types";
+import type { Insumo } from "../../types";
 
 interface DeleteInsumoModalProps {
   open: boolean;

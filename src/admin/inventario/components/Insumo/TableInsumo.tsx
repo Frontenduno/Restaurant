@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import type { Insumo } from "../types";
+import type { Insumo } from "../../types";
 
 interface TableInventarioProps {
   data: Insumo[];

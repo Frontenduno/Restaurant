@@ -20,10 +20,10 @@ export function useInventario() {
     inventarioData.insumos as Insumo[],
   );
 
-  const allCategorias = useMemo(
-    () => inventarioData.categorias as Categoria[],
-    [],
+  const [allCategorias, setAllCategorias] = useState<Categoria[]>(
+    inventarioData.categorias as Categoria[],
   );
+
   const allEstados = useMemo(() => inventarioData.estados as Estado[], []);
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
@@ -33,6 +33,12 @@ export function useInventario() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [insumoToDelete, setInsumoToDelete] = useState<Insumo | null>(null);
+
+  const [isCategoriaModalOpen, setIsCategoriaModalOpen] = useState(false);
+
+  const [isCatActionModalOpen, setIsCatActionModalOpen] = useState(false);
+  const [selectedCatForAction, setSelectedCatForAction] =
+    useState<Categoria | null>(null);
 
   const form = useForm<InsumoFormValues>({
     resolver: zodResolver(insumoSchema) as any,
@@ -133,6 +139,51 @@ export function useInventario() {
     });
   }, [activeTab, activeEstado, allItems]);
 
+  const handleAddCatClick = () => {
+    setSelectedCatForAction(null);
+    setIsCatActionModalOpen(true);
+  };
+
+  const handleEditCatClick = (cat: Categoria) => {
+    setSelectedCatForAction(cat);
+    setIsCatActionModalOpen(true);
+  };
+
+  const handleDeleteCategoria = (id: number) => {
+    const enUso = allItems.some((item) => item.categoria.id === id);
+    if (enUso) {
+      alert("No se puede eliminar una categoría con insumos asociados.");
+      return;
+    }
+    setAllCategorias((prev) => prev.filter((cat) => cat.id !== id));
+  };
+
+  const handleSaveCategoria = (nombre: string, id?: number) => {
+    if (id) {
+      setAllCategorias((prev) =>
+        prev.map((cat) => (cat.id === id ? { ...cat, detalle: nombre } : cat)),
+      );
+      setAllItems((prev) =>
+        prev.map((item) =>
+          item.categoria.id === id
+            ? { ...item, categoria: { ...item.categoria, detalle: nombre } }
+            : item,
+        ),
+      );
+    } else {
+      const nuevaCategoria: Categoria = {
+        id:
+          allCategorias.length > 0
+            ? Math.max(...allCategorias.map((c) => c.id)) + 1
+            : 1,
+        detalle: nombre,
+      };
+      setAllCategorias((prev) => [...prev, nuevaCategoria]);
+    }
+    setIsCatActionModalOpen(false);
+    setSelectedCatForAction(null);
+  };
+
   return {
     insumos: filteredInsumos,
     categorias: allCategorias,
@@ -154,5 +205,14 @@ export function useInventario() {
     insumoToDelete,
     handleDeleteClick,
     onConfirmDelete,
+    isCategoriaModalOpen,
+    setIsCategoriaModalOpen,
+    handleAddCatClick,
+    handleEditCatClick,
+    handleDeleteCategoria,
+    handleSaveCategoria,
+    isCatActionModalOpen,
+    setIsCatActionModalOpen,
+    selectedCatForAction,
   };
 }
