@@ -15,7 +15,7 @@
     {
       "id": 1,
       "nombre": "Carne de Res (Lomo)",
-      "stock": 15.5,
+      "stock": 15,
       "unidad": "kg",
       "categoria": { "id": 1, "detalle": "Proteínas" },
       "estado": { "id": 0, "detalle": "SUFICIENTE" }
@@ -23,7 +23,7 @@
     {
       "id": 2,
       "nombre": "Papa Amarilla",
-      "stock": 5.0,
+      "stock": 5,
       "unidad": "kg",
       "categoria": { "id": 2, "detalle": "Verduras y Frutas" },
       "estado": { "id": 2, "detalle": "STOCK BAJO" }
@@ -55,7 +55,7 @@
     {
       "id": 6,
       "nombre": "Cebolla Roja",
-      "stock": 1.5,
+      "stock": 1,
       "unidad": "kg",
       "categoria": { "id": 2, "detalle": "Verduras y Frutas" },
       "estado": { "id": 2, "detalle": "STOCK BAJO" }
