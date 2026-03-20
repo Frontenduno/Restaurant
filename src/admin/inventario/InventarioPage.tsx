@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { AdminHeader } from "../components/AdminHeader";
 import { PackageIcon } from "lucide-react";
 import { useInventario } from "./hooks/useInventario";
-import { useForm } from "react-hook-form";
 import FiltrosInventario from "./components/FiltrosInventario";
 import TableInventario from "./components/TableInventario";
 import FormInsumoModal from "./components/FormInsumoModal";
@@ -20,6 +19,7 @@ export function InventarioPage() {
     activeEstado,
     setActiveEstado,
     handleEdit,
+    selectedInsumo,
     handleAdd,
     onSubmit,
     isEditing,
@@ -72,11 +72,12 @@ export function InventarioPage() {
         <FormInsumoModal
           open={isModalOpen}
           onOpenChange={setIsModalOpen}
+          form={form}
           onSubmit={onSubmit}
           isEditing={isEditing}
+          selectedInsumo={selectedInsumo}
           Categoria={categorias}
           Estado={estados}
-          form={form}
         />
       </div>
     </div>

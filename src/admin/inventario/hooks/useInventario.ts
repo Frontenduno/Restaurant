@@ -29,8 +29,11 @@ export function useInventario() {
   const [allItems, setAllItems] = useState<Insumo[]>(
     inventarioData.insumos as Insumo[],
   );
-  const allCategorias = inventarioData.categorias as Categoria[];
-  const allEstados = inventarioData.estados as Estado[];
+  const allCategorias = useMemo(
+    () => inventarioData.categorias as Categoria[],
+    [],
+  );
+  const allEstados = useMemo(() => inventarioData.estados as Estado[], []);
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const [activeEstado, setActiveEstado] = useState<number | null>(null);
@@ -91,20 +94,27 @@ export function useInventario() {
   }, [activeTab, activeEstado, allItems]);
 
   const onSubmit = (data: InsumoFormValues) => {
-    // Buscamos los detalles para reconstruir el objeto como le gusta a tu JSON
-    const cat = allCategorias.find((c) => c.id.toString() === data.idCategoria);
-    const est = allEstados.find((e) => e.id.toString() === data.idEstado);
+    const idCatBuscado = String(data.idCategoria).trim();
+    const idEstBuscado = String(data.idEstado).trim();
+
+    const categoriaEncontrada = allCategorias.find(
+      (c) => String(c.id) === idCatBuscado,
+    );
+    const estadoEncontrado = allEstados.find(
+      (e) => String(e.id) === idEstBuscado,
+    );
+
+    if (!categoriaEncontrada || !estadoEncontrado) return;
 
     const nuevoInsumo: Insumo = {
-      id: selectedInsumo?.id || Math.max(...allItems.map((i) => i.id)) + 1,
+      id:
+        selectedInsumo?.id ||
+        (allItems.length > 0 ? Math.max(...allItems.map((i) => i.id)) + 1 : 1),
       nombre: data.nombre,
       stock: data.stock,
       unidad: data.unidadMedida,
-      categoria: { id: Number(data.idCategoria), detalle: cat?.detalle || "" },
-      estado: {
-        id: Number(data.idEstado) as 0 | 1 | 2,
-        detalle: est?.detalle || "",
-      },
+      categoria: { ...categoriaEncontrada },
+      estado: { ...estadoEncontrado },
     };
 
     if (selectedInsumo) {
@@ -118,6 +128,7 @@ export function useInventario() {
     }
 
     setIsModalOpen(false);
+    form.reset();
   };
 
   return {

@@ -45,43 +45,11 @@ function FormInsumoModal({
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors },
   } = form;
 
-  // 1. Sincronizar datos: Convertimos el objeto complejo del JSON a campos planos para el form
-  useEffect(() => {
-    if (open) {
-      if (selectedInsumo) {
-        reset({
-          nombre: selectedInsumo.nombre,
-          stock: selectedInsumo.stock,
-          unidadMedida: selectedInsumo.unidad, // Coincide con "kg", "latas", etc.
-          idCategoria: selectedInsumo.categoria.id.toString(),
-          idEstado: selectedInsumo.estado.id.toString(),
-        });
-      } else {
-        reset({
-          nombre: "",
-          idCategoria: "",
-          stock: "",
-          unidadMedida: "",
-          idEstado: "",
-        });
-      }
-    }
-  }, [open, selectedInsumo, reset]);
-
-  // 2. Función intermedia para devolver los datos como Números al JSON/API
   const handleActualSubmit = (data: any) => {
-    const formattedData = {
-      ...data,
-      idCategoria: Number(data.idCategoria),
-      idEstado: Number(data.idEstado),
-      stock: Number(data.stock),
-      // Si necesitas enviar la estructura anidada de vuelta, podrías construirla aquí
-    };
-    onSubmit(formattedData);
+    onSubmit(data);
   };
 
   return (
@@ -92,7 +60,9 @@ function FormInsumoModal({
       >
         <div className="flex justify-between items-center p-9 pb-2">
           <DialogTitle className="text-[28px] font-bold text-[#050640]">
-            {isEditing ? "Editar Insumo" : "Agregar Insumo"}
+            {isEditing
+              ? `Editar Insumo ${selectedInsumo?.nombre}`
+              : "Agregar Insumo"}
           </DialogTitle>
           <button
             type="button"
@@ -152,7 +122,7 @@ function FormInsumoModal({
                       </SelectTrigger>
                       <SelectContent>
                         {Categoria.map((c: any) => (
-                          <SelectItem key={c.id} value={c.detalle}>
+                          <SelectItem key={c.id} value={c.id.toString()}>
                             {c.detalle}
                           </SelectItem>
                         ))}
@@ -238,7 +208,7 @@ function FormInsumoModal({
                       </SelectTrigger>
                       <SelectContent>
                         {Estado.map((e: any) => (
-                          <SelectItem key={e.id} value={e.detalle}>
+                          <SelectItem key={e.id} value={e.id.toString()}>
                             {e.detalle}
                           </SelectItem>
                         ))}
