@@ -31,6 +31,9 @@ export function useInventario() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedInsumo, setSelectedInsumo] = useState<Insumo | null>(null);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [insumoToDelete, setInsumoToDelete] = useState<Insumo | null>(null);
+
   const form = useForm<InsumoFormValues>({
     resolver: zodResolver(insumoSchema) as any,
     mode: "all",
@@ -110,6 +113,17 @@ export function useInventario() {
     setIsModalOpen(true);
   };
 
+  const handleDeleteClick = (insumo: Insumo) => {
+    setInsumoToDelete(insumo);
+    setIsDeleteModalOpen(true);
+  };
+
+  const onConfirmDelete = (id: number) => {
+    setAllItems((prev) => prev.filter((item) => item.id !== id));
+    setIsDeleteModalOpen(false);
+    setInsumoToDelete(null);
+  };
+
   const filteredInsumos = useMemo(() => {
     return allItems.filter((item) => {
       const matchesTab = activeTab === null || item.categoria.id === activeTab;
@@ -135,5 +149,10 @@ export function useInventario() {
     setActiveEstado,
     handleEdit,
     handleAdd,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    insumoToDelete,
+    handleDeleteClick,
+    onConfirmDelete,
   };
 }

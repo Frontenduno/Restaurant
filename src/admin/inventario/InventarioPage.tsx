@@ -5,6 +5,7 @@ import { useInventario } from "./hooks/useInventario";
 import FiltrosInventario from "./components/FiltrosInventario";
 import TableInventario from "./components/TableInventario";
 import FormInsumoModal from "./components/FormInsumoModal";
+import DeleteInsumoModal from "./components/DeleteInsumoModal";
 
 export function InventarioPage() {
   const {
@@ -23,6 +24,11 @@ export function InventarioPage() {
     handleAdd,
     onSubmit,
     isEditing,
+    isDeleteModalOpen,
+    setIsDeleteModalOpen,
+    insumoToDelete,
+    handleDeleteClick,
+    onConfirmDelete,
   } = useInventario();
 
   return (
@@ -64,7 +70,7 @@ export function InventarioPage() {
         <TableInventario
           data={insumos}
           onEdit={handleEdit}
-          onDelete={(id) => console.log("Eliminar:", id)}
+          onDelete={handleDeleteClick}
         />
 
         <FormInsumoModal
@@ -76,6 +82,13 @@ export function InventarioPage() {
           selectedInsumo={selectedInsumo}
           Categoria={categorias}
           Estado={estados}
+        />
+
+        <DeleteInsumoModal
+          open={isDeleteModalOpen}
+          onOpenChange={setIsDeleteModalOpen}
+          insumo={insumoToDelete}
+          onConfirm={onConfirmDelete}
         />
       </div>
     </div>

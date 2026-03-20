@@ -4,7 +4,7 @@ import type { Insumo } from "../types";
 interface TableInventarioProps {
   data: Insumo[];
   onEdit: (insumo: Insumo) => void;
-  onDelete: (insumoId: number) => void;
+  onDelete: (insumo: Insumo) => void;
 }
 function TableInventario({ data, onEdit, onDelete }: TableInventarioProps) {
   const statusConfig = {
@@ -89,7 +89,7 @@ function TableInventario({ data, onEdit, onDelete }: TableInventarioProps) {
                       <Pencil className="w-4 h-4" />
                     </button>
                     <button
-                      onClick={() => onDelete(insumo.id)}
+                      onClick={() => onDelete(insumo)}
                       className="p-2 rounded-lg hover:bg-red-50 transition-colors text-red-500"
                       title="Eliminar"
                     >
