@@ -1,134 +1,38 @@
 import { useState, useMemo } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import type { Categoria, Insumo, Estado } from "../types";
-import inventarioData from "../data/inventario-data.json";
-
-const insumoSchema = z.object({
-  nombre: z.string().trim().min(1, "El nombre es obligatorio"),
-  idCategoria: z.string().min(1, "Seleccione una categoría"),
-  stock: z.coerce.number().min(0, "Mínimo 0"),
-  unidadMedida: z.string().min(1, "Seleccione una unidad"),
-  idEstado: z.string().min(1, "Seleccione un estado"),
-});
-
-type InsumoFormValues = z.infer<typeof insumoSchema>;
+import { useCategorias } from "./useCategoria";
+import { useInsumos } from "./useInsumos";
+import type { Insumo } from "../types";
 
 export function useInventario() {
-  const [allItems, setAllItems] = useState<Insumo[]>(
-    inventarioData.insumos as Insumo[],
-  );
+  const {
+    categorias,
+    setAllCategorias,
+    handleSaveCategoria,
+    isCatActionModalOpen,
+    setIsCatActionModalOpen,
+    selectedCatForAction,
+    handleAddCatClick,
+    handleEditCatClick,
+  } = useCategorias();
 
-  const [allCategorias, setAllCategorias] = useState<Categoria[]>(
-    inventarioData.categorias as Categoria[],
-  );
-
-  const allEstados = useMemo(() => inventarioData.estados as Estado[], []);
+  const {
+    allItems,
+    setAllItems,
+    prepareForm,
+    allEstados,
+    form,
+    isModalOpen,
+    setIsModalOpen,
+    selectedInsumo,
+    setSelectedInsumo, // Importante extraer esto
+    onSubmit,
+  } = useInsumos(categorias);
 
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const [activeEstado, setActiveEstado] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedInsumo, setSelectedInsumo] = useState<Insumo | null>(null);
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [insumoToDelete, setInsumoToDelete] = useState<Insumo | null>(null);
-
+  const [insumoToDelete, setInsumoToDelete] = useState<any | null>(null);
   const [isCategoriaModalOpen, setIsCategoriaModalOpen] = useState(false);
-
-  const [isCatActionModalOpen, setIsCatActionModalOpen] = useState(false);
-  const [selectedCatForAction, setSelectedCatForAction] =
-    useState<Categoria | null>(null);
-
-  const form = useForm<InsumoFormValues>({
-    resolver: zodResolver(insumoSchema) as any,
-    mode: "all",
-    defaultValues: {
-      nombre: "",
-      idCategoria: "",
-      stock: 0,
-      unidadMedida: "",
-      idEstado: "",
-    },
-  });
-
-  const prepareForm = (insumo?: Insumo) => {
-    if (insumo) {
-      form.reset({
-        nombre: insumo.nombre,
-        idCategoria: insumo.categoria.detalle,
-        stock: insumo.stock,
-        unidadMedida: insumo.unidad,
-        idEstado: insumo.estado.detalle,
-      });
-    } else {
-      form.reset({
-        nombre: "",
-        idCategoria: "",
-        stock: 0,
-        unidadMedida: "",
-        idEstado: "",
-      });
-    }
-  };
-
-  const onSubmit = (data: InsumoFormValues) => {
-    const categoriaEncontrada = allCategorias.find(
-      (c) => c.detalle === data.idCategoria,
-    );
-    const estadoEncontrado = allEstados.find(
-      (e) => e.detalle === data.idEstado,
-    );
-
-    if (!categoriaEncontrada || !estadoEncontrado) return;
-
-    const nuevoInsumo: Insumo = {
-      id:
-        selectedInsumo?.id ||
-        (allItems.length > 0 ? Math.max(...allItems.map((i) => i.id)) + 1 : 1),
-      nombre: data.nombre,
-      stock: data.stock,
-      unidad: data.unidadMedida,
-      categoria: { ...categoriaEncontrada },
-      estado: { ...estadoEncontrado },
-    };
-
-    if (selectedInsumo) {
-      setAllItems((prev) =>
-        prev.map((item) =>
-          item.id === selectedInsumo.id ? nuevoInsumo : item,
-        ),
-      );
-    } else {
-      setAllItems((prev) => [...prev, nuevoInsumo]);
-    }
-
-    setIsModalOpen(false);
-    form.reset();
-  };
-
-  const handleEdit = (insumo: Insumo) => {
-    setSelectedInsumo(insumo);
-    prepareForm(insumo);
-    setIsModalOpen(true);
-  };
-
-  const handleAdd = () => {
-    setSelectedInsumo(null);
-    prepareForm();
-    setIsModalOpen(true);
-  };
-
-  const handleDeleteClick = (insumo: Insumo) => {
-    setInsumoToDelete(insumo);
-    setIsDeleteModalOpen(true);
-  };
-
-  const onConfirmDelete = (id: number) => {
-    setAllItems((prev) => prev.filter((item) => item.id !== id));
-    setIsDeleteModalOpen(false);
-    setInsumoToDelete(null);
-  };
 
   const filteredInsumos = useMemo(() => {
     return allItems.filter((item) => {
@@ -139,30 +43,9 @@ export function useInventario() {
     });
   }, [activeTab, activeEstado, allItems]);
 
-  const handleAddCatClick = () => {
-    setSelectedCatForAction(null);
-    setIsCatActionModalOpen(true);
-  };
-
-  const handleEditCatClick = (cat: Categoria) => {
-    setSelectedCatForAction(cat);
-    setIsCatActionModalOpen(true);
-  };
-
-  const handleDeleteCategoria = (id: number) => {
-    const enUso = allItems.some((item) => item.categoria.id === id);
-    if (enUso) {
-      alert("No se puede eliminar una categoría con insumos asociados.");
-      return;
-    }
-    setAllCategorias((prev) => prev.filter((cat) => cat.id !== id));
-  };
-
-  const handleSaveCategoria = (nombre: string, id?: number) => {
+  const handleSaveCategoriaAndSync = (nombre: string, id?: number) => {
+    handleSaveCategoria(nombre, id);
     if (id) {
-      setAllCategorias((prev) =>
-        prev.map((cat) => (cat.id === id ? { ...cat, detalle: nombre } : cat)),
-      );
       setAllItems((prev) =>
         prev.map((item) =>
           item.categoria.id === id
@@ -170,49 +53,66 @@ export function useInventario() {
             : item,
         ),
       );
-    } else {
-      const nuevaCategoria: Categoria = {
-        id:
-          allCategorias.length > 0
-            ? Math.max(...allCategorias.map((c) => c.id)) + 1
-            : 1,
-        detalle: nombre,
-      };
-      setAllCategorias((prev) => [...prev, nuevaCategoria]);
     }
-    setIsCatActionModalOpen(false);
-    setSelectedCatForAction(null);
+  };
+
+  const handleDeleteCategoria = (id: number) => {
+    if (allItems.some((item) => item.categoria.id === id)) {
+      alert("No se puede eliminar una categoría con insumos asociados.");
+      return;
+    }
+    setAllCategorias((prev) => prev.filter((cat) => cat.id !== id));
+  };
+
+  const handleDeleteClick = (insumo: any) => {
+    setInsumoToDelete(insumo);
+    setIsDeleteModalOpen(true);
+  };
+
+  const onConfirmDelete = (id: number) => {
+    setAllItems((prev) => prev.filter((item) => item.id !== id));
+    setIsDeleteModalOpen(false);
+    setInsumoToDelete(null);
   };
 
   return {
     insumos: filteredInsumos,
-    categorias: allCategorias,
+    categorias,
     estados: allEstados,
+    activeTab,
+    setActiveTab,
+    activeEstado,
+    setActiveEstado,
+    isCategoriaModalOpen,
+    setIsCategoriaModalOpen,
+    isCatActionModalOpen,
+    setIsCatActionModalOpen,
+    selectedCatForAction,
+    handleAddCatClick,
+    handleEditCatClick,
+    handleSaveCategoria: handleSaveCategoriaAndSync,
+    handleDeleteCategoria,
     form,
     isModalOpen,
     setIsModalOpen,
     selectedInsumo,
     isEditing: !!selectedInsumo,
     onSubmit,
-    activeTab,
-    setActiveTab,
-    activeEstado,
-    setActiveEstado,
-    handleEdit,
-    handleAdd,
+    // CORRECCIÓN: Actualizamos el estado del hijo al editar/agregar
+    handleEdit: (insumo: Insumo) => {
+      setSelectedInsumo(insumo); // Notifica al hijo que estamos editando
+      prepareForm(insumo);
+      setIsModalOpen(true);
+    },
+    handleAdd: () => {
+      setSelectedInsumo(null); // Notifica al hijo que es uno nuevo
+      prepareForm();
+      setIsModalOpen(true);
+    },
     isDeleteModalOpen,
     setIsDeleteModalOpen,
     insumoToDelete,
     handleDeleteClick,
     onConfirmDelete,
-    isCategoriaModalOpen,
-    setIsCategoriaModalOpen,
-    handleAddCatClick,
-    handleEditCatClick,
-    handleDeleteCategoria,
-    handleSaveCategoria,
-    isCatActionModalOpen,
-    setIsCatActionModalOpen,
-    selectedCatForAction,
   };
 }

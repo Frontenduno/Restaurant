@@ -9,36 +9,44 @@ import DeleteInsumoModal from "./components/Insumo/DeleteInsumoModal";
 import FormCategoria from "./components/Categoria/FormCategoria";
 
 export function InventarioPage() {
+  // Ahora useInventario internamente consume useInsumos y useCategorias
   const {
+    // Datos y Filtros
     insumos,
     categorias,
     estados,
-    form,
-    isModalOpen,
-    setIsModalOpen,
     activeTab,
     setActiveTab,
     activeEstado,
     setActiveEstado,
-    handleEdit,
+
+    // Lógica de Insumos (proveniente de useInsumos)
+    form,
+    isModalOpen,
+    setIsModalOpen,
     selectedInsumo,
-    handleAdd,
-    onSubmit,
     isEditing,
+    handleAdd,
+    handleEdit,
+    onSubmit,
+
+    // Lógica de Borrado de Insumos
     isDeleteModalOpen,
     setIsDeleteModalOpen,
     insumoToDelete,
     handleDeleteClick,
     onConfirmDelete,
+
+    // Lógica de Categorías (proveniente de useCategorias)
     isCategoriaModalOpen,
     setIsCategoriaModalOpen,
-    handleAddCatClick,
-    handleEditCatClick,
-    handleDeleteCategoria,
     isCatActionModalOpen,
     setIsCatActionModalOpen,
     selectedCatForAction,
+    handleAddCatClick,
+    handleEditCatClick,
     handleSaveCategoria,
+    handleDeleteCategoria,
   } = useInventario();
 
   return (
@@ -46,6 +54,7 @@ export function InventarioPage() {
       <AdminHeader title="Inventario" icon={PackageIcon} />
 
       <div className="px-2">
+        {/* Header de la sección */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <div>
             <h2 className="text-3xl font-bold text-black mb-2">
@@ -58,19 +67,20 @@ export function InventarioPage() {
           <div className="flex items-center gap-3">
             <Button
               onClick={() => setIsCategoriaModalOpen(true)}
-              className="bg-[#E9EAED] w-[165px] border border-[#05014B] hover:bg-blue-800 text-[#05014B] font-medium px-6 h-10 rounded-md"
+              className="bg-[#E9EAED] w-[165px] border border-[#05014B] hover:bg-slate-200 text-[#05014B] font-medium px-6 h-10 rounded-md transition-colors"
             >
-              Categoria
+              Categorías
             </Button>
             <Button
               onClick={handleAdd}
-              className="bg-[#05014B] w-[165px] hover:bg-blue-800 text-white font-medium px-6 h-10 rounded-md"
+              className="bg-[#05014B] w-[165px] hover:bg-blue-900 text-white font-medium px-6 h-10 rounded-md transition-colors"
             >
               Agregar Insumo
             </Button>
           </div>
         </div>
 
+        {/* Filtros */}
         <FiltrosInventario
           categoria={categorias}
           estado={estados}
@@ -80,12 +90,14 @@ export function InventarioPage() {
           setActiveEstado={setActiveEstado}
         />
 
+        {/* Tabla de Insumos */}
         <TableInventario
           data={insumos}
           onEdit={handleEdit}
           onDelete={handleDeleteClick}
         />
 
+        {/* Modales de Insumos */}
         <FormInsumoModal
           open={isModalOpen}
           onOpenChange={setIsModalOpen}
@@ -104,6 +116,7 @@ export function InventarioPage() {
           onConfirm={onConfirmDelete}
         />
 
+        {/* Panel Lateral de Categorías */}
         <FormCategoria
           open={isCategoriaModalOpen}
           onOpenChange={setIsCategoriaModalOpen}
