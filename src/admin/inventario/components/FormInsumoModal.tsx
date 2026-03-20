@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   X as XIcon,
   Archive,
@@ -32,6 +31,17 @@ interface FormInsumoProps {
   form: any;
 }
 
+const ErrorMessage = ({ error }: { error?: any }) => {
+  if (!error) return <div className="h-5" />; // Reservamos el espacio para que no "salte" el layout
+  return (
+    <div className="h-5">
+      <p className="text-red-500 text-[11px] font-extrabold mt-1 ml-2 animate-in fade-in slide-in-from-top-1">
+        {error.message.toUpperCase()}
+      </p>
+    </div>
+  );
+};
+
 function FormInsumoModal({
   open,
   onOpenChange,
@@ -42,15 +52,7 @@ function FormInsumoModal({
   Estado,
   form,
 }: FormInsumoProps) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = form;
-
-  const handleActualSubmit = (data: any) => {
-    onSubmit(data);
-  };
+  const { control, handleSubmit, trigger } = form;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -73,154 +75,221 @@ function FormInsumoModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(handleActualSubmit)} className="p-9 pt-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation(); // IMPORTANTE: Evita el cierre automático
+            handleSubmit(onSubmit)(e);
+          }}
+          className="p-9 pt-4"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
             {/* Nombre */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Nombre
               </Label>
               <Controller
                 name="nombre"
                 control={control}
-                rules={{ required: "El nombre es obligatorio" }}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Archive
-                      className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-10 ${errors.nombre ? "text-red-500" : "text-[#050640]"}`}
-                    />
-                    <Input
-                      {...field}
-                      className={`pl-14 bg-white border-0 h-[58px] rounded-2xl shadow-sm text-lg focus-visible:ring-2 ${errors.nombre ? "ring-2 ring-red-500" : "focus-visible:ring-[#050640]"}`}
-                      placeholder="Ingrese nombre"
-                    />
-                  </div>
+                render={({ field, fieldState }) => (
+                  <>
+                    <div className="relative">
+                      <Archive
+                        className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-10 ${
+                          fieldState.error ? "text-red-500" : "text-[#050640]"
+                        }`}
+                      />
+                      <Input
+                        {...field}
+                        className={`pl-14 bg-white border-0 h-[58px] rounded-2xl shadow-sm text-lg transition-all ${
+                          fieldState.error
+                            ? "ring-2 ring-red-500"
+                            : "focus-visible:ring-2 focus-visible:ring-[#050640]"
+                        }`}
+                        placeholder="Ingrese nombre"
+                      />
+                    </div>
+                    <ErrorMessage error={fieldState.error} />
+                  </>
                 )}
               />
             </div>
 
             {/* Categoría */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Categoria
               </Label>
               <Controller
                 name="idCategoria"
                 control={control}
-                rules={{ required: "Seleccione una categoría" }}
-                render={({ field }) => (
-                  <div className="relative">
-                    <LayoutGrid className="w-6 h-6 text-[#050640] absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none" />
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value?.toString()}
-                    >
-                      <SelectTrigger
-                        className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg focus:ring-2 ${errors.idCategoria ? "ring-2 ring-red-500" : "focus:ring-[#050640]"}`}
+                render={({ field, fieldState }) => (
+                  <>
+                    <div className="relative">
+                      <LayoutGrid
+                        className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none ${
+                          fieldState.error ? "text-red-500" : "text-[#050640]"
+                        }`}
+                      />
+                      <Select
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          trigger("idCategoria"); // Valida al cambiar
+                        }}
+                        value={field.value?.toString()}
                       >
-                        <SelectValue placeholder="Seleccione" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Categoria.map((c: any) => (
-                          <SelectItem key={c.id} value={c.id.toString()}>
-                            {c.detalle}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                        <SelectTrigger
+                          className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg ${
+                            fieldState.error
+                              ? "ring-2 ring-red-500"
+                              : "focus:ring-2 focus:ring-[#050640]"
+                          }`}
+                        >
+                          <SelectValue placeholder="Seleccione" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Categoria.map((c: any) => (
+                            <SelectItem key={c.id} value={c.detalle}>
+                              {c.detalle}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <ErrorMessage error={fieldState.error} />
+                  </>
                 )}
               />
             </div>
 
             {/* Stock */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Stock
               </Label>
               <Controller
                 name="stock"
                 control={control}
-                rules={{ required: "El stock es obligatorio" }}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Box className="w-6 h-6 text-[#050640] absolute left-4 top-1/2 -translate-y-1/2 z-10" />
-                    <Input
-                      {...field}
-                      type="number"
-                      className={`pl-14 bg-white border-0 h-[58px] rounded-2xl shadow-sm text-lg focus-visible:ring-2 ${errors.stock ? "ring-2 ring-red-500" : "focus-visible:ring-[#050640]"}`}
-                    />
-                  </div>
+                render={({ field, fieldState }) => (
+                  <>
+                    <div className="relative">
+                      <Box
+                        className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-10 ${
+                          fieldState.error ? "text-red-500" : "text-[#050640]"
+                        }`}
+                      />
+                      <Input
+                        {...field}
+                        type="number"
+                        className={`pl-14 bg-white border-0 h-[58px] rounded-2xl shadow-sm text-lg ${
+                          fieldState.error
+                            ? "ring-2 ring-red-500"
+                            : "focus-visible:ring-2 focus-visible:ring-[#050640]"
+                        }`}
+                      />
+                    </div>
+                    <ErrorMessage error={fieldState.error} />
+                  </>
                 )}
               />
             </div>
 
-            {/* Unidad de medida - Ajustado a los valores de tu JSON */}
-            <div className="space-y-2">
+            {/* Unidad de medida */}
+            <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
-                Unidad de medida
+                Unidad
               </Label>
               <Controller
                 name="unidadMedida"
                 control={control}
-                rules={{ required: "Seleccione una unidad" }}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Scale className="w-6 h-6 text-[#050640] absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none" />
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger
-                        className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg focus:ring-2 ${errors.unidadMedida ? "ring-2 ring-red-500" : "focus:ring-[#050640]"}`}
+                render={({ field, fieldState }) => (
+                  <>
+                    <div className="relative">
+                      <Scale
+                        className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none ${
+                          fieldState.error ? "text-red-500" : "text-[#050640]"
+                        }`}
+                      />
+                      <Select
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          trigger("unidadMedida");
+                        }}
+                        value={field.value}
                       >
-                        <SelectValue placeholder="Seleccione" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="kg">Kilogramos (kg)</SelectItem>
-                        <SelectItem value="unidades">Unidades</SelectItem>
-                        <SelectItem value="latas">Latas</SelectItem>
-                        <SelectItem value="litros">Litros</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                        <SelectTrigger
+                          className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg ${
+                            fieldState.error
+                              ? "ring-2 ring-red-500"
+                              : "focus:ring-2 focus:ring-[#050640]"
+                          }`}
+                        >
+                          <SelectValue placeholder="Seleccione" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="kg">Kilogramos (kg)</SelectItem>
+                          <SelectItem value="unidades">Unidades</SelectItem>
+                          <SelectItem value="latas">Latas</SelectItem>
+                          <SelectItem value="litros">Litros</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <ErrorMessage error={fieldState.error} />
+                  </>
                 )}
               />
             </div>
 
             {/* Estado */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label className="text-sm font-bold text-[#050640] ml-1">
                 Estado
               </Label>
               <Controller
                 name="idEstado"
                 control={control}
-                rules={{ required: "Seleccione un estado" }}
-                render={({ field }) => (
-                  <div className="relative">
-                    <Activity className="w-6 h-6 text-[#050640] absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none" />
-                    <Select
-                      onValueChange={field.onChange}
-                      value={field.value?.toString()}
-                    >
-                      <SelectTrigger
-                        className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg focus:ring-2 ${errors.idEstado ? "ring-2 ring-red-500" : "focus:ring-[#050640]"}`}
+                render={({ field, fieldState }) => (
+                  <>
+                    <div className="relative">
+                      <Activity
+                        className={`w-6 h-6 absolute left-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none ${
+                          fieldState.error ? "text-red-500" : "text-[#050640]"
+                        }`}
+                      />
+                      <Select
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          trigger("idEstado");
+                        }}
+                        value={field.value?.toString()}
                       >
-                        <SelectValue placeholder="Seleccione" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Estado.map((e: any) => (
-                          <SelectItem key={e.id} value={e.id.toString()}>
-                            {e.detalle}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                        <SelectTrigger
+                          className={`w-full pl-14 bg-white border-0 !h-[58px] rounded-2xl shadow-sm text-lg ${
+                            fieldState.error
+                              ? "ring-2 ring-red-500"
+                              : "focus:ring-2 focus:ring-[#050640]"
+                          }`}
+                        >
+                          <SelectValue placeholder="Seleccione" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Estado.map((e: any) => (
+                            <SelectItem key={e.id} value={e.detalle}>
+                              {e.detalle}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <ErrorMessage error={fieldState.error} />
+                  </>
                 )}
               />
             </div>
           </div>
 
-          <div className="flex justify-end gap-4 mt-12 pb-2">
+          <div className="flex justify-end gap-4 mt-8 pb-2">
             <Button
               type="button"
               onClick={() => onOpenChange(false)}
