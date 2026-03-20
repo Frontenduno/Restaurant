@@ -22,7 +22,7 @@ export function InventarioPage() {
     handleEdit,
     handleAdd,
     onSubmit,
-    selectedInsumo,
+    isEditing,
   } = useInventario();
 
   return (
@@ -73,8 +73,7 @@ export function InventarioPage() {
           open={isModalOpen}
           onOpenChange={setIsModalOpen}
           onSubmit={onSubmit}
-          isEditing={!!selectedInsumo}
-          selectedInsumo={selectedInsumo}
+          isEditing={isEditing}
           Categoria={categorias}
           Estado={estados}
           form={form}
