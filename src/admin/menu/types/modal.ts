@@ -1,4 +1,4 @@
-export type EntityType = "tipo" | "categoria" | "subcategoria";
+export type EntityType = "Tipo" | "Categoria" | "Subcategoria";
 
 export interface SaveModalData {
     id?: number;

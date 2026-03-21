@@ -86,7 +86,9 @@ export function FormMenu(props: FormMenuProps) {
         if (!item) return;
         onDelete(item.id);
         setDeleteOpen(false);
-        toast.success("Platillo eliminado correctamente");
+        toast.success("Platillo eliminado correctamente", {
+            description: `${item.nombre}`,
+        });
     };
 
     return (
@@ -290,9 +292,9 @@ export function FormMenu(props: FormMenuProps) {
                                                 style={{ backgroundColor: color.bg, color: color.text }}
                                             >
                                                 {ing.nombre} {ing.cantidad}{ing.unidad}
-                                                <div 
+                                                <div
                                                     role="button"
-                                                    onClick={(e) => { e.stopPropagation(); handleRemoveIngrediente(ing.id); }} 
+                                                    onClick={(e) => { e.stopPropagation(); handleRemoveIngrediente(ing.id); }}
                                                     className="ml-0.5 hover:text-red-600 cursor-pointer"
                                                 >
                                                     <Trash2 className="w-2.5 h-2.5" />

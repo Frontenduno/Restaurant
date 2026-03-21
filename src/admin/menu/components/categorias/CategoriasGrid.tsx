@@ -92,7 +92,7 @@ export function CategoriasGrid({
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        onOpenModal("edit", isSubcategoryView ? "subcategoria" : "categoria", {
+                                        onOpenModal("edit", isSubcategoryView ? "Subcategoria" : "Categoria", {
                                             id: item.id,
                                             detalle: item.detalle,
                                             imagen_url: item.imagen_url || item.image,
@@ -111,8 +111,8 @@ export function CategoriasGrid({
                     {/* Add New Card Slot */}
                     <button
                         onClick={() => {
-                            if (isSubcategoryView) onOpenModal("add", "subcategoria", { detalle: "", parentId: activeCategoriaId });
-                            else onOpenModal("add", "categoria", { detalle: "", parentId: activeTipoId });
+                            if (isSubcategoryView) onOpenModal("add", "Subcategoria", { detalle: "", parentId: activeCategoriaId });
+                            else onOpenModal("add", "Categoria", { detalle: "", parentId: activeTipoId });
                         }}
                         className="h-55 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-300 bg-gray-50/50 hover:bg-gray-50 flex flex-col items-center justify-center gap-4 transition-colors group cursor-pointer"
                     >

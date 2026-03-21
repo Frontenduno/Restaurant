@@ -54,9 +54,9 @@ export function CategoriaSaveModal({
     }, [isOpen, initialData, form]);
 
     const titleMap = {
-        tipo: "Tipo principal",
-        categoria: "Categoría",
-        subcategoria: "Subcategoría"
+        Tipo: "Tipo principal",
+        Categoria: "Categoría",
+        Subcategoria: "Subcategoría"
     };
 
     const handleValidSubmit = (data: CategoriaFormData) => {
@@ -98,7 +98,7 @@ export function CategoriaSaveModal({
                             <Label htmlFor="detalle">Nombre</Label>
                             <Input
                                 id="detalle"
-                                placeholder={`Ej. ${entityType === 'tipo' ? 'Platillos' : entityType === 'categoria' ? 'Carnes' : 'Criollas'}`}
+                                placeholder={`Ej. ${entityType === 'Tipo' ? 'Platillos' : entityType === 'Categoria' ? 'Carnes' : 'Criollas'}`}
                                 {...form.register("detalle")}
                                 autoFocus
                             />
@@ -107,7 +107,7 @@ export function CategoriaSaveModal({
                             )}
                         </div>
 
-                        {entityType !== "tipo" && (
+                        {entityType !== "Tipo" && (
                             <div className="space-y-2">
                                 <Label htmlFor="imagen_url" className="flex items-center gap-2">
                                     <ImageIcon className="w-4 h-4 text-gray-500" />

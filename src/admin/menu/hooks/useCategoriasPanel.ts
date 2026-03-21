@@ -17,7 +17,7 @@ export function useCategoriasPanel() {
     // Modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMode, setModalMode] = useState<"add" | "edit">("add");
-    const [modalEntityType, setModalEntityType] = useState<EntityType>("tipo");
+    const [modalEntityType, setModalEntityType] = useState<EntityType>("Tipo");
     const [modalInitialData, setModalInitialData] = useState<SaveModalData | null>(null);
 
     const openModal = (mode: "add" | "edit", type: EntityType, data?: SaveModalData) => {
@@ -32,26 +32,30 @@ export function useCategoriasPanel() {
     const handleSaveModal = (data: SaveModalData) => {
         const isAdd = modalMode === "add";
         const payload = isAdd ? { ...data, id: Date.now(), idTipo: activeTipoId, idCategoria: activeCategoriaId } : data;
-        
-        const update = (setFn: any) => setFn((prev: any[]) => 
+
+        const update = (setFn: any) => setFn((prev: any[]) =>
             isAdd ? [...prev, payload] : prev.map(p => p.id === data.id ? { ...p, ...payload } : p)
         );
 
-        if (modalEntityType === "tipo") update(setTiposLocal);
-        else if (modalEntityType === "categoria") update(setCategoriasLocal);
+        if (modalEntityType === "Tipo") update(setTiposLocal);
+        else if (modalEntityType === "Categoria") update(setCategoriasLocal);
         else update(setSubcategoriasLocal);
 
-        toast.success(`${modalEntityType} ${isAdd ? 'agregado' : 'actualizado'} correctamente`);
+        toast.success(`${modalEntityType} ${isAdd ? 'agregado' : 'actualizado'} correctamente`, {
+            description: `${payload.detalle}`,
+        });
         closeModal();
     };
 
     const handleDeleteModal = (id: number) => {
         const remove = (setFn: any) => setFn((prev: any[]) => prev.filter(p => p.id !== id));
-        if (modalEntityType === "tipo") { remove(setTiposLocal); if (activeTipoId === id) setActiveTipoId(1); }
-        else if (modalEntityType === "categoria") { remove(setCategoriasLocal); if (activeCategoriaId === id) setActiveCategoriaId(null); }
+        if (modalEntityType === "Tipo") { remove(setTiposLocal); if (activeTipoId === id) setActiveTipoId(1); }
+        else if (modalEntityType === "Categoria") { remove(setCategoriasLocal); if (activeCategoriaId === id) setActiveCategoriaId(null); }
         else remove(setSubcategoriasLocal);
-        
-        toast.success(`${modalEntityType} eliminado correctamente`);
+
+        toast.success(`${modalEntityType} eliminado correctamente`, {
+            description: `${modalInitialData?.detalle}`,
+        });
         closeModal();
     };
 
@@ -71,7 +75,7 @@ export function useCategoriasPanel() {
     const activeTipoName = tiposLocal.find((t) => t.id === activeTipoId)?.detalle || "";
 
     // Drill-down Logic Data
-    const buildList = (list: any[], filterKey: string, filterVal: any, entityKey: string) => 
+    const buildList = (list: any[], filterKey: string, filterVal: any, entityKey: string) =>
         list.filter(item => item[filterKey] === filterVal)
             .map(item => {
                 const related = menuItems.filter((m: any) => m[entityKey].id === item.id);
@@ -84,13 +88,13 @@ export function useCategoriasPanel() {
             })
             .filter(item => item.detalle.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const activeCategorias = useMemo(() => 
-        activeCategoriaId ? [] : buildList(categoriasLocal, "idTipo", activeTipoId, "categoria"), 
-    [categoriasLocal, activeTipoId, activeCategoriaId, searchTerm]);
+    const activeCategorias = useMemo(() =>
+        activeCategoriaId ? [] : buildList(categoriasLocal, "idTipo", activeTipoId, "categoria"),
+        [categoriasLocal, activeTipoId, activeCategoriaId, searchTerm]);
 
-    const activeSubcategorias = useMemo(() => 
-        !activeCategoriaId ? [] : buildList(subcategoriasLocal, "idCategoria", activeCategoriaId, "subcategoria"), 
-    [subcategoriasLocal, activeCategoriaId, searchTerm]);
+    const activeSubcategorias = useMemo(() =>
+        !activeCategoriaId ? [] : buildList(subcategoriasLocal, "idCategoria", activeCategoriaId, "subcategoria"),
+        [subcategoriasLocal, activeCategoriaId, searchTerm]);
 
     const isSubcategoryView = activeCategoriaId !== null;
     const activeCategoriaName = categoriasLocal.find((c) => c.id === activeCategoriaId)?.detalle || "";
@@ -104,7 +108,7 @@ export function useCategoriasPanel() {
             modalMode,
             modalEntityType,
             modalInitialData,
-            
+
         },
         data: {
             filteredTipos,

@@ -29,7 +29,7 @@ export function CategoriasSidebar({
                     Tipos de Menú
                 </span>
                 <button
-                    onClick={() => onOpenModal("add", "tipo")}
+                    onClick={() => onOpenModal("add", "Tipo")}
                     className="flex items-center gap-1.5 text-[13px] font-bold text-gray-800 hover:text-black transition-colors cursor-pointer"
                 >
                     <div className="w-4 h-4 bg-black rounded-full flex items-center justify-center">
@@ -81,7 +81,7 @@ export function CategoriasSidebar({
                                     role="button"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        onOpenModal("edit", "tipo", { id: tipo.id, detalle: tipo.detalle });
+                                        onOpenModal("edit", "Tipo", { id: tipo.id, detalle: tipo.detalle });
                                     }}
                                     className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200"
                                 >
