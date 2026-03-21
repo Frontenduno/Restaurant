@@ -19,8 +19,8 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
-import type { Menu, Tipo, Categoria, SubCategoria } from "../types";
-import { useMenuForm } from "../hooks/useMenuForm";
+import type { Menu, Tipo, Categoria, SubCategoria } from "@/admin/menu/types";
+import { useMenuForm } from "@/admin/menu/hooks/useMenuForm";
 import { SearchableCombobox } from "./SearchableCombobox";
 
 interface FormMenuProps {

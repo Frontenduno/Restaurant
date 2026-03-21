@@ -18,31 +18,11 @@ export function useMenu() {
   // Filtered items based on active tab + filters
   const filteredItems = useMemo(() => {
     return localItems.filter((item) => {
-      // Always filter by tipo (tab)
       if (item.tipo.id !== activeTab) return false;
-
-      // Filter by search term
-      if (filtros.searchTerm) {
-        const term = filtros.searchTerm.toLowerCase();
-        if (!item.nombre.toLowerCase().includes(term)) return false;
-      }
-
-      // Filter by categoria
-      if (filtros.categoria) {
-        if (item.categoria.id !== filtros.categoria) return false;
-      }
-
-      // Filter by subcategoria
-      if (filtros.subcategoria) {
-        if (item.subcategoria.id !== filtros.subcategoria) return false;
-      }
-
-      // Filter by estado
-      if (filtros.estado !== undefined && filtros.estado !== null) {
-        const isActive = filtros.estado === 1;
-        if (item.estado !== isActive) return false;
-      }
-
+      if (filtros.searchTerm && !item.nombre.toLowerCase().includes(filtros.searchTerm.toLowerCase())) return false;
+      if (filtros.categoria && item.categoria.id !== filtros.categoria) return false;
+      if (filtros.subcategoria && item.subcategoria.id !== filtros.subcategoria) return false;
+      if (filtros.estado != null && item.estado !== (filtros.estado === 1)) return false;
       return true;
     });
   }, [localItems, activeTab, filtros]);

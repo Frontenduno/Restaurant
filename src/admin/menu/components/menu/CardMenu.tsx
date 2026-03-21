@@ -1,5 +1,5 @@
 import { Pencil } from "lucide-react";
-import type { Menu } from "../types";
+import type { Menu } from "@/admin/menu/types";
 
 interface CardMenuProps {
     item: Menu;

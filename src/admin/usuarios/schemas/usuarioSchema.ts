@@ -26,3 +26,10 @@ export const usuarioSchema = z.object({
 // para que React sepa qué propiedades tiene el formulario.
 export type UsuarioFormData = z.infer<typeof usuarioSchema>;
 
+export const categoriaSchema = z.object({
+  detalle: z.string().min(1, "El nombre es requerido"),
+  imagen_url: z.string().url("Debe ser una URL válida").optional().or(z.literal('')),
+});
+
+export type CategoriaFormData = z.infer<typeof categoriaSchema>;
+

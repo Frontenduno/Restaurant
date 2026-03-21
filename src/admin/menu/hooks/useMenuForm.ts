@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { menuSchema, type MenuFormValues } from "@/schemas/loginSchema";
+import { menuSchema, type MenuFormValues } from "@/schemas/Validaciones";
 import type { Menu, Tipo, Categoria, SubCategoria, Ingredientes } from "../types";
 import type { IngredienteDisponible, Unidad } from "../types/ingredientes";
 import menuData from "../data/menu-data.json";
@@ -61,36 +61,15 @@ export function useMenuForm({
     const selectedSubcategoria = useMemo(() => availableSubcategorias.find(s => s.id === subcategoriaId)?.detalle ?? "", [availableSubcategorias, subcategoriaId]);
 
     useEffect(() => {
-        if (open) {
-            if (item) {
-                reset({
-                    nombre: item.nombre,
-                    descripcion: item.descripcion,
-                    precio: item.precio,
-                    tipoId: item.tipo.id,
-                    categoriaId: item.categoria.id,
-                    subcategoriaId: item.subcategoria.id,
-                    imagen_url: item.imagen_url ?? "",
-                    estado: item.estado,
-                });
-                setIngredientes([...item.ingredientes]);
-            } else {
-                reset({
-                    nombre: "",
-                    descripcion: "",
-                    precio: 0,
-                    tipoId: 0,
-                    categoriaId: 0,
-                    subcategoriaId: 0,
-                    imagen_url: "",
-                    estado: true,
-                });
-                setIngredientes([]);
-            }
-            setIngNombre("");
-            setIngCantidad("");
-            setIngUnidad("g");
+        if (!open) return;
+        if (item) {
+            reset({ ...item, tipoId: item.tipo.id, categoriaId: item.categoria.id, subcategoriaId: item.subcategoria.id, imagen_url: item.imagen_url ?? "" });
+            setIngredientes([...item.ingredientes]);
+        } else {
+            reset({ nombre: "", descripcion: "", precio: 0, tipoId: 0, categoriaId: 0, subcategoriaId: 0, imagen_url: "", estado: true });
+            setIngredientes([]);
         }
+        setIngNombre(""); setIngCantidad(""); setIngUnidad("g");
     }, [open, item, reset]);
 
     const handleAddIngrediente = useCallback(() => {

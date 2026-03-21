@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Plus } from "lucide-react";
+import { Search, LayoutGrid } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FilterCombobox } from "./FilterCombobox";
 import {
@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import type { Tipo, Categoria, SubCategoria, FiltroMenu } from "../types";
+import type { Tipo, Categoria, SubCategoria, FiltroMenu } from "@/admin/menu/types";
 
 interface FiltrosMenuProps {
     tipos: Tipo[];
@@ -20,7 +20,7 @@ interface FiltrosMenuProps {
     onChangeTab: (tipoId: number) => void;
     onSetFiltro: <K extends keyof FiltroMenu>(key: K, value: FiltroMenu[K]) => void;
     onSearch: (term: string) => void;
-    onAgregar: () => void;
+    onVerCategorias: () => void;
 }
 
 export function FiltrosMenu({
@@ -32,7 +32,7 @@ export function FiltrosMenu({
     onChangeTab,
     onSetFiltro,
     onSearch,
-    onAgregar,
+    onVerCategorias,
 }: FiltrosMenuProps) {
     const [searchValue, setSearchValue] = useState("");
 
@@ -120,11 +120,11 @@ export function FiltrosMenu({
                 </div>
 
                 <button
-                    onClick={onAgregar}
-                    className="ml-auto px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm cursor-pointer"
+                    onClick={onVerCategorias}
+                    className="ml-auto px-6 py-2 rounded-lg bg-white border border-gray-200 hover:border-blue-300 hover:text-blue-600 text-gray-700 text-sm font-semibold transition-colors flex items-center gap-2 shadow-[0_2px_8px_rgb(0,0,0,0.04)] cursor-pointer group"
                 >
-                    <Plus className="w-4 h-4" />
-                    Agregar
+                    <LayoutGrid className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                    Ver Categorías
                 </button>
             </div>
         </div>

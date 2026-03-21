@@ -1,10 +1,11 @@
 import { useRef, useCallback, useState } from "react";
 import { AdminHeader } from "../components/AdminHeader";
-import { FiltrosMenu } from "./components/FiltrosMenu";
-import { CardMenu } from "./components/CardMenu";
-import { FormMenu } from "./components/FormMenu";
+import { FiltrosMenu } from "./components/menu/FiltrosMenu";
+import { CardMenu } from "./components/menu/CardMenu";
+import { FormMenu } from "./components/menu/FormMenu";
 import { useMenu } from "./hooks/useMenu";
-import { UtensilsCrossedIcon } from "lucide-react";
+import { UtensilsCrossedIcon, Plus } from "lucide-react";
+import { CategoriasPanel } from "./components/categorias/CategoriasPanel";
 import type { Menu } from "./types";
 
 export function MenuPage() {
@@ -31,6 +32,7 @@ export function MenuPage() {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [formOpen, setFormOpen] = useState(false);
     const [editingItem, setEditingItem] = useState<Menu | null>(null);
+    const [isCategoriasOpen, setIsCategoriasOpen] = useState(false);
 
     const handleScroll = useCallback(() => {
         const el = scrollRef.current;
@@ -59,7 +61,7 @@ export function MenuPage() {
     };
 
     return (
-        <div className="w-full flex flex-col font-sans h-[calc(100vh-3rem)]">
+        <div className="w-full flex flex-col font-sans h-[calc(100vh-3rem)] relative overflow-hidden">
             <AdminHeader title="Gestión Menú" icon={UtensilsCrossedIcon} />
 
             <FiltrosMenu
@@ -71,7 +73,7 @@ export function MenuPage() {
                 onChangeTab={changeTab}
                 onSetFiltro={setFiltro}
                 onSearch={setSearchTerm}
-                onAgregar={handleAgregar}
+                onVerCategorias={() => setIsCategoriasOpen(true)}
             />
 
             <div
@@ -98,6 +100,19 @@ export function MenuPage() {
                     </div>
                 )}
             </div>
+
+            {/* Floating Action Button for Agregar */}
+            <button
+                onClick={handleAgregar}
+                className="absolute bottom-8 right-8 w-14 h-14 bg-yellow-400 hover:bg-yellow-500 text-black rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-40 transform hover:scale-105 cursor-pointer"
+            >
+                <Plus className="w-6 h-6" />
+            </button>
+
+            <CategoriasPanel
+                isOpen={isCategoriasOpen}
+                onClose={() => setIsCategoriasOpen(false)}
+            />
 
             <FormMenu
                 open={formOpen}
