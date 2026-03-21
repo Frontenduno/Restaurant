@@ -1,0 +1,5 @@
+[
+  { "id": 1, "detalle": "Interior" },
+  { "id": 2, "detalle": "Ventana" },
+  { "id": 3, "detalle": "Terraza" }
+]

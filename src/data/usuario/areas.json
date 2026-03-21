@@ -1,0 +1,7 @@
+[
+  { "id": 1, "nombre": "Cocina" },
+  { "id": 2, "nombre": "Salón" },
+  { "id": 3, "nombre": "Caja" },
+  { "id": 4, "nombre": "Recepción" },
+  { "id": 5, "nombre": "Administración" }
+]

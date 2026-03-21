@@ -1,0 +1,91 @@
+{
+  "ventasDelDia": {
+    "monto": 4285.50,
+    "tendencia": {
+      "valor": 12.4,
+      "esPositiva": true,
+      "texto": "vs ayer"
+    }
+  },
+  "usuariosActivos": {
+    "enTurno": 12,
+    "avatares": [
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka",
+      "https://api.dicebear.com/7.x/avataaars/svg?seed=Jack"
+    ],
+    "usuariosExtra": 10
+  },
+  "ocupacionMesas": {
+    "ocupadas": 15,
+    "disponibles": 5,
+    "total": 20,
+    "porcentaje": 75
+  },
+  "ventasSemanales": {
+    "ventas": [
+      {
+        "dia": "Lunes",
+        "monto": 3100
+      },
+      {
+        "dia": "Martes",
+        "monto": 4000
+      },
+      {
+        "dia": "Miercoles",
+        "monto": 2100
+      },
+      {
+        "dia": "Jueves",
+        "monto": 4700
+      },
+      {
+        "dia": "Viernes",
+        "monto": 3400
+      },
+      {
+        "dia": "Sabado",
+        "monto": 4300
+      },
+      {
+        "dia": "Domingo",
+        "monto": 2900
+      }
+    ],
+    "platillos": [
+      {
+        "dia": "Lunes",
+        "cantidad": 150
+      },
+      {
+        "dia": "Martes",
+        "cantidad": 180
+      },
+      {
+        "dia": "Miercoles",
+        "cantidad": 110
+      },
+      {
+        "dia": "Jueves",
+        "cantidad": 220
+      },
+      {
+        "dia": "Viernes",
+        "cantidad": 160
+      },
+      {
+        "dia": "Sabado",
+        "cantidad": 250
+      },
+      {
+        "dia": "Domingo",
+        "cantidad": 190
+      }
+    ]
+  },
+  "alertas": {
+    "stockBajo": 4,
+    "sinStock": 4
+  }
+}
