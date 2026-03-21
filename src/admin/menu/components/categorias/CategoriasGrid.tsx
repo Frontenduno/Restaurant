@@ -81,14 +81,14 @@ export function CategoriasGrid({
                             onClick={() => {
                                 if (!isSubcategoryView) onClickItem(item.id);
                             }}
-                            className="group relative h-[220px] rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all border border-gray-100"
+                            className="group relative h-55 rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all border border-gray-100"
                         >
                             <img
                                 src={item.image}
                                 alt={item.detalle}
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
                             <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col justify-end">
                                 <h3 className="text-white text-[22px] font-bold leading-tight mb-0.5 shadow-sm">
@@ -131,7 +131,7 @@ export function CategoriasGrid({
                             if (isSubcategoryView) onOpenModal("add", "subcategoria", { detalle: "", parentId: activeCategoriaId });
                             else onOpenModal("add", "categoria", { detalle: "", parentId: activeTipoId });
                         }}
-                        className="h-[220px] rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-300 bg-gray-50/50 hover:bg-gray-50 flex flex-col items-center justify-center gap-4 transition-colors group cursor-pointer"
+                        className="h-55 rounded-2xl border-2 border-dashed border-gray-200 hover:border-gray-300 bg-gray-50/50 hover:bg-gray-50 flex flex-col items-center justify-center gap-4 transition-colors group cursor-pointer"
                     >
                         <div className="w-14 h-14 rounded-full bg-slate-100 group-hover:bg-slate-200 flex items-center justify-center transition-colors text-slate-400 group-hover:text-slate-500">
                             <Plus className="w-6 h-6" />

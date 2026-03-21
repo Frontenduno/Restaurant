@@ -23,7 +23,7 @@ export function CategoriasSidebar({
     onOpenModal,
 }: CategoriasSidebarProps) {
     return (
-        <div className="w-[340px] flex flex-col pt-2 shrink-0">
+        <div className="w-85 flex flex-col pt-2 shrink-0">
             <div className="flex items-center justify-between px-1 mb-4">
                 <span className="text-xs font-bold text-gray-400 tracking-widest uppercase">
                     Tipos de Menú
@@ -89,7 +89,7 @@ export function CategoriasSidebar({
                                 </div>
                             </div>
                             {!isSelected && (
-                                <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#F4F4F5] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                <div className="absolute inset-y-0 right-0 w-12 bg-linear-to-l from-[#F4F4F5] to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                             )}
                         </button>
                     );

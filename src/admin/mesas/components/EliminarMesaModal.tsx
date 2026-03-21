@@ -36,7 +36,7 @@ export function EliminarMesaModal({ open, onOpenChange, mesa, onConfirm }: Elimi
 
   return (
     <AlertDialog open={open} onOpenChange={!isDeleting ? onOpenChange : undefined}>
-      <AlertDialogContent className="sm:max-w-[400px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
+      <AlertDialogContent className="sm:max-w-100 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
         <AlertDialogHeader className="p-6 pb-2">
           <AlertDialogTitle className="text-2xl font-bold text-[#0b0c2a] text-center">
             Confirmar eliminación
@@ -56,7 +56,7 @@ export function EliminarMesaModal({ open, onOpenChange, mesa, onConfirm }: Elimi
           <Button 
             disabled={isDeleting}
             onClick={handleConfirm}
-            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-[124px] transition-colors"
+            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-31 transition-colors"
           >
             {isDeleting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Eliminar"}
           </Button>

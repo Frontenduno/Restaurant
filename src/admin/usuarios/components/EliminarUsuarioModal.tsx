@@ -18,7 +18,7 @@ export function EliminarUsuarioModal({
 }: EliminarUsuarioModalProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="sm:max-w-[420px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
+      <AlertDialogContent className="sm:max-w-105 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
         <AlertDialogHeader className="p-6 pb-2">
           <AlertDialogTitle className="text-2xl font-bold text-[#0b0c2a] text-center">
             Confirmar eliminación
@@ -39,7 +39,7 @@ export function EliminarUsuarioModal({
             Cancelar
           </AlertDialogCancel>
           <Button
-            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-[124px] transition-colors"
+            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-31 transition-colors"
             onClick={() => user && onConfirm(user.id)}
             type="button"
           >

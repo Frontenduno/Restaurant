@@ -40,11 +40,11 @@ export function MesaInfoModal({ open, onOpenChange, mesa, onEditClick, onDeleteC
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton={false} className="sm:max-w-[600px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl">
+      <DialogContent showCloseButton={false} className="sm:max-w-150 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl">
         <div className="flex justify-between items-center p-6 pb-2">
           <DialogTitle className="text-2xl font-bold text-[#0b0c2a]">Mesa {mesa.name}</DialogTitle>
           <button onClick={() => onOpenChange(false)} className="text-[#0b0c2a] bg-[#e4e6f1] hover:bg-[#d3d6e5] p-1.5 rounded-xl transition-colors">
-            <X className="w-5 h-5 stroke-[3]" />
+            <X className="w-5 h-5 stroke-3" />
           </button>
         </div>
         
