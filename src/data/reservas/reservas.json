@@ -1,0 +1,9 @@
+[
+  { "id": 1, "nombre": "Alejandro Vega", "personas": 3, "mesas": [4], "hora": "13:00", "estado": "confirmada" },
+  { "id": 2, "nombre": "María Torres", "personas": 2, "mesas": [5], "hora": "13:30", "estado": "pendiente" },
+  { "id": 3, "nombre": "Carlos Ruiz", "personas": 7, "mesas": [6, 9], "hora": "14:00", "estado": "confirmada" },
+  { "id": 4, "nombre": "Sofía Mendez", "personas": 2, "mesas": [2], "hora": "15:00", "estado": "pendiente" },
+  { "id": 5, "nombre": "Diego Paredes", "personas": 4, "mesas": [1], "hora": "19:00", "estado": "confirmada" },
+  { "id": 6, "nombre": "Valeria Quispe", "personas": 2, "mesas": [3], "hora": "20:00", "estado": "pendiente" },
+  { "id": 7, "nombre": "Óscar Flores", "personas": 8, "mesas": [10, 6], "hora": "20:30", "estado": "confirmada" }
+]
