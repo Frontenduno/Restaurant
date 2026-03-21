@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SquarePen, Plus, Trash2, Pencil } from "lucide-react";
+import { SquarePen, Plus, Trash2, Pencil, Check, X } from "lucide-react";
 import { toast } from "sonner";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
@@ -70,10 +70,13 @@ export function FormMenu(props: FormMenuProps) {
         nombre: ingNombre,
         cantidad: ingCantidad,
         unidad: ingUnidad,
+        editingId,
         setNombre: setIngNombre,
         setCantidad: setIngCantidad,
         setUnidad: setIngUnidad,
         add: handleAddIngrediente,
+        edit: handleEditIngrediente,
+        cancelEdit: handleCancelEditIngrediente,
         remove: handleRemoveIngrediente,
         disponibles: INGREDIENTES_DISPONIBLES,
         unidades: UNIDADES,
@@ -88,7 +91,7 @@ export function FormMenu(props: FormMenuProps) {
 
     return (
         <Sheet open={open} onOpenChange={(val) => { if (!val) onClose(); }}>
-            <SheetContent side="right" className="sm:max-w-md w-full overflow-y-auto p-0">
+            <SheetContent side="right" className="sm:max-w-[800px] w-full overflow-y-auto p-0">
                 <SheetHeader className="p-5 pb-0">
                     <SheetTitle className="flex items-center gap-2 text-lg font-bold">
                         {isEditing
@@ -106,6 +109,8 @@ export function FormMenu(props: FormMenuProps) {
                                 <img src={imagenUrl} alt="Preview" className="w-full h-full object-cover" />
                                 <button
                                     type="button"
+                                    onClick={() => setValue("imagen_url", "", { shouldValidate: true })}
+                                    title="Editar imagen"
                                     className="absolute top-2 right-2 w-8 h-8 rounded-full bg-yellow-400 hover:bg-yellow-500 flex items-center justify-center shadow-md cursor-pointer"
                                 >
                                     <Pencil className="w-3.5 h-3.5 text-white" />
@@ -244,20 +249,32 @@ export function FormMenu(props: FormMenuProps) {
                                 <Input
                                     type="number"
                                     placeholder="Cant."
+                                    min="0"
                                     value={ingCantidad}
                                     onChange={(e) => setIngCantidad(e.target.value)}
-                                    className="w-17.5"
+                                    className="w-20"
                                 />
                                 <SearchableCombobox
                                     value={ingUnidad}
                                     onValueChange={setIngUnidad}
                                     options={UNIDADES.map(u => ({ label: u.abreviatura, value: u.abreviatura }))}
                                     placeholder="Uni."
-                                    className="w-20"
+                                    className="w-24"
                                 />
-                                <Button type="button" size="icon-sm" variant="outline" onClick={handleAddIngrediente} className="shrink-0">
-                                    <Plus className="w-4 h-4" />
-                                </Button>
+                                {editingId ? (
+                                    <>
+                                        <Button type="button" size="icon-sm" variant="default" onClick={handleAddIngrediente} className="shrink-0 bg-blue-600 hover:bg-blue-700 text-white">
+                                            <Check className="w-4 h-4" />
+                                        </Button>
+                                        <Button type="button" size="icon-sm" variant="outline" onClick={handleCancelEditIngrediente} className="shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50">
+                                            <X className="w-4 h-4" />
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <Button type="button" size="icon-sm" variant="outline" onClick={handleAddIngrediente} className="shrink-0">
+                                        <Plus className="w-4 h-4" />
+                                    </Button>
+                                )}
                             </div>
 
                             {ingredientes.length > 0 && (
@@ -265,16 +282,22 @@ export function FormMenu(props: FormMenuProps) {
                                     {ingredientes.map((ing, idx) => {
                                         const color = BADGE_COLORS[idx % BADGE_COLORS.length];
                                         return (
-                                            <span
+                                            <button
+                                                type="button"
                                                 key={ing.id}
-                                                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold"
+                                                onClick={() => handleEditIngrediente(ing)}
+                                                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold hover:opacity-80 transition-opacity"
                                                 style={{ backgroundColor: color.bg, color: color.text }}
                                             >
                                                 {ing.nombre} {ing.cantidad}{ing.unidad}
-                                                <button type="button" onClick={() => handleRemoveIngrediente(ing.id)} className="ml-0.5 hover:opacity-70 cursor-pointer">
+                                                <div 
+                                                    role="button"
+                                                    onClick={(e) => { e.stopPropagation(); handleRemoveIngrediente(ing.id); }} 
+                                                    className="ml-0.5 hover:text-red-600 cursor-pointer"
+                                                >
                                                     <Trash2 className="w-2.5 h-2.5" />
-                                                </button>
-                                            </span>
+                                                </div>
+                                            </button>
                                         );
                                     })}
                                 </div>

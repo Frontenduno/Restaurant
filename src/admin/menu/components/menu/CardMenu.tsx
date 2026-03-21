@@ -39,9 +39,11 @@ export function CardMenu({ item, onEdit }: CardMenuProps) {
                     <h3 className="font-bold text-[15px] text-gray-900 leading-tight">
                         {item.nombre}
                     </h3>
-                    <span className="text-xs text-gray-400 font-medium whitespace-nowrap mt-0.5">
-                        {item.categoria.detalle}
-                    </span>
+                    <div className="flex flex-col items-end gap-1.5 mt-0.5">
+                        <span className="text-xs text-gray-400 font-medium whitespace-nowrap">
+                            {item.categoria.detalle}
+                        </span>
+                    </div>
                 </div>
 
                 <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">
@@ -63,7 +65,13 @@ export function CardMenu({ item, onEdit }: CardMenuProps) {
                     })}
                 </div>
 
-                <div className="mt-auto pt-2 flex justify-end">
+                <div className="mt-auto pt-2 flex justify-between">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide border ${item.estado
+                        ? 'bg-green-50 text-green-700 border-green-200'
+                        : 'bg-red-50 text-red-700 border-red-200'
+                        }`}>
+                        {item.estado ? 'Activo' : 'Inactivo'}
+                    </span>
                     <span className="text-base font-bold text-gray-800">
                         $ {item.precio.toFixed(2)}
                     </span>

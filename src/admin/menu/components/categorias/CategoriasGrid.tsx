@@ -1,5 +1,4 @@
 import { Plus, Edit2, ChevronLeft } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
 import type { EntityType } from "@/admin/menu/types";
 
 interface GridItem {
@@ -60,16 +59,6 @@ export function CategoriasGrid({
                         Gestionando {isSubcategoryView ? "subcategorías" : "categorías"} para {isSubcategoryView ? activeCategoriaName : activeTipoName}
                     </p>
                 </div>
-                <button
-                    onClick={() => {
-                        if (isSubcategoryView) onOpenModal("add", "subcategoria", { detalle: "", parentId: activeCategoriaId });
-                        else onOpenModal("add", "categoria", { detalle: "", parentId: activeTipoId });
-                    }}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-[#0F172A] hover:bg-black text-white rounded-lg text-sm font-semibold transition-colors shadow-sm cursor-pointer shrink-0"
-                >
-                    <Plus className="w-4 h-4" />
-                    {isSubcategoryView ? "Nueva Subcategoría" : "Nueva Categoría"}
-                </button>
             </div>
 
             {/* Grid of Cards */}
@@ -115,12 +104,6 @@ export function CategoriasGrid({
                                 >
                                     <Edit2 className="w-3.5 h-3.5" />
                                 </button>
-                                <div className="bg-white/20 backdrop-blur-md px-1 py-1 rounded-full border border-white/10 flex items-center h-8">
-                                    <Switch
-                                        checked={item.isActive}
-                                        className="data-[state=checked]:bg-yellow-400 data-[state=unchecked]:bg-gray-400 scale-[0.8] ml-0.5"
-                                    />
-                                </div>
                             </div>
                         </div>
                     ))}

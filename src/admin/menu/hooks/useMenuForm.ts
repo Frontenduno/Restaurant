@@ -47,6 +47,7 @@ export function useMenuForm({
     const [ingNombre, setIngNombre] = useState("");
     const [ingCantidad, setIngCantidad] = useState("");
     const [ingUnidad, setIngUnidad] = useState("g");
+    const [editingIngredienteId, setEditingIngredienteId] = useState<number | null>(null);
 
     const imagenUrl = watch("imagen_url");
     const tipoId = watch("tipoId");
@@ -69,22 +70,46 @@ export function useMenuForm({
             reset({ nombre: "", descripcion: "", precio: 0, tipoId: 0, categoriaId: 0, subcategoriaId: 0, imagen_url: "", estado: true });
             setIngredientes([]);
         }
-        setIngNombre(""); setIngCantidad(""); setIngUnidad("g");
+        setIngNombre(""); setIngCantidad(""); setIngUnidad("g"); setEditingIngredienteId(null);
     }, [open, item, reset]);
 
     const handleAddIngrediente = useCallback(() => {
         if (!ingNombre || !ingCantidad) return;
-        const nuevo: Ingredientes = {
-            id: Date.now(),
-            nombre: ingNombre,
-            cantidad: Number(ingCantidad),
-            unidad: ingUnidad,
-        };
-        setIngredientes((prev) => [...prev, nuevo]);
+        
+        if (editingIngredienteId) {
+            setIngredientes(prev => prev.map(ing => 
+                ing.id === editingIngredienteId 
+                    ? { ...ing, nombre: ingNombre, cantidad: Number(ingCantidad), unidad: ingUnidad }
+                    : ing
+            ));
+            setEditingIngredienteId(null);
+        } else {
+            const nuevo: Ingredientes = {
+                id: Date.now(),
+                nombre: ingNombre,
+                cantidad: Number(ingCantidad),
+                unidad: ingUnidad,
+            };
+            setIngredientes((prev) => [...prev, nuevo]);
+        }
         setIngNombre("");
         setIngCantidad("");
         setIngUnidad("g");
-    }, [ingNombre, ingCantidad, ingUnidad]);
+    }, [ingNombre, ingCantidad, ingUnidad, editingIngredienteId]);
+
+    const handleEditIngrediente = useCallback((ingrediente: Ingredientes) => {
+        setEditingIngredienteId(ingrediente.id);
+        setIngNombre(ingrediente.nombre);
+        setIngCantidad(ingrediente.cantidad.toString());
+        setIngUnidad(ingrediente.unidad);
+    }, []);
+
+    const handleCancelEditIngrediente = useCallback(() => {
+        setEditingIngredienteId(null);
+        setIngNombre("");
+        setIngCantidad("");
+        setIngUnidad("g");
+    }, []);
 
     const handleRemoveIngrediente = useCallback((id: number) => {
         setIngredientes((prev) => prev.filter((i) => i.id !== id));
@@ -132,10 +157,13 @@ export function useMenuForm({
             nombre: ingNombre,
             cantidad: ingCantidad,
             unidad: ingUnidad,
+            editingId: editingIngredienteId,
             setNombre: setIngNombre,
             setCantidad: setIngCantidad,
             setUnidad: setIngUnidad,
             add: handleAddIngrediente,
+            edit: handleEditIngrediente,
+            cancelEdit: handleCancelEditIngrediente,
             remove: handleRemoveIngrediente,
             disponibles: menuData.ingredientesDisponibles as IngredienteDisponible[],
             unidades: menuData.unidades as Unidad[],
