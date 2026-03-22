@@ -31,12 +31,12 @@ export function EliminarMesaModal({ open, onOpenChange, mesa, onConfirm }: Elimi
     setTimeout(() => {
       setIsDeleting(false);
       onConfirm(mesa.id);
-    }, 1500);
+    }, 500);
   };
 
   return (
     <AlertDialog open={open} onOpenChange={!isDeleting ? onOpenChange : undefined}>
-      <AlertDialogContent className="sm:max-w-[400px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
+      <AlertDialogContent className="sm:max-w-100 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl gap-0">
         <AlertDialogHeader className="p-6 pb-2">
           <AlertDialogTitle className="text-2xl font-bold text-[#0b0c2a] text-center">
             Confirmar eliminación
@@ -45,18 +45,18 @@ export function EliminarMesaModal({ open, onOpenChange, mesa, onConfirm }: Elimi
             Se eliminará la {mesa.name} del sistema. Si tiene comandas activas, asegúrate de cerrarlas primero.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        
+
         <AlertDialogFooter className="px-6 pb-6 pt-4 flex flex-col sm:flex-row sm:justify-end gap-3 sm:space-x-0">
-          <AlertDialogCancel 
-            disabled={isDeleting} 
+          <AlertDialogCancel
+            disabled={isDeleting}
             className="bg-[#0b0c2a] mt-0 text-white border-0 hover:bg-[#1a1b3c] hover:text-white text-base px-8 h-12 rounded-full"
           >
             Cancelar
           </AlertDialogCancel>
-          <Button 
+          <Button
             disabled={isDeleting}
             onClick={handleConfirm}
-            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-[124px] transition-colors"
+            className="bg-red-600 text-white border-0 hover:bg-red-700 text-base px-8 h-12 rounded-full min-w-31 transition-colors"
           >
             {isDeleting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Eliminar"}
           </Button>

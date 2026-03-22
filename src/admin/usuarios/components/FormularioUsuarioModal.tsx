@@ -1,14 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Controller,
-  type SubmitHandler,
-  useWatch,
-} from "react-hook-form";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Controller, type SubmitHandler, useWatch } from "react-hook-form";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -32,10 +24,7 @@ import {
 
 import type { FormularioUsuarioModalProps } from "../types";
 import type { UsuarioFormData } from "@/admin/usuarios/schemas/usuarioSchema";
-import {
-  formatSueldoDisplay,
-  parseSueldoInput,
-} from "../lib/utils";
+import { formatSueldoDisplay, parseSueldoInput } from "../lib/utils";
 
 export function FormularioUsuarioModal({
   open,
@@ -83,7 +72,7 @@ export function FormularioUsuarioModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="sm:max-w-[680px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl"
+        className="sm:max-w-170 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl"
       >
         <div className="flex justify-between items-start p-6 pb-0">
           <div className="pr-4">
@@ -188,8 +177,7 @@ export function FormularioUsuarioModal({
                       <UserIcon className="w-5 h-5 text-[#1a1b3c] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <Select
                         value={
-                          roles.find((r) => r.id === field.value)?.nombre ??
-                          ""
+                          roles.find((r) => r.id === field.value)?.nombre ?? ""
                         }
                         onValueChange={(v) => {
                           const rolSeleccionado = roles.find(
@@ -203,10 +191,7 @@ export function FormularioUsuarioModal({
                         </SelectTrigger>
                         <SelectContent>
                           {roles.map((r) => (
-                            <SelectItem
-                              key={r.id}
-                              value={r.nombre}
-                            >
+                            <SelectItem key={r.id} value={r.nombre}>
                               {r.nombre}
                             </SelectItem>
                           ))}
@@ -320,4 +305,3 @@ export function FormularioUsuarioModal({
     </Dialog>
   );
 }
-

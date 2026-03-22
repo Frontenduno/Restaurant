@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Mesa } from "@/types";
-import { mesaSchema, type MesaFormData } from "@/schemas/loginSchema";
+import { mesaSchema, type MesaFormData } from "@/schemas/Validaciones";
 import mesaData from "@/data/mesas/mesas.json";
 import estadosData from "@/data/mesas/estados.json";
 import areasData from "@/data/mesas/areas.json";
@@ -13,12 +13,12 @@ const initialMesas = mesaData as Mesa[];
 
 export function useMesas() {
   const [mesas, setMesas] = useState<Mesa[]>(initialMesas);
-  
+
   // Modales
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  
+
   const [selectedMesa, setSelectedMesa] = useState<Mesa | null>(null);
 
   // Inicialización del Formulario
@@ -55,8 +55,8 @@ export function useMesas() {
     const defaultStatus = estadosData.find(e => e.detalle.toLowerCase() === "disponible") || estadosData[0];
 
     if (id) {
-      setMesas(prev => prev.map(m => m.id === id ? { 
-        ...m, 
+      setMesas(prev => prev.map(m => m.id === id ? {
+        ...m,
         name: data.name,
         capacity: data.capacity,
         location: selectedLocation,
@@ -64,7 +64,7 @@ export function useMesas() {
       } : m));
     } else {
       const newId = mesas.length > 0 ? Math.max(...mesas.map(m => m.id)) + 1 : 1;
-      const newMesa: Mesa = { 
+      const newMesa: Mesa = {
         id: newId,
         name: data.name,
         capacity: data.capacity,
@@ -81,7 +81,7 @@ export function useMesas() {
   const handleDeleteMesa = (id: number) => {
     setMesas(prev => prev.filter(m => m.id !== id));
     setIsDeleteOpen(false);
-    
+
     // Toast con diseño personalizado para eliminar
     toast.error("Mesa eliminada", {
       description: "La mesa ha sido eliminada correctamente",

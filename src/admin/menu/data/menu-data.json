@@ -1,0 +1,368 @@
+{
+  "ingredientesDisponibles": [
+    { "id": 1, "nombre": "carne" },
+    { "id": 2, "nombre": "pollo" },
+    { "id": 3, "nombre": "pescado" },
+    { "id": 4, "nombre": "camarón" },
+    { "id": 5, "nombre": "papa" },
+    { "id": 6, "nombre": "arroz" },
+    { "id": 7, "nombre": "cebolla" },
+    { "id": 8, "nombre": "tomate" },
+    { "id": 9, "nombre": "lechuga" },
+    { "id": 10, "nombre": "champiñon" },
+    { "id": 11, "nombre": "ají amarillo" },
+    { "id": 12, "nombre": "limón" },
+    { "id": 13, "nombre": "culantro" },
+    { "id": 14, "nombre": "palta" },
+    { "id": 15, "nombre": "pasta" },
+    { "id": 16, "nombre": "crema" },
+    { "id": 17, "nombre": "pan" },
+    { "id": 18, "nombre": "queso" },
+    { "id": 19, "nombre": "huevo" },
+    { "id": 20, "nombre": "mantequilla" }
+  ],
+  "unidades": [
+    { "id": 1, "nombre": "Gramo", "abreviatura": "g" },
+    { "id": 2, "nombre": "Mililitro", "abreviatura": "ml" },
+    { "id": 3, "nombre": "Kilogramo", "abreviatura": "kg" },
+    { "id": 4, "nombre": "Litro", "abreviatura": "l" },
+    { "id": 5, "nombre": "Unidad", "abreviatura": "und" },
+    { "id": 6, "nombre": "Onza", "abreviatura": "oz" },
+    { "id": 7, "nombre": "Cucharadita", "abreviatura": "cdta" },
+    { "id": 8, "nombre": "Cucharada", "abreviatura": "cda" }
+  ],
+  "tipos": [
+    { "id": 1, "detalle": "Platillos" },
+    { "id": 2, "detalle": "Bebidas" },
+    { "id": 3, "detalle": "Postres" }
+  ],
+  "categorias": [
+    { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+    { "id": 2, "detalle": "Sopas", "idTipo": 1 },
+    { "id": 3, "detalle": "Ensaladas", "idTipo": 1 },
+    { "id": 4, "detalle": "Pastas", "idTipo": 1 },
+    { "id": 5, "detalle": "Mariscos", "idTipo": 1 },
+    { "id": 6, "detalle": "Cócteles", "idTipo": 2 },
+    { "id": 7, "detalle": "Jugos", "idTipo": 2 },
+    { "id": 8, "detalle": "Gaseosas", "idTipo": 2 },
+    { "id": 9, "detalle": "Tortas", "idTipo": 3 },
+    { "id": 10, "detalle": "Helados", "idTipo": 3 }
+  ],
+  "subcategorias": [
+    { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
+    { "id": 12, "detalle": "Al carbón", "idCategoria": 1 },
+    { "id": 21, "detalle": "Criollas", "idCategoria": 2 },
+    { "id": 31, "detalle": "Internacionales", "idCategoria": 3 },
+    { "id": 41, "detalle": "Internacionales", "idCategoria": 4 },
+    { "id": 51, "detalle": "Criollas", "idCategoria": 5 },
+    { "id": 61, "detalle": "Clásicas", "idCategoria": 6 },
+    { "id": 62, "detalle": "Internacionales", "idCategoria": 6 },
+    { "id": 71, "detalle": "Clásicas", "idCategoria": 7 },
+    { "id": 72, "detalle": "Especiales", "idCategoria": 7 },
+    { "id": 81, "detalle": "Clásicas", "idCategoria": 8 },
+    { "id": 91, "detalle": "Clásicas", "idCategoria": 9 },
+    { "id": 92, "detalle": "Criollas", "idCategoria": 9 },
+    { "id": 101, "detalle": "Especiales", "idCategoria": 10 }
+  ],
+  "menuItems": [
+    {
+      "id": 1,
+      "nombre": "Lomo Saltado",
+      "descripcion": "Jugoso lomo con daditos de tomate, cebolla roja y papas fritas doradas, salteado al fuego alto con sillao y vinagre.",
+      "precio": 19.90,
+      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+      "subcategoria": { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 1, "nombre": "carne", "cantidad": 200, "unidad": "g" },
+        { "id": 2, "nombre": "papa", "cantidad": 150, "unidad": "g" },
+        { "id": 3, "nombre": "cebolla", "cantidad": 80, "unidad": "g" },
+        { "id": 4, "nombre": "tomate", "cantidad": 60, "unidad": "g" },
+        { "id": 5, "nombre": "arroz", "cantidad": 120, "unidad": "g" },
+        { "id": 6, "nombre": "culantro", "cantidad": 5, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 2,
+      "nombre": "Ají de Gallina",
+      "descripcion": "Cremosa salsa de ají amarillo con pechuga de gallina deshilachada, servida sobre arroz blanco y papas sancochadas.",
+      "precio": 17.50,
+      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+      "subcategoria": { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 7, "nombre": "gallina", "cantidad": 250, "unidad": "g" },
+        { "id": 8, "nombre": "ají amarillo", "cantidad": 50, "unidad": "g" },
+        { "id": 9, "nombre": "pan", "cantidad": 30, "unidad": "g" },
+        { "id": 5, "nombre": "arroz", "cantidad": 120, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 3,
+      "nombre": "Ceviche Mixto",
+      "descripcion": "Fresca combinación de pescado y mariscos marinados en limón con cebolla morada, camote y cancha serrana.",
+      "precio": 24.90,
+      "categoria": { "id": 5, "detalle": "Mariscos", "idTipo": 1 },
+      "subcategoria": { "id": 51, "detalle": "Criollas", "idCategoria": 5 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 10, "nombre": "pescado", "cantidad": 200, "unidad": "g" },
+        { "id": 11, "nombre": "camarón", "cantidad": 100, "unidad": "g" },
+        { "id": 12, "nombre": "limón", "cantidad": 80, "unidad": "ml" },
+        { "id": 3, "nombre": "cebolla", "cantidad": 60, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 4,
+      "nombre": "Fetuccini Alfredo",
+      "descripcion": "Pasta al dente bañada en una cremosa salsa alfredo con champiñones salteados y pollo grillado.",
+      "precio": 21.00,
+      "categoria": { "id": 4, "detalle": "Pastas", "idTipo": 1 },
+      "subcategoria": { "id": 41, "detalle": "Internacionales", "idCategoria": 4 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 13, "nombre": "pasta", "cantidad": 200, "unidad": "g" },
+        { "id": 14, "nombre": "crema", "cantidad": 100, "unidad": "ml" },
+        { "id": 15, "nombre": "champiñon", "cantidad": 50, "unidad": "g" },
+        { "id": 16, "nombre": "pollo", "cantidad": 150, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 5,
+      "nombre": "Sopa de Pollo",
+      "descripcion": "Reconfortante sopa casera con trozos de pollo, fideos, verduras frescas y un toque de culantro.",
+      "precio": 12.50,
+      "categoria": { "id": 2, "detalle": "Sopas", "idTipo": 1 },
+      "subcategoria": { "id": 21, "detalle": "Criollas", "idCategoria": 2 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 16, "nombre": "pollo", "cantidad": 200, "unidad": "g" },
+        { "id": 17, "nombre": "fideos", "cantidad": 80, "unidad": "g" },
+        { "id": 18, "nombre": "zanahoria", "cantidad": 50, "unidad": "g" },
+        { "id": 6, "nombre": "culantro", "cantidad": 5, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 6,
+      "nombre": "Ensalada César",
+      "descripcion": "Crujiente lechuga romana con crutones dorados, parmesano rallado, pollo grillado y aderezo césar especial.",
+      "precio": 15.00,
+      "categoria": { "id": 3, "detalle": "Ensaladas", "idTipo": 1 },
+      "subcategoria": { "id": 31, "detalle": "Internacionales", "idCategoria": 3 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 19, "nombre": "lechuga", "cantidad": 150, "unidad": "g" },
+        { "id": 20, "nombre": "crutones", "cantidad": 30, "unidad": "g" },
+        { "id": 21, "nombre": "parmesano", "cantidad": 20, "unidad": "g" },
+        { "id": 16, "nombre": "pollo", "cantidad": 100, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400&h=300&fit=crop",
+      "estado": false
+    },
+    {
+      "id": 7,
+      "nombre": "Arroz con Mariscos",
+      "descripcion": "Arroz tostado con una generosa porción de camarones, calamares, conchas y pulpo en salsa de mariscos.",
+      "precio": 28.00,
+      "categoria": { "id": 5, "detalle": "Mariscos", "idTipo": 1 },
+      "subcategoria": { "id": 51, "detalle": "Criollas", "idCategoria": 5 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 5, "nombre": "arroz", "cantidad": 200, "unidad": "g" },
+        { "id": 11, "nombre": "camarón", "cantidad": 80, "unidad": "g" },
+        { "id": 22, "nombre": "calamar", "cantidad": 60, "unidad": "g" },
+        { "id": 23, "nombre": "pulpo", "cantidad": 60, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 8,
+      "nombre": "Anticucho de Corazón",
+      "descripcion": "Brochetas de corazón de res marinadas en pasta de ají panca, asadas al carbón con papa dorada y choclo.",
+      "precio": 16.00,
+      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+      "subcategoria": { "id": 12, "detalle": "Al carbón", "idCategoria": 1 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 24, "nombre": "corazón", "cantidad": 200, "unidad": "g" },
+        { "id": 25, "nombre": "ají panca", "cantidad": 30, "unidad": "g" },
+        { "id": 2, "nombre": "papa", "cantidad": 100, "unidad": "g" },
+        { "id": 26, "nombre": "choclo", "cantidad": 80, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 9,
+      "nombre": "Tacu Tacu con Lomo",
+      "descripcion": "Tortilla crujiente de arroz con frejoles, acompañada de jugoso lomo fino en salsa de ostión.",
+      "precio": 26.50,
+      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+      "subcategoria": { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 5, "nombre": "arroz", "cantidad": 150, "unidad": "g" },
+        { "id": 27, "nombre": "frejoles", "cantidad": 100, "unidad": "g" },
+        { "id": 1, "nombre": "carne", "cantidad": 200, "unidad": "g" },
+        { "id": 3, "nombre": "cebolla", "cantidad": 40, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 10,
+      "nombre": "Pisco Sour",
+      "descripcion": "El clásico cóctel peruano preparado con pisco quebranta, limón, jarabe de goma, clara de huevo y amargo de angostura.",
+      "precio": 14.00,
+      "categoria": { "id": 6, "detalle": "Cócteles", "idTipo": 2 },
+      "subcategoria": { "id": 61, "detalle": "Clásicas", "idCategoria": 6 },
+      "tipo": { "id": 2, "detalle": "Bebidas" },
+      "ingredientes": [
+        { "id": 28, "nombre": "pisco", "cantidad": 60, "unidad": "ml" },
+        { "id": 12, "nombre": "limón", "cantidad": 30, "unidad": "ml" },
+        { "id": 29, "nombre": "jarabe", "cantidad": 20, "unidad": "ml" },
+        { "id": 30, "nombre": "clara", "cantidad": 1, "unidad": "und" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 11,
+      "nombre": "Chicha Morada",
+      "descripcion": "Refrescante bebida ancestral hecha con maíz morado, piña, canela, clavo y un toque de limón.",
+      "precio": 6.50,
+      "categoria": { "id": 7, "detalle": "Jugos", "idTipo": 2 },
+      "subcategoria": { "id": 71, "detalle": "Clásicas", "idCategoria": 7 },
+      "tipo": { "id": 2, "detalle": "Bebidas" },
+      "ingredientes": [
+        { "id": 31, "nombre": "maíz morado", "cantidad": 200, "unidad": "g" },
+        { "id": 32, "nombre": "piña", "cantidad": 100, "unidad": "g" },
+        { "id": 33, "nombre": "canela", "cantidad": 5, "unidad": "g" },
+        { "id": 12, "nombre": "limón", "cantidad": 15, "unidad": "ml" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 12,
+      "nombre": "Limonada Frozen",
+      "descripcion": "Limonada helada con hierbabuena fresca, perfecta para acompañar cualquier platillo en un día caluroso.",
+      "precio": 7.00,
+      "categoria": { "id": 7, "detalle": "Jugos", "idTipo": 2 },
+      "subcategoria": { "id": 72, "detalle": "Especiales", "idCategoria": 7 },
+      "tipo": { "id": 2, "detalle": "Bebidas" },
+      "ingredientes": [
+        { "id": 12, "nombre": "limón", "cantidad": 60, "unidad": "ml" },
+        { "id": 34, "nombre": "hierbabuena", "cantidad": 5, "unidad": "g" },
+        { "id": 29, "nombre": "jarabe", "cantidad": 20, "unidad": "ml" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 13,
+      "nombre": "Tres Leches",
+      "descripcion": "Esponjoso bizcochuelo bañado en una mezcla de leche condensada, leche evaporada y crema de leche, decorado con merengue.",
+      "precio": 10.50,
+      "categoria": { "id": 9, "detalle": "Tortas", "idTipo": 3 },
+      "subcategoria": { "id": 91, "detalle": "Clásicas", "idCategoria": 9 },
+      "tipo": { "id": 3, "detalle": "Postres" },
+      "ingredientes": [
+        { "id": 35, "nombre": "bizcochuelo", "cantidad": 1, "unidad": "und" },
+        { "id": 36, "nombre": "leche condensada", "cantidad": 100, "unidad": "ml" },
+        { "id": 37, "nombre": "crema", "cantidad": 100, "unidad": "ml" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 14,
+      "nombre": "Suspiro Limeño",
+      "descripcion": "Tradicional postre limeño de manjar blanco cubierto con merengue de oporto, suave y delicado.",
+      "precio": 9.00,
+      "categoria": { "id": 9, "detalle": "Tortas", "idTipo": 3 },
+      "subcategoria": { "id": 92, "detalle": "Criollas", "idCategoria": 9 },
+      "tipo": { "id": 3, "detalle": "Postres" },
+      "ingredientes": [
+        { "id": 38, "nombre": "manjar", "cantidad": 150, "unidad": "g" },
+        { "id": 30, "nombre": "clara", "cantidad": 2, "unidad": "und" },
+        { "id": 39, "nombre": "oporto", "cantidad": 15, "unidad": "ml" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 15,
+      "nombre": "Helado de Lúcuma",
+      "descripcion": "Cremoso helado artesanal de lúcuma peruana, servido en copa con barquillo crocante y chispas de chocolate.",
+      "precio": 8.50,
+      "categoria": { "id": 10, "detalle": "Helados", "idTipo": 3 },
+      "subcategoria": { "id": 101, "detalle": "Especiales", "idCategoria": 10 },
+      "tipo": { "id": 3, "detalle": "Postres" },
+      "ingredientes": [
+        { "id": 40, "nombre": "lúcuma", "cantidad": 100, "unidad": "g" },
+        { "id": 37, "nombre": "crema", "cantidad": 80, "unidad": "ml" },
+        { "id": 41, "nombre": "chocolate", "cantidad": 10, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400&h=300&fit=crop",
+      "estado": false
+    },
+    {
+      "id": 16,
+      "nombre": "Inca Kola",
+      "descripcion": "La bebida insignia del Perú, refrescante gaseosa con sabor a hierba luisa.",
+      "precio": 4.50,
+      "categoria": { "id": 8, "detalle": "Gaseosas", "idTipo": 2 },
+      "subcategoria": { "id": 81, "detalle": "Clásicas", "idCategoria": 8 },
+      "tipo": { "id": 2, "detalle": "Bebidas" },
+      "ingredientes": [],
+      "imagen_url": "https://images.unsplash.com/photo-1581636625402-29b2a704ef13?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 17,
+      "nombre": "Causa Limeña",
+      "descripcion": "Delicadas capas de papa amarilla sazonada con ají y limón, rellenas de pollo y palta cremosa.",
+      "precio": 14.00,
+      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
+      "subcategoria": { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
+      "tipo": { "id": 1, "detalle": "Platillos" },
+      "ingredientes": [
+        { "id": 2, "nombre": "papa", "cantidad": 200, "unidad": "g" },
+        { "id": 16, "nombre": "pollo", "cantidad": 100, "unidad": "g" },
+        { "id": 42, "nombre": "palta", "cantidad": 50, "unidad": "g" },
+        { "id": 8, "nombre": "ají amarillo", "cantidad": 20, "unidad": "g" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop",
+      "estado": true
+    },
+    {
+      "id": 18,
+      "nombre": "Mojito Clásico",
+      "descripcion": "Ron blanco con hierbabuena fresca, limón, azúcar y soda, el cóctel refrescante por excelencia.",
+      "precio": 16.00,
+      "categoria": { "id": 6, "detalle": "Cócteles", "idTipo": 2 },
+      "subcategoria": { "id": 62, "detalle": "Internacionales", "idCategoria": 6 },
+      "tipo": { "id": 2, "detalle": "Bebidas" },
+      "ingredientes": [
+        { "id": 43, "nombre": "ron", "cantidad": 60, "unidad": "ml" },
+        { "id": 34, "nombre": "hierbabuena", "cantidad": 8, "unidad": "g" },
+        { "id": 12, "nombre": "limón", "cantidad": 30, "unidad": "ml" },
+        { "id": 44, "nombre": "soda", "cantidad": 100, "unidad": "ml" }
+      ],
+      "imagen_url": "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop",
+      "estado": true
+    }
+  ]
+}

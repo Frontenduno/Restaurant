@@ -1,0 +1,72 @@
+{
+  "categorias": [
+    { "id": 1, "detalle": "Proteínas" },
+    { "id": 2, "detalle": "Verduras y Frutas" },
+    { "id": 3, "detalle": "Abarrotes" },
+    { "id": 4, "detalle": "Licores y Bebidas" },
+    { "id": 5, "detalle": "Lácteos" }
+  ],
+  "estados": [
+    { "id": 0, "detalle": "SUFICIENTE" },
+    { "id": 1, "detalle": "SIN STOCK" },
+    { "id": 2, "detalle": "STOCK BAJO" }
+  ],
+  "insumos": [
+    {
+      "id": 1,
+      "nombre": "Carne de Res (Lomo)",
+      "stock": 15,
+      "unidad": "kg",
+      "categoria": { "id": 1, "detalle": "Proteínas" },
+      "estado": { "id": 0, "detalle": "SUFICIENTE" }
+    },
+    {
+      "id": 2,
+      "nombre": "Papa Amarilla",
+      "stock": 5,
+      "unidad": "kg",
+      "categoria": { "id": 2, "detalle": "Verduras y Frutas" },
+      "estado": { "id": 2, "detalle": "STOCK BAJO" }
+    },
+    {
+      "id": 3,
+      "nombre": "Pollo (Pechuga)",
+      "stock": 0,
+      "unidad": "kg",
+      "categoria": { "id": 1, "detalle": "Proteínas" },
+      "estado": { "id": 1, "detalle": "SIN STOCK" }
+    },
+    {
+      "id": 4,
+      "nombre": "Arroz Extra",
+      "stock": 45.0,
+      "unidad": "kg",
+      "categoria": { "id": 3, "detalle": "Abarrotes" },
+      "estado": { "id": 0, "detalle": "SUFICIENTE" }
+    },
+    {
+      "id": 5,
+      "nombre": "Leche Evaporada",
+      "stock": 24,
+      "unidad": "latas",
+      "categoria": { "id": 5, "detalle": "Lácteos" },
+      "estado": { "id": 0, "detalle": "SUFICIENTE" }
+    },
+    {
+      "id": 6,
+      "nombre": "Cebolla Roja",
+      "stock": 1,
+      "unidad": "kg",
+      "categoria": { "id": 2, "detalle": "Verduras y Frutas" },
+      "estado": { "id": 2, "detalle": "STOCK BAJO" }
+    },
+    {
+      "id": 7,
+      "nombre": "Limón Sutil",
+      "stock": 10.0,
+      "unidad": "kg",
+      "categoria": { "id": 2, "detalle": "Verduras y Frutas" },
+      "estado": { "id": 0, "detalle": "SUFICIENTE" }
+    }
+  ]
+}

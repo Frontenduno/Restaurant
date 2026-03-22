@@ -55,7 +55,7 @@ export function UsuariosPage() {
 
       <div className="bg-white rounded-[1rem] shadow-sm border border-gray-100 p-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="relative w-full sm:max-w-[420px]">
+          <div className="relative w-full sm:max-w-105">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
             <Input
               value={searchTerm}
@@ -75,7 +75,7 @@ export function UsuariosPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <div className="min-w-[180px]">
+          <div className="min-w-45">
             <div className="text-xs font-semibold text-neutral-600 mb-2">
               Categoria
             </div>
@@ -100,7 +100,7 @@ export function UsuariosPage() {
             </Select>
           </div>
 
-          <div className="min-w-[180px]">
+          <div className="min-w-45">
             <div className="text-xs font-semibold text-neutral-600 mb-2">
               Estado
             </div>

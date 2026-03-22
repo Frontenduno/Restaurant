@@ -12,7 +12,7 @@ export function GridEstados({ estados, statusColors }: GridEstadosProps) {
     <div className="flex flex-wrap items-center gap-6 mb-6 mt-6">
       {estados.map((estado) => (
         <div key={estado.id} className="flex items-center gap-2">
-          <div className={`w-[10px] h-[10px] rounded-full ${statusColors[estado.detalle.toLowerCase()] || 'bg-gray-400'}`}></div>
+          <div className={`w-2.5 h-2.5 rounded-full ${statusColors[estado.detalle.toLowerCase()] || 'bg-gray-400'}`}></div>
           <span className="text-sm text-gray-500 font-medium">{capitalize(estado.detalle)}</span>
         </div>
       ))}

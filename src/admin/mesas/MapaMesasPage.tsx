@@ -1,4 +1,5 @@
-import { Bell, Table } from "lucide-react";
+import { Table } from "lucide-react";
+import { AdminHeader } from "@/admin/components/AdminHeader";
 import { Button } from "@/components/ui/button";
 
 import { MesaInfoModal } from "./components/MesaInfoModal";
@@ -20,15 +21,7 @@ export function MapaMesasPage() {
 
   return (
     <div className="w-full flex flex-col gap-6 font-sans">
-      <div className="bg-white rounded-[1rem] shadow-sm p-4 px-6 flex items-center justify-between border border-gray-100">
-        <div className="flex items-center gap-3">
-          <Table className="w-6 h-6 text-black" />
-          <h1 className="text-2xl font-bold text-black">Mesas</h1>
-        </div>
-        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
-          <Bell className="w-6 h-6 text-black" />
-        </button>
-      </div>
+      <AdminHeader title="Mapa de Mesas" icon={Table} />
 
       <div className="px-2">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
@@ -36,7 +29,7 @@ export function MapaMesasPage() {
             <h2 className="text-[28px] font-semibold text-gray-800 leading-tight">Mapa de Mesas</h2>
             <p className="text-[15px] mt-1 text-gray-500">Gestión de disponibilidad y ocupación</p>
           </div>
-          <Button 
+          <Button
             className="bg-[#1d14e0] hover:bg-blue-800 text-white font-medium px-6 h-10 rounded-md"
             onClick={actions.openAddMesa}
           >
@@ -48,36 +41,36 @@ export function MapaMesasPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
           {mesas.map((mesa) => (
-            <CardMesa 
-              key={mesa.id} 
-              mesa={mesa} 
-              onClick={actions.openMesaInfo} 
-              statusColors={statusColors} 
+            <CardMesa
+              key={mesa.id}
+              mesa={mesa}
+              onClick={actions.openMesaInfo}
+              statusColors={statusColors}
             />
           ))}
         </div>
       </div>
 
-      <FormularioMesaModal 
-        open={modals.isFormOpen} 
-        onOpenChange={modals.setIsFormOpen} 
-        onSubmit={actions.handleFormSubmit} 
+      <FormularioMesaModal
+        open={modals.isFormOpen}
+        onOpenChange={modals.setIsFormOpen}
+        onSubmit={actions.handleFormSubmit}
         mesa={selectedMesa}
         form={form}
       />
-      <MesaInfoModal 
-        open={modals.isInfoOpen} 
-        onOpenChange={modals.setIsInfoOpen} 
-        mesa={selectedMesa} 
-        onEditClick={actions.openEditFromInfo} 
-        onDeleteClick={actions.openDeleteFromInfo} 
+      <MesaInfoModal
+        open={modals.isInfoOpen}
+        onOpenChange={modals.setIsInfoOpen}
+        mesa={selectedMesa}
+        onEditClick={actions.openEditFromInfo}
+        onDeleteClick={actions.openDeleteFromInfo}
       />
-      
-      <EliminarMesaModal 
-        open={modals.isDeleteOpen} 
-        onOpenChange={modals.setIsDeleteOpen} 
-        mesa={selectedMesa} 
-        onConfirm={actions.handleDeleteMesa} 
+
+      <EliminarMesaModal
+        open={modals.isDeleteOpen}
+        onOpenChange={modals.setIsDeleteOpen}
+        mesa={selectedMesa}
+        onConfirm={actions.handleDeleteMesa}
       />
     </div>
   );

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Box, Users, Map, Package, X } from "lucide-react";
-import { type MesaFormData } from "@/schemas/loginSchema";
+import { type MesaFormData } from "@/schemas/Validaciones";
 import type { Mesa } from "@/types";
 import areasData from "@/data/mesas/areas.json";
 import tiposData from "@/data/mesas/tipos.json";
@@ -47,13 +47,13 @@ export function FormularioMesaModal({ open, onOpenChange, mesa, onSubmit, form }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton={false} className="sm:max-w-[600px] p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl">
+      <DialogContent showCloseButton={false} className="sm:max-w-150 p-0 overflow-hidden bg-[#f4f5f9] border-0 rounded-3xl">
         <div className="flex justify-between items-center p-6 pb-2">
           <DialogTitle className="text-2xl font-bold text-[#0b0c2a]">
             {isEditing ? `Editar ${mesa?.name}` : "Agregar Mesa"}
           </DialogTitle>
           <button type="button" onClick={handleCancel} className="text-[#0b0c2a] bg-[#e4e6f1] hover:bg-[#d3d6e5] p-1.5 rounded-xl transition-colors">
-            <X className="w-5 h-5 stroke-[3]" />
+            <X className="w-5 h-5 stroke-3" />
           </button>
         </div>
 
