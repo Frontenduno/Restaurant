@@ -1,67 +1,90 @@
+import { useState } from "react";
 import { useAuth } from "@/auth";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { RecepHeader } from "../components/RecepHeader";
+import { NotebookTabs } from "lucide-react";
+import { GridEstados } from "./components/GridEstado";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import estadosData from "@/data/mesas/estados.json";
+import { CardMesa } from "./components/CardMes";
+import { useMesas } from "./hooks/useMesas";
+import { ModalConfirmacion } from "./components/ModalConfirmacion";
+
+export const statusColors: Record<string, string> = {
+  disponible: "bg-[#10b981]",
+  ocupado: "bg-blue-500",
+  reservado: "bg-orange-500",
+};
 
 export function RecepcionistaPage() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
+  const { mesas, actions, modals, selectedMesa } = useMesas();
+  const [filtroArea, setFiltroArea] = useState("Todas");
 
   if (!user) return null;
 
+  const mesasFiltradas = filtroArea === "Todas" 
+    ? mesas 
+    : mesas.filter((m) => m.location?.detalle === filtroArea);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-800">
-      <header className="border-b border-neutral-800 bg-neutral-900/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold text-white">🍽️ Restaurant</h1>
-            <Badge variant="secondary" className="bg-neutral-800 text-neutral-300 border-neutral-700">
-              {user.rol.nombre}
-            </Badge>
+    <div className="w-full flex flex-col font-sans">
+      {/* Header específico de esta página */}
+      <RecepHeader title="Recepcionista" icon={NotebookTabs} />
+      
+      {/* Contenido de la página de Recepcionista (ej. layout de Mesas) */}
+      <div className="px-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <h2 className="text-[28px] font-semibold text-gray-800 leading-tight">Mapa de Mesas disponibles</h2>
+            <p className="text-[15px] mt-1 text-gray-500">Gestión de disponibilidad y ocupación</p>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-neutral-400">
-              {user.nombre} {user.apellido}
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={logout}
-              className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 cursor-pointer"
-            >
-              Cerrar Sesión
-            </Button>
+          
+          <div className="self-start sm:self-auto">
+            <Select value={filtroArea} onValueChange={(val) => setFiltroArea(val || "Todas")}>
+              <SelectTrigger className="w-45 bg-white shadow-sm border-gray-200">
+                <SelectValue placeholder="Seleccionar área" />
+              </SelectTrigger>
+              <SelectContent>
+                {["Todas", "Interior", "Ventana", "Terraza"].map(area => (
+                  <SelectItem key={area} value={area}>
+                    {area === "Todas" ? "Todas las áreas" : area}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-white">
-            Bienvenido, {user.nombre}
-          </h2>
-          <p className="text-neutral-400 mt-1">Panel de recepción</p>
+        {/* Seccion ocupado y mesas*/}
+        <GridEstados estados={estadosData} statusColors={statusColors} />
+        {/* Seccion de mesas*/}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
+          {mesasFiltradas.length > 0 ? (
+            mesasFiltradas.map((mesa) => (
+            <CardMesa
+              key={mesa.id}
+              mesa={mesa}
+              onClick={actions.openMesaInfo}
+              statusColors={statusColors}
+            />
+          ))) : (
+            <div className="col-span-full py-10 flex flex-col items-center justify-center text-gray-400">
+              <span className="text-4xl mb-3">📍</span>
+              <p className="text-[14px] font-medium">No se encontraron mesas en el área seleccionada ({filtroArea}).</p>
+            </div>
+          )}
         </div>
+        
+      </div>
 
-        <Card className="border-neutral-800 bg-neutral-900/60 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white">🛎️ Módulo de Recepción</CardTitle>
-            <CardDescription className="text-neutral-400">
-              Este módulo está en construcción
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-neutral-500 text-sm">
-              Próximamente podrás gestionar reservaciones, asignación de mesas y recepción de clientes.
-            </p>
-          </CardContent>
-        </Card>
-      </main>
+      <ModalConfirmacion 
+        open={modals.isInfoOpen}
+        onOpenChange={modals.setIsInfoOpen}
+        mesa={selectedMesa}
+        onConfirm={(mesa) => {
+          // Cambiamos visualmente el estado a 'Ocupado'
+          actions.updateMesa(mesa.id, "Ocupado");
+        }}
+      />
     </div>
   );
 }
