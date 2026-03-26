@@ -18,7 +18,7 @@ const TableRectIcon = () => (
 );
 
 interface CardMesaProps {
-  mesa: Mesa;
+  mesa: Mesa & { cliente?: string };
   onClick: (mesa: Mesa) => void;
   statusColors: Record<string, string>;
 }
@@ -51,6 +51,11 @@ export function CardMesa({ mesa, onClick, statusColors }: CardMesaProps) {
       </div>
 
       <h3 className="text-[15px] text-gray-800 font-semibold">{mesa.name}</h3>
+      {mesa.cliente && (
+        <p className="text-[13px] text-[#0D00FF] font-medium mt-0.5 truncate max-w-full">
+          👤 {mesa.cliente}
+        </p>
+      )}
       <p className="text-[12px] text-gray-400 mt-1">
         {mesa.capacity} Personas • {mesa.location.detalle}
       </p>

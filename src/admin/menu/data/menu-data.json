@@ -34,7 +34,8 @@
   "tipos": [
     { "id": 1, "detalle": "Platillos" },
     { "id": 2, "detalle": "Bebidas" },
-    { "id": 3, "detalle": "Postres" }
+    { "id": 3, "detalle": "Postres" },
+    { "id": 4, "detalle": "Entradas" }
   ],
   "categorias": [
     { "id": 1, "detalle": "Carnes", "idTipo": 1 },

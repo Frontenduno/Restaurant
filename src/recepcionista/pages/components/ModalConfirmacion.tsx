@@ -7,7 +7,21 @@ import type { Mesa } from "@/types/mesas/mesa";
 import { useState, useEffect } from "react";
 import usuariosData from "@/data/usuario/users.json";
 
-// Iconos SVG sacados de CardMesa (o similares) para no depender de otros archivos
+/*
+  ==============================================
+  MODAL DE CONFIRMACIÓN DE OCUPACIÓN DE MESA
+  ==============================================
+  
+  Rol en el flujo de sincronización:
+  1. Recibida una mesa desde RecepcionistaPage
+  2. Muestra opciones para seleccionar un mesero (filtrados por área)
+  3. Hace que el usuario confirme la ocupación
+  4. Mediante onConfirm(), pasa AMBOS datos:
+     - mesa: Objeto con datos de la mesa
+     - meseroId: ID del mesero seleccionado
+  5. RecepcionistaPage captura esto y llama updateMesa(mesa.id, "ocupado", meseroId)
+  6. Los cambios se guardan en localStorage y se sincronizan con MeserDispo
+*/
 const TableRoundIcon = () => (
   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
     <circle cx="12" cy="12" r="5" fill="white" />
@@ -36,7 +50,7 @@ const statusThemes: Record<string, { dot: string, text: string, lightBg: string 
 interface ModalConfirmacionProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mesa?: Mesa | null;
+  mesa?: (Mesa & { cliente?: string }) | null;
   onConfirm: (mesa: Mesa, meseroId?: number) => void;
 }
 
@@ -78,9 +92,12 @@ export function ModalConfirmacion({ open, onOpenChange, mesa, onConfirm }: Modal
     
     // Obtenemos el objeto completo del mesero para mostrar su nombre
     const meseroElegido = meserosDisponibles.find(m => m.id.toString() === meseroSeleccionado);
+    // CAMBIO: Se guarda el meseroId para pasarlo a updateMesa en RecepcionistaPage
+    // Esto permite que la mesa quede vinculada a este mesero específico
     const meseroIdParaGuardar = meseroElegido ? meseroElegido.id : undefined;
 
-    // Ejecutamos la acción principal con el meseroId
+    // CAMBIO: onConfirm ahora recibe AMBOS parámetros: (mesa, meseroIdParaGuardar)
+    // RecepcionistaPage los captura y los pasa a updateMesa(), que los guarda en localStorage
     onConfirm(mesa, meseroIdParaGuardar);
     
     // Mostramos la notificación reproduciendo tu diseño oscuro y centrado en la base
@@ -143,6 +160,12 @@ export function ModalConfirmacion({ open, onOpenChange, mesa, onConfirm }: Modal
               <span className="text-gray-500 font-medium">Estado actual</span>
               <span className="text-gray-900 font-bold capitalize">{mesa.status.detalle}</span>
             </div>
+            {mesa.cliente && (
+              <div className="flex justify-between items-center text-[14px]">
+                <span className="text-blue-600 font-bold">Cliente</span>
+                <span className="text-blue-800 font-bold capitalize">👤 {mesa.cliente}</span>
+              </div>
+            )}
             
             {/* Si está ocupable, mostramos selector de meseros del área */}
             {esOcupable && (

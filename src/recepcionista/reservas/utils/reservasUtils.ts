@@ -17,20 +17,44 @@ export const ESTADO_STYLES: Record<string, { bg: string, color: string, border: 
 };
 
 // Devuelve la(s) mesa(s) sugeridas para una cantidad de personas
+// Busca la mejor combinación de mesas disponibles en el área (minimiza overflow y cantidad de mesas)
 export function sugerirMesas(personas: string, mesasDisponibles: Mesa[]) {
   const n = parseInt(personas);
   if (!n || n < 1) return [];
-  // Una sola mesa que alcance
-  const simple = mesasDisponibles.find(m => m.capacity >= n);
-  if (simple) return [simple];
-  // Combinación de dos mesas cuya suma alcance
-  for (let i = 0; i < mesasDisponibles.length; i++) {
-    for (let j = i + 1; j < mesasDisponibles.length; j++) {
-      if (mesasDisponibles[i].capacity + mesasDisponibles[j].capacity >= n)
-        return [mesasDisponibles[i], mesasDisponibles[j]];
+
+  // Filtrar solo mesas disponibles (status.detalle == "disponible")
+  const disponibles = mesasDisponibles.filter(m => m.status.detalle === "disponible");
+  if (disponibles.length === 0) return [];
+
+  // Ordenar para facilitar el análisis y la preferencia de mesas más pequeñas primero
+  const sorted = [...disponibles].sort((a, b) => a.capacity - b.capacity);
+
+  let mejor: Mesa[] = [];
+  let mejorTotal = Number.POSITIVE_INFINITY;
+
+  const total = sorted.length;
+  const maxMask = 1 << total;
+
+  for (let mask = 1; mask < maxMask; mask++) {
+    const subset: Mesa[] = [];
+    let sum = 0;
+
+    for (let i = 0; i < total; i++) {
+      if ((mask >> i) & 1) {
+        subset.push(sorted[i]);
+        sum += sorted[i].capacity;
+      }
+    }
+
+    if (sum >= n) {
+      if (sum < mejorTotal || (sum === mejorTotal && subset.length < mejor.length)) {
+        mejor = subset;
+        mejorTotal = sum;
+      }
     }
   }
-  return mesasDisponibles.slice(0, 3); // fallback: primeras 3
+
+  return mejor;
 }
 
 export function getInitialAvatar(nombre: string, size: number = 36) {

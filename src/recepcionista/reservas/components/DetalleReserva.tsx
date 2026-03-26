@@ -3,6 +3,27 @@ import { Avatar } from "./Avatar";
 import { ESTADO_STYLES } from "../utils/reservasUtils";
 import type { Mesa } from "@/types";
 
+/*
+  ======================================================
+  COMPONENTE: DetalleReserva — Panel lateral de detalle
+  ======================================================
+  
+  PROPÓSITO:
+  Muestra los detalles completos de una reserva seleccionada:
+  - Cliente (nombre, estado)
+  - Hora, cantidad de personas
+  - Mesas asignadas y ubicación
+  - Visualización de capacidad (sillas 🪑)
+  - Botones para confirmar llegada o cancelar
+  
+  PROPS:
+  - reserva: Objeto de reserva con id, nombre, hora, personas, estado, etc.
+  - mesas: Array de objetos Mesa con details (name, capacity, location)
+  - onClose: Callback para cerrar el panel
+  - onCancel: Callback para cancelar la reserva
+  - onConfirmar: Callback para confirmar la llegada del cliente
+*/
+
 interface DetalleReservaProps {
   reserva: any;
   mesas: Mesa[];
@@ -13,8 +34,11 @@ interface DetalleReservaProps {
 
 export function DetalleReserva({ reserva, mesas, onClose, onCancel, onConfirmar }: DetalleReservaProps) {
   const r = reserva;
+  // Calcula la capacidad total de todas las mesas asignadas a esta reserva
   const capacidadTotal = mesas.reduce((s, m) => s + m.capacity, 0);
+  // Verifica si se asignaron múltiples mesas (combinadas)
   const esCombinada = mesas.length > 1;
+  // Obtiene estilos (colores, badges) según el estado de la reserva
   const est = ESTADO_STYLES[r.estado] || ESTADO_STYLES.pendiente;
 
   return (

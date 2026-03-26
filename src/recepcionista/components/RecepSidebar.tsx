@@ -17,6 +17,24 @@ import {
   UtensilsIcon
 } from "lucide-react";
 
+/*
+  ============================================
+  COMPONENTE: RecepSidebar — Navegación
+  ============================================
+  
+  PROPÓSITO:
+  Barra lateral de navegación para el recepcionista.
+  Muestra opciones principales:
+  - Mesas: Gestión y ocupación de mesas
+  - Meseros: Ver disponibilidad de meseros
+  - Reservas: Gestionar reservas del día
+  
+  SECCIONES:
+  - Header: Logo + rol del usuario
+  - Content: Links de navegación
+  - Footer: Info del usuario + botón logout
+*/
+
 const adminNavItems = [
   { title: "Mesas", path: "/recepcionista", icon: BookOpen, end: true },
   { title: "Meseros", path: "/recepcionista/meseros", icon: UserSearch },
@@ -24,22 +42,25 @@ const adminNavItems = [
 ];
 
 export function RecepSidebar() {
+  // Obtiene datos del usuario autenticado desde AuthContext
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   if (!user) return null;
 
+  // Manejador de cierre de sesión
   function handleLogout() {
-    logout();
-    navigate("/login", { replace: true });
+    logout(); // Limpia AuthContext
+    navigate("/login", { replace: true }); // Redirecciona a login
   }
 
+  // Obtiene las iniciales del nombre y apellido para el avatar
   const initials = `${user.nombre[0]}${user.apellido[0]}`.toUpperCase();
 
   return (
     <Sidebar className="border-r border-neutral-100 bg-white text-neutral-700">
 
-      {/* Header: logo + brand + role */}
+      {/* HEADER: Logo + Nombre del sistema + Rol del usuario */}
       <SidebarHeader className="px-5 py-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0D00FF] text-white shrink-0">
@@ -50,13 +71,13 @@ export function RecepSidebar() {
               Restaurante
             </p>
             <p className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
-              {user.rol.nombre}
+              {user.rol.nombre} {/* Muestra el rol: "Recepcionista" */}
             </p>
           </div>
         </div>
       </SidebarHeader>
 
-      {/* Nav items */}
+      {/* CONTENIDO: Menú de navegación */}
       <SidebarContent className="px-3">
         <SidebarMenu className="gap-1">
           {adminNavItems.map((item) => (
@@ -78,7 +99,7 @@ export function RecepSidebar() {
         </SidebarMenu>
       </SidebarContent>
 
-      {/* Footer: avatar + name + logout */}
+      {/* FOOTER: Avatar del usuario + nombre + botón logout */}
       <SidebarFooter className="border-t border-neutral-100 px-4 py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-[#0D00FF]">

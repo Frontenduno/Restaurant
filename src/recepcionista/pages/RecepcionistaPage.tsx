@@ -9,6 +9,30 @@ import { CardMesa } from "./components/CardMes";
 import { useMesas } from "./hooks/useMesas";
 import { ModalConfirmacion } from "./components/ModalConfirmacion";
 
+/*
+  ====================================================
+  PÁGINA: RecepcionistaPage — Mapa de mesas
+  ====================================================
+  
+  PROPÓSITO:
+  Página principal del recepcionista. Muestra:
+  - Todas las mesas del restaurante en un grid
+  - Estado de cada mesa (disponible, ocupado, reservado, sucio)
+  - Filtro por área (Todas, Interior, Ventana, Terraza)
+  - Modal para ocupar mesa y asignar mesero
+  
+  SINCRONIZACIÓN:
+  - Los datos de mesas se cargan del hook useMesas (localStorage)
+  - Cambios aquí se sincronizan con MeserDispo y otras páginas
+  - Al ocupar una mesa, se asigna un mesero y se guarda el state
+  
+  FLUJO:
+  1. Usuario click en mesa disponible → abre modal
+  2. Modal: selecciona mesero → confirma ocupación
+  3. updateMesa() guarda estado + meseroId en localStorage
+  4. MeserDispo puede ver ese mesero como "Ocupado"
+*/
+
 export const statusColors: Record<string, string> = {
   disponible: "bg-[#10b981]",
   ocupado: "bg-blue-500",
@@ -17,11 +41,16 @@ export const statusColors: Record<string, string> = {
 
 export function RecepcionistaPage() {
   const { user } = useAuth();
+  // CAMBIO: Hook useMesas ahora persiste en localStorage
+  // Cualquier cambio aquí (ocupar mesa + asignar mesero) se sincronizan con MeserDispo
   const { mesas, actions, modals, selectedMesa } = useMesas();
+  
+  // Filtro por área: permite ver mesas por ubicación
   const [filtroArea, setFiltroArea] = useState("Todas");
 
   if (!user) return null;
 
+  // Filtra mesas según el área seleccionada
   const mesasFiltradas = filtroArea === "Todas" 
     ? mesas 
     : mesas.filter((m) => m.location?.detalle === filtroArea);
@@ -80,9 +109,14 @@ export function RecepcionistaPage() {
         open={modals.isInfoOpen}
         onOpenChange={modals.setIsInfoOpen}
         mesa={selectedMesa}
-        onConfirm={(mesa) => {
-          // Cambiamos visualmente el estado a 'Ocupado'
-          actions.updateMesa(mesa.id, "Ocupado");
+        onConfirm={(mesa, meseroId) => {
+          // CAMBIO: Callback ahora recibe AMBOS parámetros: (mesa, meseroId)
+          // El ModalConfirmacion pasa:
+          //  - mesa: Objeto con datos de la mesa (id, name, capacity, etc.)
+          //  - meseroId: ID del mesero seleccionado en el modal
+          // Esto permite marcar la mesa como 'ocupado' Y asignarle un mesero en la misma acción
+          // El estado se guarda en localStorage, así MeserDispo puede verlo
+          actions.updateMesa(mesa.id, "ocupado", meseroId);
         }}
       />
     </div>
