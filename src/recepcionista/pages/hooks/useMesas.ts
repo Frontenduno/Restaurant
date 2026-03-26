@@ -42,7 +42,10 @@ export function useMesas() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [selectedMesa, setSelectedMesa] = useState<Mesa | null>(null);
 
-  // Combinar mesas con información de clientes para la vista
+  // Combinar mesas con información de clientes/meseros a partir de reservas y estado actual
+  // - Si la mesa ya tiene meseroId lo mantiene.
+  // - Si tiene reserva confirmada con meseroId, lo asigna para mantener sincronía en MeserDispo.
+  // - Las mesas reservadas sin mesero mantienen null.
   const mesasConClientes = mesas.map(mesa => {
     const reservaActiva = reservas.find(r => 
       r.mesas.includes(mesa.id) && 
@@ -52,8 +55,12 @@ export function useMesas() {
       )
     );
 
+    const reservaConfirmada = reservas.find(r => r.mesas.includes(mesa.id) && r.estado === "confirmada");
+    const meseroAsignado = mesa.meseroId ?? reservaConfirmada?.meseroId ?? null;
+
     return {
       ...mesa,
+      meseroId: meseroAsignado,
       cliente: reservaActiva ? reservaActiva.nombre : undefined
     };
   });
@@ -80,6 +87,7 @@ export function useMesas() {
 
   return {
     mesas: mesasConClientes,
+    reservas,
     modals: {
       isInfoOpen, 
       setIsInfoOpen,

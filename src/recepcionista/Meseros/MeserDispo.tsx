@@ -24,8 +24,8 @@ import usersData from "@/data/usuario/users.json";
 
 export function MeserDispo() {
     // IMPORTANTE: Este hook usa el MISMO estado que RecepcionistaPage
-    // Carga las mesas desde localStorage, incluyendo cambios guardados allá
-    const { mesas } = useMesas();
+    // Carga las mesas y reservas desde localStorage, incluyendo cambios guardados allá
+    const { mesas, reservas } = useMesas();
     
     // Obtener los meseros reales de users.json (lista base de todos los meseros del sistema)
     const meserosDb = usersData.filter(u => u.rol.nombre === "Mesero");
@@ -36,18 +36,24 @@ export function MeserDispo() {
     //  2. m.status.detalle === "ocupado" -> La mesa está en estado ocupado (minúsculas, como en JSON)
     // Esto asegura sincronización: cambios en RecepcionistaPage se reflejan aquí porque usan el mismo hook
     const meseros = meserosDb.map(mesero => {
-        const mesasDelMesero = mesas.filter((m: any) => m.meseroId === mesero.id && m.status.detalle === "ocupado");
-        const mesasIds = mesasDelMesero.map((m: any) => m.id);
+        const mesasDelMesero = mesas.filter((m: any) =>
+            m.meseroId === mesero.id &&
+            (m.status.detalle === "ocupado" || m.status.detalle === "reservado")
+        );
 
-        // Para cada mesero, extendemos su información base con:
-        //  - mesas: Array de IDs de mesas ocupadas a su cargo
-        //  - mesasObjetos: Array de objetos completos de las mesas (para mostrar detalles en UI)
-        // Si mesas.length === 0 → Se muestra como "Disponible"
-        // Si mesas.length > 0 → Se muestra como "Ocupado (X mesas)" con la lista debajo
+        const mesasDeReservas = reservas
+            .filter((r: any) => r.meseroId === mesero.id && r.estado === "confirmada")
+            .flatMap((r: any) => r.mesas)
+            .map((mesaId: number) => mesas.find((m: any) => m.id === mesaId))
+            .filter(Boolean) as any[];
+
+        const mesasUnicas = Array.from(new Map([...mesasDelMesero, ...mesasDeReservas].map(m => [m.id, m])).values());
+        const mesasIds = mesasUnicas.map((m: any) => m.id);
+
         return {
             ...mesero,
             mesas: mesasIds,
-            mesasObjetos: mesasDelMesero
+            mesasObjetos: mesasUnicas
         };
     });
 
