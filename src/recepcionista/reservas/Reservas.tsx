@@ -7,8 +7,35 @@ import { Avatar } from "./components/Avatar";
 import { DetalleReserva } from "./components/DetalleReserva";
 import { ModalNuevaReserva } from "./components/ModalNuevaReserva";
 
+/*
+  =====================================================
+  PÁGINA DE RESERVAS — Gestión de reservas del día
+  =====================================================
+  
+  PROPÓSITO:
+  Centraliza toda la lógica de reservas para el recepcionista:
+  - Ver reservas pendientes agrupadas por horario (Mañana, Mediodía, Noche)
+  - Crear nuevas reservas
+  - Ver detalles: mesas asignadas, capacidad total, etc.
+  - Confirmar llegada o cancelar reservas
+  
+  DATOS:
+  - MESAS_DISPONIBLES: Obtenidas del hook useMesas (sincronizadas con localStorage)
+  - reservas: Obtenidas del hook useReservas (sincronizadas con localStorage)
+  
+  FLUJO DE CAMBIOS:
+  1. Usuario crea/confirma/cancela reserva en DetalleReserva
+  2. useReservas actualiza estado y localStorage
+  3. Los cambios se sincronizan automáticamente en UI
+  4. Si cancela/confirma una reserva, MeserDispo se entera si cambian mesas
+*/
+
 export function Reservas() {
-  const { mesas: MESAS_DISPONIBLES } = useMesas(); // Utilizamos las mesas de backend/hook
+  // CAMBIO: useMesas ahora trae datos de localStorage
+  // Esto sincroniza automáticamente cambios de RecepcionistaPage (ocupar mesa + mesero)
+  const { mesas: MESAS_DISPONIBLES, actions: mesaActions } = useMesas();
+  
+  // Hook de reservas: gestiona estado, validación, persistencia en localStorage
   const {
     reservas,
     totalReservas,
@@ -24,7 +51,7 @@ export function Reservas() {
     setBusqueda,
     getMesas,
     actions
-  } = useReservas(MESAS_DISPONIBLES);
+  } = useReservas(MESAS_DISPONIBLES, mesaActions.updateMesa);
 
   return (
     <div className="w-full flex flex-col font-sans h-screen overflow-hidden bg-slate-50">

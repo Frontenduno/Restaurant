@@ -3,17 +3,47 @@ import { UserSearch } from "lucide-react";
 import { useMesas } from "../pages/hooks/useMesas";
 import usersData from "@/data/usuario/users.json";
 
+/*
+  ============================================
+  SINCRONIZACIÓN DE MESAS Y MESEROS
+  ============================================
+  
+  FLUJO DE DATOS:
+  1. En RecepcionistaPage: Usuario ocupa una mesa y selecciona un mesero
+  2. updateMesa() actualiza estado de la mesa: { status.detalle: "ocupado", meseroId: XXX }
+  3. useEffect en useMesas.ts guarda cambios en localStorage
+  4. Cuando navegas a MeserDispo, useMesas() carga datos desde localStorage
+  5. MeserDispo filtra mesas donde (meseroId === mesero.id && status.detalle === "ocupado")
+  6. Resultado: El mesero aparece como "Ocupado" con sus mesas asignadas
+  
+  IMPORTANTE: 
+  - Ambas páginas usan el MISMO hook (useMesas)
+  - localStorage actúa como la fuente de verdad entre navegaciones
+  - Si no usáramos localStorage, los cambios se perderían al navegar
+*/
+
 export function MeserDispo() {
+    // IMPORTANTE: Este hook usa el MISMO estado que RecepcionistaPage
+    // Carga las mesas desde localStorage, incluyendo cambios guardados allá
     const { mesas } = useMesas();
     
-    // Obtener los meseros reales de users.json
+    // Obtener los meseros reales de users.json (lista base de todos los meseros del sistema)
     const meserosDb = usersData.filter(u => u.rol.nombre === "Mesero");
 
-    // Computar las mesas que están a cargo de cada mesero (buscando meseroId en las mesas)
+    // Computar las mesas OCUPADAS que están a cargo de cada mesero
+    // FILTRO: Buscamos mesas que cumplan DOS condiciones:
+    //  1. m.meseroId === mesero.id -> La mesa está asignada a este mesero (se guardó en RecepcionistaPage)
+    //  2. m.status.detalle === "ocupado" -> La mesa está en estado ocupado (minúsculas, como en JSON)
+    // Esto asegura sincronización: cambios en RecepcionistaPage se reflejan aquí porque usan el mismo hook
     const meseros = meserosDb.map(mesero => {
         const mesasDelMesero = mesas.filter((m: any) => m.meseroId === mesero.id && m.status.detalle === "ocupado");
         const mesasIds = mesasDelMesero.map((m: any) => m.id);
 
+        // Para cada mesero, extendemos su información base con:
+        //  - mesas: Array de IDs de mesas ocupadas a su cargo
+        //  - mesasObjetos: Array de objetos completos de las mesas (para mostrar detalles en UI)
+        // Si mesas.length === 0 → Se muestra como "Disponible"
+        // Si mesas.length > 0 → Se muestra como "Ocupado (X mesas)" con la lista debajo
         return {
             ...mesero,
             mesas: mesasIds,

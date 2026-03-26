@@ -8,11 +8,40 @@ import mesaData from "@/data/mesas/mesas.json";
 import estadosData from "@/data/mesas/estados.json";
 import areasData from "@/data/mesas/areas.json";
 import tiposData from "@/data/mesas/tipos.json";
+import reservasData from "@/data/reservas/reservas.json";
 
 const initialMesas = mesaData as Mesa[];
 
 export function useMesas() {
-  const [mesas, setMesas] = useState<Mesa[]>(initialMesas);
+  const [mesas, setMesas] = useState<Mesa[]>(() => {
+    const saved = localStorage.getItem("mesasApp");
+    if (saved) return JSON.parse(saved);
+    return initialMesas;
+  });
+
+  const [reservas, setReservas] = useState<any[]>(() => {
+    const saved = localStorage.getItem("reservasApp");
+    if (saved) return JSON.parse(saved);
+    return reservasData;
+  });
+
+  // Persistencia y sincronización
+  useEffect(() => {
+    localStorage.setItem("mesasApp", JSON.stringify(mesas));
+  }, [mesas]);
+
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "mesasApp" && e.newValue) {
+        setMesas(JSON.parse(e.newValue));
+      }
+      if (e.key === "reservasApp" && e.newValue) {
+        setReservas(JSON.parse(e.newValue));
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
   
   // Modales
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -82,7 +111,6 @@ export function useMesas() {
     setMesas(prev => prev.filter(m => m.id !== id));
     setIsDeleteOpen(false);
     
-    // Toast con diseño personalizado para eliminar
     toast.error("Mesa eliminada", {
       description: "La mesa ha sido eliminada correctamente",
       duration: 2500,
@@ -90,9 +118,26 @@ export function useMesas() {
     });
   };
 
-  // Funciones de apertura de modales compartidas
+  // Combinar con clientes
+  const mesasConClientes = mesas.map(mesa => {
+    const reservaActiva = reservas.find(r => 
+      r.mesas.includes(mesa.id) && 
+      (
+        (mesa.status.detalle.toLowerCase() === "ocupado" && r.estado === "confirmada") ||
+        (mesa.status.detalle.toLowerCase() === "reservado" && r.estado === "pendiente")
+      )
+    );
+
+    return {
+      ...mesa,
+      cliente: reservaActiva ? reservaActiva.nombre : undefined
+    };
+  });
+
+  // Funciones de apertura de modales
   const openMesaInfo = (mesa: Mesa) => {
-    setSelectedMesa(mesa);
+    const mesaConInfo = mesasConClientes.find(m => m.id === mesa.id) || mesa;
+    setSelectedMesa(mesaConInfo);
     setIsInfoOpen(true);
   };
 
@@ -112,7 +157,7 @@ export function useMesas() {
   };
 
   return {
-    mesas,
+    mesas: mesasConClientes,
     modals: {
       isFormOpen, setIsFormOpen,
       isInfoOpen, setIsInfoOpen,

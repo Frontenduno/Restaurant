@@ -2,7 +2,8 @@
   "tipos": [
     { "id": 1, "detalle": "Platillos" },
     { "id": 2, "detalle": "Bebidas" },
-    { "id": 3, "detalle": "Postres" }
+    { "id": 3, "detalle": "Postres" },
+    { "id": 4, "detalle": "Entradas" }
   ],
   "categorias": [
     { "id": 1, "detalle": "Carnes" },
@@ -153,7 +154,7 @@
       "precio": 16.00,
       "categoria": { "id": 1, "detalle": "Carnes" },
       "subcategoria": { "id": 4, "detalle": "Al carbón" },
-      "tipo": { "id": 1, "detalle": "Platillos" },
+      "tipo": { "id": 4, "detalle": "Entradas" },
       "ingredientes": [
         { "id": 24, "nombre": "corazón", "cantidad": 200, "unidad": "g" },
         { "id": 25, "nombre": "ají panca", "cantidad": 30, "unidad": "g" },
@@ -297,7 +298,7 @@
       "precio": 14.00,
       "categoria": { "id": 1, "detalle": "Carnes" },
       "subcategoria": { "id": 1, "detalle": "Criollas" },
-      "tipo": { "id": 1, "detalle": "Platillos" },
+      "tipo": { "id": 4, "detalle": "Entradas" },
       "ingredientes": [
         { "id": 2, "nombre": "papa", "cantidad": 200, "unidad": "g" },
         { "id": 16, "nombre": "pollo", "cantidad": 100, "unidad": "g" },

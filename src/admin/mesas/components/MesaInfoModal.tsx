@@ -7,7 +7,7 @@ import type { Mesa } from "@/types";
 interface MesaInfoModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mesa: Mesa | null;
+  mesa: (Mesa & { cliente?: string }) | null;
   onEditClick: () => void;
   onDeleteClick: () => void;
 }
@@ -44,7 +44,7 @@ export function MesaInfoModal({ open, onOpenChange, mesa, onEditClick, onDeleteC
         <div className="flex justify-between items-center p-6 pb-2">
           <DialogTitle className="text-2xl font-bold text-[#0b0c2a]">Mesa {mesa.name}</DialogTitle>
           <button onClick={() => onOpenChange(false)} className="text-[#0b0c2a] bg-[#e4e6f1] hover:bg-[#d3d6e5] p-1.5 rounded-xl transition-colors">
-            <X className="w-5 h-5 stroke-[3]" />
+            <X className="w-5 h-5 stroke-3" />
           </button>
         </div>
         
@@ -70,6 +70,18 @@ export function MesaInfoModal({ open, onOpenChange, mesa, onEditClick, onDeleteC
             <InfoField label="Tipo" icon={Package}>
               <SelectMockView value={mesa.shape.detalle.toLowerCase() === 'redonda' ? 'Redonda' : 'Rectangular'} />
             </InfoField>
+
+            {mesa.cliente && (
+              <div className="md:col-span-2 bg-[#EEF2FF] p-4 rounded-xl border border-[#C7D2FE] flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Cliente Actual</p>
+                  <p className="text-lg font-extrabold text-blue-900 italic">👤 {mesa.cliente}</p>
+                </div>
+                <div className="bg-white p-2 rounded-lg shadow-sm">
+                  <span className="text-xs font-bold text-blue-700">Reserva Activa</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex justify-end gap-3 mt-6">

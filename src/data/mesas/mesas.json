@@ -4,7 +4,7 @@
     "name": "Mesa 1", 
     "capacity": 4, 
     "location": { "id": 2, "detalle": "Ventana" }, 
-    "status": { "id": 1, "detalle": "disponible" }, 
+    "status": { "id": 2, "detalle": "ocupado" }, 
     "shape": { "id": 2, "detalle": "Rectangular" } 
   },
   { 
@@ -12,7 +12,7 @@
     "name": "Mesa 2", 
     "capacity": 2, 
     "location": { "id": 1, "detalle": "Interior" }, 
-    "status": { "id": 2, "detalle": "ocupado" }, 
+    "status": { "id": 3, "detalle": "reservado" }, 
     "shape": { "id": 1, "detalle": "Redonda" } 
   },
   { 
@@ -60,7 +60,7 @@
     "name": "Mesa 8", 
     "capacity": 2, 
     "location": { "id": 1, "detalle": "Interior" }, 
-    "status": { "id": 2, "detalle": "ocupado" }, 
+    "status": { "id": 1, "detalle": "disponible" }, 
     "shape": { "id": 1, "detalle": "Redonda" } 
   },
   { 
@@ -68,7 +68,7 @@
     "name": "Mesa 9", 
     "capacity": 4, 
     "location": { "id": 2, "detalle": "Ventana" }, 
-    "status": { "id": 3, "detalle": "reservado" }, 
+    "status": { "id": 1, "detalle": "disponible" }, 
     "shape": { "id": 2, "detalle": "Rectangular" } 
   },
   { 
@@ -76,7 +76,7 @@
     "name": "Mesa 10", 
     "capacity": 4, 
     "location": { "id": 2, "detalle": "Ventana" }, 
-    "status": { "id": 2, "detalle": "ocupado" }, 
+    "status": { "id": 1, "detalle": "disponible" }, 
     "shape": { "id": 2, "detalle": "Rectangular" } 
   }
 ]

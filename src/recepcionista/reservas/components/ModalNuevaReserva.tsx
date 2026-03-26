@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { HOY, HORAS, sugerirMesas } from "../utils/reservasUtils";
@@ -17,6 +18,7 @@ interface ModalNuevaReservaProps {
 export function ModalNuevaReserva({
   open, onOpenChange, form, setForm, errores, mesasDisponibles, getMesas, onGuardar
 }: ModalNuevaReservaProps) {
+  const [advertencia, setAdvertencia] = useState("");
 
   const campo = (key: string, label: string, tipo = "text", placeholder = "") => (
     <div className="flex flex-col gap-1.5 pt-2">
@@ -70,8 +72,14 @@ export function ModalNuevaReserva({
             placeholder="Ej. 6"
             onChange={e => {
               const val = e.target.value;
-              const sugeridas = val ? sugerirMesas(val, mesasFiltradas).map(m => m.id) : [];
+              const disponibles = mesasFiltradas.filter(m => m.status.detalle === "disponible");
+              const sugeridas = val ? sugerirMesas(val, disponibles).map(m => m.id) : [];
               setForm((p: any) => ({ ...p, personas: val, mesas: sugeridas }));
+              if (val && sugeridas.length === 0) {
+                setAdvertencia(`No hay combinación de mesas disponibles en "${form.area}" para ${val} personas.`);
+              } else {
+                setAdvertencia("");
+              }
             }}
             className={`px-3 py-2 rounded-lg text-sm transition-colors outline-none border-[1.5px] ${
               errores.personas ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 bg-gray-50 focus:border-indigo-500'
@@ -88,7 +96,10 @@ export function ModalNuevaReserva({
           </label>
           <Select 
             value={form.area || "Todas"} 
-            onValueChange={(val) => setForm((p: any) => ({ ...p, area: val || "Todas", mesas: [] }))}
+            onValueChange={(val) => {
+              setForm((p: any) => ({ ...p, area: val || "Todas", mesas: [] }));
+              setAdvertencia("");
+            }}
           >
             <SelectTrigger className="w-full bg-white shadow-sm border-gray-200 h-9">
               <SelectValue placeholder="Seleccionar un área" />
@@ -111,7 +122,16 @@ export function ModalNuevaReserva({
             </label>
             {form.personas && (
               <span className="text-[11px] text-[#0D00FF] font-bold cursor-pointer hover:underline"
-                onClick={() => setForm((p: any) => ({ ...p, mesas: sugerirMesas(p.personas, mesasFiltradas).map(m => m.id) }))}>
+                onClick={() => {
+                  const disponibles = mesasFiltradas.filter(m => m.status.detalle === "disponible");
+                  const sugeridas = sugerirMesas(form.personas, disponibles);
+                  if (sugeridas.length === 0) {
+                    setAdvertencia(`No hay combinación de mesas disponibles en "${form.area}" para ${form.personas} personas.`);
+                  } else {
+                    setAdvertencia("");
+                    setForm((p: any) => ({ ...p, mesas: sugeridas.map(m => m.id) }));
+                  }
+                }}>
                 ✨ Auto-sugerir
               </span>
             )}
@@ -126,24 +146,32 @@ export function ModalNuevaReserva({
           <div className="flex flex-wrap gap-2 mt-1 max-h-[140px] overflow-y-auto pr-1">
             {mesasFiltradas.length > 0 ? mesasFiltradas.map(m => {
               const sel = form.mesas.includes(m.id);
+              const ocupada = m.status.detalle === "ocupado";
+              const reservada = m.status.detalle === "reservado";
+              const bloqueada = ocupada || reservada;
               return (
-                <button key={m.id}
-                  onClick={() => setForm((p: any) => ({
-                    ...p,
-                    mesas: sel ? p.mesas.filter((id: number) => id !== m.id) : [...p.mesas, m.id],
-                  }))}
-                  className={`
-                    px-3 py-1.5 rounded-lg text-[11px] font-bold border-[1.5px] transition-all
-                    ${sel ? 'bg-indigo-50 border-[#0D00FF] text-[#0D00FF] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:bg-slate-50'}
-                  `}
+                <div
+                  key={m.id}
+                  onClick={() => {
+                    if (bloqueada) return;
+                    const nuevas = sel ? form.mesas.filter((id: number) => id !== m.id) : [...form.mesas, m.id];
+                    setForm((p: any) => ({ ...p, mesas: nuevas }));
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border-[1.5px] transition-all cursor-pointer ${
+                    bloqueada ? (ocupada ? 'border-blue-500 bg-blue-50 text-blue-700 cursor-not-allowed' : 'border-amber-500 bg-amber-50 text-amber-700 cursor-not-allowed') :
+                    sel ? 'bg-indigo-50 border-[#0D00FF] text-[#0D00FF] shadow-sm' : 'bg-white border-gray-200 text-gray-600 hover:border-indigo-300 hover:bg-slate-50'
+                  }`}
                 >
                   {m.name} <span className="opacity-60 text-[10px] ml-0.5 font-medium">·{m.capacity}p</span>
-                </button>
+                  {ocupada && <span className="ml-1 text-blue-600">🚫</span>}
+                  {reservada && <span className="ml-1 text-orange-600">🚫</span>}
+                </div>
               );
             }) : (
               <span className="text-xs text-gray-400 italic">No hay mesas en esta área.</span>
             )}
           </div>
+          {advertencia && <span className="text-[11px] text-amber-600 font-bold mt-1 block">{advertencia}</span>}
           {errores.mesas && <span className="text-[11px] text-red-500 mt-1">{errores.mesas}</span>}
         </div>
 
