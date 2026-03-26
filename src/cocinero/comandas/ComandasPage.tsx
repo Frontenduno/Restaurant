@@ -1,6 +1,8 @@
 import CocineroHeader from "../components/CocineroHeader";
 import { CalendarArrowUp } from "lucide-react";
 import FiltroComanda from "./components/FiltroComanda";
+import CardComandaPendiente from "./components/CardComandaPendiente";
+import CardComandaEnCocina from "./components/CardComandaEnCocina";
 
 function ComandasPage() {
   return (
@@ -20,6 +22,8 @@ function ComandasPage() {
           <FiltroComanda />
         </div>
       </div>
+      <CardComandaPendiente />
+      <CardComandaEnCocina />
     </div>
   );
 }
