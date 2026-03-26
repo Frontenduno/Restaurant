@@ -71,7 +71,7 @@ export function ReportesPage() {
                 variant="outline"
                 size="sm"
                 onClick={() => setDrawerOpen(true)}
-                className="flex items-center gap-2 h-9 px-4 text-sm font-medium rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-gray-700"
+                className="flex items-center gap-2 h-9 px-4 text-sm font-medium rounded-lg border border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white hover:text-white"
               >
                 <CalendarRange className="w-4 h-4" />
                 Rango de Fechas
