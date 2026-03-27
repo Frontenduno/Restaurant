@@ -1,5 +1,5 @@
 import { UserRound } from "lucide-react";
-import type { comandaDetalle } from "../../types/comanda";
+import type { comandaDetalle } from "../../../types/comanda";
 import { TimerComanda } from "./TimerComanda";
 
 interface CardComandaEnCocinaProps {

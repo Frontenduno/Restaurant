@@ -1,6 +1,6 @@
 import { Search, User, X } from "lucide-react";
 import { useState, useMemo } from "react";
-import type { user } from "../../types";
+import type { user } from "../../../types";
 
 interface TransferirModalProps {
   isOpen: boolean;
