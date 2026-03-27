@@ -1,11 +1,24 @@
 import { useState } from "react";
-import type { comandaDetalle } from "../types/comanda";
+import type { comandaDetalle, user } from "../types";
 import ComandaDetalleData from "../data/Comanda-Detalle-data.json";
+
+const COMPAÑEROS_RECIENTES: user[] = [
+  { id_usuario: 1, nombre: "Chef Alberto García", rol: "Cocinero" },
+  { id_usuario: 2, nombre: "Elena Beltrán", rol: "Cocinero" },
+  { id_usuario: 3, nombre: "Marcos Ruiz", rol: "Cocinero" },
+  { id_usuario: 4, nombre: "Sofía Méndez", rol: "Cocinero" },
+];
 
 export function useComanda() {
   const [comandasDetalle, setComandasDetalle] = useState<comandaDetalle[]>(
     ComandaDetalleData as comandaDetalle[],
   );
+
+  const [comandaSeleccionada, setComandaSeleccionada] = useState<number | null>(
+    null,
+  );
+
+  const [isOpenTransferir, setIsOpenTransferir] = useState(false);
 
   const agruparPorComanda = (detalles: comandaDetalle[]) => {
     const agrupados = detalles.reduce(
@@ -28,8 +41,59 @@ export function useComanda() {
     comandasDetalle.filter((d) => d.id_comanda.estado_comanda === "En Cocina"),
   );
 
+  const seleccionarComanda = (idComanda: number) => {
+    setComandaSeleccionada(idComanda);
+    setIsOpenTransferir(true);
+  };
+
+  const onTransferir = (idNuevoCocinero: number) => {
+    if (comandaSeleccionada)
+      transferirComanda(comandaSeleccionada, idNuevoCocinero);
+
+    setIsOpenTransferir(false);
+    setComandaSeleccionada(null);
+  };
+
+  const transferirComanda = (idComanda: number, idNuevoCocinero: number) => {
+    setComandasDetalle((prevDetalles) => {
+      const nuevoCocinero = COMPAÑEROS_RECIENTES.find(
+        (c) => c.id_usuario === idNuevoCocinero,
+      );
+
+      if (!nuevoCocinero) return prevDetalles;
+
+      // Aquí le decimos explícitamente a TypeScript que el resultado es comandaDetalle[]
+      return prevDetalles.map((item): comandaDetalle => {
+        if (item.id_comanda.id_comanda === idComanda) {
+          return {
+            ...item,
+            id_comanda: {
+              ...item.id_comanda,
+              estado_comanda: "Transferido",
+              id_mesero: {
+                ...item.id_comanda.id_mesero,
+                id_usuario: nuevoCocinero.id_usuario,
+                nombre: nuevoCocinero.nombre,
+              },
+            },
+          };
+        }
+        return item;
+      });
+    });
+
+    setIsOpenTransferir(false);
+  };
+
   return {
     comandaPendientes,
     comandaEnCocina,
+    // Modal Transferir
+    isOpenTransferir,
+    setIsOpenTransferir,
+    // Funciones de transferencia
+    transferirComanda,
+    seleccionarComanda,
+    onTransferir,
   };
 }

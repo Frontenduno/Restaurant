@@ -4,10 +4,20 @@ import { CalendarArrowUp } from "lucide-react";
 import { useComanda } from "./hooks/useComanda";
 import FiltroComanda from "./components/FiltroComanda";
 import ListPendienteComanda from "./components/ComandaPendiente/ListPendienteComanda";
+import ListEnCocinaComanda from "./components/ComandaEnCocina/ListEnCocinaComanda";
+import TransferirModal from "./components/ComandaPendiente/TransferirModal";
 
 function ComandasPage() {
-  const { comandaPendientes, comandaEnCocina } = useComanda();
+  const {
+    comandaPendientes,
+    comandaEnCocina,
+    isOpenTransferir,
+    setIsOpenTransferir,
+    seleccionarComanda,
+    onTransferir,
+  } = useComanda();
   const [activeTab, setActiveTab] = useState("pendientes");
+
   return (
     <div>
       <CocineroHeader title="Comandas" icon={CalendarArrowUp} />
@@ -31,10 +41,20 @@ function ComandasPage() {
         </div>
       </div>
       {activeTab === "pendientes" ? (
-        <ListPendienteComanda comandas={comandaPendientes} />
+        <ListPendienteComanda
+          comandas={comandaPendientes}
+          onTransferir={seleccionarComanda}
+        />
       ) : (
-        <div>En Cocina</div>
+        <ListEnCocinaComanda comandas={comandaEnCocina} />
       )}
+
+      {/* Modal Transferir */}
+      <TransferirModal
+        isOpen={isOpenTransferir}
+        onClose={() => setIsOpenTransferir(false)}
+        onTransferir={onTransferir}
+      />
     </div>
   );
 }

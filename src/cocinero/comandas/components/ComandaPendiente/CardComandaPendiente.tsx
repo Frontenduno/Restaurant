@@ -11,7 +11,7 @@ interface CardComandaPendienteProps {
   comanda: comandaDetalle;
   comandaDetalles: comandaDetalle[];
   onAceptar?: () => void;
-  onTransferir?: () => void;
+  onTransferir: () => void;
 }
 
 function CardComandaPendiente({
@@ -104,7 +104,7 @@ function CardComandaPendiente({
             Aceptar
           </button>
           <button
-            onClick={onTransferir}
+            onClick={() => onTransferir()}
             className="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-bold py-3 px-2 rounded-full transition duration-150 active:scale-[0.95]"
           >
             Transferir

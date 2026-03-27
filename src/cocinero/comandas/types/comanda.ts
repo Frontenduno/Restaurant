@@ -1,7 +1,12 @@
 import type { menu } from "./menu";
 import type { user } from "./user";
 
-type estadoComanda = "Pendiente" | "En Cocina" | "Listo";
+type estadoComanda =
+  | "Pendiente"
+  | "En Cocina"
+  | "Listo"
+  | "Cancelada"
+  | "Transferido";
 export interface comanda {
   id_comanda: number;
   id_mesa: number;
