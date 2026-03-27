@@ -13,9 +13,9 @@ export interface comanda {
 export interface comandaDetalle {
   id_detalle: number;
   id_comanda: comanda;
-  id_menu: menu[];
+  id_menu: menu;
   cantidad: number;
-  observaciones: string;
+  observaciones?: string;
 }
 
 export interface historialComanda {

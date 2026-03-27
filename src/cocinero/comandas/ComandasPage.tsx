@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CocineroHeader from "../components/CocineroHeader";
 import { CalendarArrowUp } from "lucide-react";
 import { useComanda } from "./hooks/useComanda";
@@ -5,8 +6,8 @@ import FiltroComanda from "./components/FiltroComanda";
 import ListPendienteComanda from "./components/ComandaPendiente/ListPendienteComanda";
 
 function ComandasPage() {
-  const { comandaPendientes } = useComanda();
-
+  const { comandaPendientes, comandaEnCocina } = useComanda();
+  const [activeTab, setActiveTab] = useState("pendientes");
   return (
     <div>
       <CocineroHeader title="Comandas" icon={CalendarArrowUp} />
@@ -21,10 +22,19 @@ function ComandasPage() {
         </div>
 
         <div>
-          <FiltroComanda />
+          <FiltroComanda
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            countPendientes={comandaPendientes.length}
+            countCocina={comandaEnCocina.length}
+          />
         </div>
       </div>
-      <ListPendienteComanda comandas={comandaPendientes} />
+      {activeTab === "pendientes" ? (
+        <ListPendienteComanda comandas={comandaPendientes} />
+      ) : (
+        <div>En Cocina</div>
+      )}
     </div>
   );
 }

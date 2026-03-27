@@ -1,18 +1,31 @@
 import { useState } from "react";
 import type { comandaDetalle } from "../types/comanda";
-import ComandaData from "../data/comandaDetalle-data.json";
+import ComandaDetalleData from "../data/Comanda-Detalle-data.json";
 
 export function useComanda() {
   const [comandasDetalle, setComandasDetalle] = useState<comandaDetalle[]>(
-    ComandaData as comandaDetalle[],
+    ComandaDetalleData as comandaDetalle[],
   );
 
-  const comandaPendientes = comandasDetalle.filter(
-    (comanda) => comanda.id_comanda.estado_comanda === "Pendiente",
+  const agruparPorComanda = (detalles: comandaDetalle[]) => {
+    const agrupados = detalles.reduce(
+      (acc: Record<number, comandaDetalle[]>, item) => {
+        const id = item.id_comanda.id_comanda;
+        if (!acc[id]) acc[id] = [];
+        acc[id].push(item);
+        return acc;
+      },
+      {},
+    );
+    return Object.values(agrupados);
+  };
+
+  const comandaPendientes = agruparPorComanda(
+    comandasDetalle.filter((d) => d.id_comanda.estado_comanda === "Pendiente"),
   );
 
-  const comandaEnCocina = comandasDetalle.filter(
-    (comanda) => comanda.id_comanda.estado_comanda === "En Cocina",
+  const comandaEnCocina = agruparPorComanda(
+    comandasDetalle.filter((d) => d.id_comanda.estado_comanda === "En Cocina"),
   );
 
   return {
