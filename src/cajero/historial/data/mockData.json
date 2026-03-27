@@ -1,0 +1,204 @@
+{
+  "metricas": {
+    "totalCobrado": 1308.36,
+    "pedidosAtendidos": 12,
+    "montoInicial": 500.00,
+    "totalEnCaja": 1808.36,
+    "turno": {
+      "horaApertura": "08:00",
+      "horaCierre": "16:45"
+    }
+  },
+  "ingresosPorHora": [
+    { "hora": 7, "monto": 25.50 },
+    { "hora": 8, "monto": 45.00 },
+    { "hora": 9, "monto": 35.20 },
+    { "hora": 10, "monto": 60.80 },
+    { "hora": 11, "monto": 148.68 },
+    { "hora": 12, "monto": 185.40 },
+    { "hora": 13, "monto": 222.28 },
+    { "hora": 14, "monto": 190.50 },
+    { "hora": 15, "monto": 115.00 },
+    { "hora": 16, "monto": 90.00 },
+    { "hora": 17, "monto": 120.00 },
+    { "hora": 18, "monto": 70.00 }
+  ],
+  "gruposHistorial": [
+    {
+      "periodo": "Tarde",
+      "rangoHorario": "12:00 - 18:00",
+      "subtotal": 853.18,
+      "comprobantes": [
+        {
+          "id": "c-001",
+          "mesa": "Mesa 1",
+          "cantPlatos": 2,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Carlos M.",
+          "total": 122.72,
+          "hora": "13:48",
+          "periodo": "Tarde",
+          "rangoHorario": "12:00 - 18:00",
+          "items": [
+            { "id": 1, "nombre": "Lomo Saltado", "nota": "Sin cebolla", "cantidad": 2, "precio": 42.00 },
+            { "id": 2, "nombre": "Chicha Morada", "cantidad": 2, "precio": 10.00 }
+          ]
+        },
+        {
+          "id": "c-002",
+          "mesa": "Mesa 2",
+          "cantPlatos": 3,
+          "tipoDocumento": "Factura",
+          "cliente": "Inversiones XYZ SAC",
+          "mesero": "Ana R.",
+          "total": 99.56,
+          "hora": "13:05",
+          "periodo": "Tarde",
+          "rangoHorario": "12:00 - 18:00",
+          "items": [
+            { "id": 1, "nombre": "Ceviche Mixto", "cantidad": 2, "precio": 35.00 },
+            { "id": 2, "nombre": "Arroz con Mariscos", "cantidad": 1, "precio": 29.56 }
+          ]
+        },
+        {
+          "id": "c-003",
+          "mesa": "Mesa 3",
+          "cantPlatos": 2,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Pedro G.",
+          "total": 75.40,
+          "hora": "12:20",
+          "periodo": "Tarde",
+          "rangoHorario": "12:00 - 18:00",
+          "items": [
+            { "id": 1, "nombre": "Ají de Gallina", "cantidad": 2, "precio": 28.00 },
+            { "id": 2, "nombre": "Limonada", "nota": "Sin azúcar", "cantidad": 2, "precio": 9.70 }
+          ]
+        },
+        {
+          "id": "c-006",
+          "mesa": "Mesa 5",
+          "cantPlatos": 4,
+          "tipoDocumento": "Factura",
+          "cliente": "Gastro Peru S.A.",
+          "mesero": "Ana R.",
+          "total": 245.50,
+          "hora": "14:15",
+          "periodo": "Tarde",
+          "rangoHorario": "12:00 - 18:00",
+          "items": [
+            { "id": 1, "nombre": "Pollo a la Brasa", "cantidad": 2, "precio": 45.00 },
+            { "id": 2, "nombre": "Pisco Sour", "cantidad": 4, "precio": 25.00 },
+            { "id": 3, "nombre": "Tequeños", "cantidad": 1, "precio": 15.50 }
+          ]
+        },
+        {
+          "id": "c-007",
+          "mesa": "Mesa 10",
+          "cantPlatos": 3,
+          "tipoDocumento": "Boleta",
+          "cliente": "Juan Pérez",
+          "mesero": "Carlos M.",
+          "total": 310.00,
+          "hora": "15:30",
+          "periodo": "Tarde",
+          "rangoHorario": "12:00 - 18:00",
+          "items": [
+            { "id": 1, "nombre": "Parrillada Familiar", "cantidad": 1, "precio": 220.00 },
+            { "id": 2, "nombre": "Inca Kola 2L", "cantidad": 2, "precio": 15.00 },
+            { "id": 3, "nombre": "Helado de Vainilla", "cantidad": 3, "precio": 20.00 }
+          ]
+        }
+      ]
+    },
+    {
+      "periodo": "Mañana",
+      "rangoHorario": "07:00 - 11:59",
+      "subtotal": 455.18,
+      "comprobantes": [
+        {
+          "id": "c-004",
+          "mesa": "Mesa 6",
+          "cantPlatos": 2,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Luis T.",
+          "total": 106.20,
+          "hora": "11:50",
+          "periodo": "Mañana",
+          "rangoHorario": "07:00 - 11:59",
+          "items": [
+            { "id": 1, "nombre": "Tacu Tacu con Lomo", "cantidad": 2, "precio": 38.00 },
+            { "id": 2, "nombre": "Jugo de Papaya", "cantidad": 2, "precio": 15.10 }
+          ]
+        },
+        {
+          "id": "c-005",
+          "mesa": "Mesa 8",
+          "cantPlatos": 2,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Carlos M.",
+          "total": 42.48,
+          "hora": "11:15",
+          "periodo": "Mañana",
+          "rangoHorario": "07:00 - 11:59",
+          "items": [
+            { "id": 1, "nombre": "Pan con Chicharrón", "cantidad": 2, "precio": 15.00 },
+            { "id": 2, "nombre": "Café Pasado", "cantidad": 2, "precio": 6.24 }
+          ]
+        },
+        {
+          "id": "c-008",
+          "mesa": "Mesa 4",
+          "cantPlatos": 2,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Luis T.",
+          "total": 85.50,
+          "hora": "09:30",
+          "periodo": "Mañana",
+          "rangoHorario": "07:00 - 11:59",
+          "items": [
+            { "id": 1, "nombre": "Desayuno Americano", "cantidad": 2, "precio": 35.00 },
+            { "id": 2, "nombre": "Omelette Especial", "cantidad": 1, "precio": 15.50 }
+          ]
+        },
+        {
+          "id": "c-009",
+          "mesa": "Mesa 7",
+          "cantPlatos": 3,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Carlos M.",
+          "total": 135.00,
+          "hora": "10:15",
+          "periodo": "Mañana",
+          "rangoHorario": "07:00 - 11:59",
+          "items": [
+            { "id": 1, "nombre": "Tamales Chinchanos", "cantidad": 3, "precio": 25.00 },
+            { "id": 2, "nombre": "Chocolate Caliente", "cantidad": 3, "precio": 20.00 }
+          ]
+        },
+        {
+          "id": "c-010",
+          "mesa": "Mesa 9",
+          "cantPlatos": 1,
+          "tipoDocumento": "Boleta",
+          "cliente": "Consumidor Final",
+          "mesero": "Pedro G.",
+          "total": 86.00,
+          "hora": "08:45",
+          "periodo": "Mañana",
+          "rangoHorario": "07:00 - 11:59",
+          "items": [
+            { "id": 1, "nombre": "Sándwich de Pavo", "cantidad": 2, "precio": 30.00 },
+            { "id": 2, "nombre": "Jugo Surtido", "cantidad": 2, "precio": 13.00 }
+          ]
+        }
+      ]
+    }
+  ]
+}
