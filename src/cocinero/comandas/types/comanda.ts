@@ -1,3 +1,6 @@
+import type { menu } from "./menu";
+import type { user } from "./user";
+
 type estadoComanda = "Pendiente" | "En Cocina" | "Listo";
 export interface comanda {
   id_comanda: number;
@@ -9,15 +12,15 @@ export interface comanda {
 
 export interface comandaDetalle {
   id_detalle: number;
-  id_comanda: number;
-  id_menu: number;
+  id_comanda: comanda;
+  id_menu: menu;
   cantidad: number;
   observaciones: string;
 }
 
 export interface historialComanda {
   id_historial: number;
-  id_comanda: number;
-  id_cocinero: number;
+  id_comanda: comanda;
+  id_cocinero: user;
   fecha_preparado: string;
 }

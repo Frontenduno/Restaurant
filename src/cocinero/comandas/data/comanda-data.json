@@ -1,0 +1,75 @@
+{
+  "comandas": [
+    {
+      "id_comanda": 1,
+      "id_mesa": 4,
+      "id_mesero": 10,
+      "fecha": "2026-03-26T14:30:00",
+      "estado": "En Cocina"
+    }
+  ],
+  "comandaDetalles": [
+    {
+      "id_detalle": 101,
+      "id_comanda": {
+        "id_comanda": 1,
+        "id_mesa": 4,
+        "id_mesero": 10,
+        "fecha": "2026-03-26T14:30:00",
+        "estado": "En Cocina"
+      },
+      "id_menu": {
+        "id_menu": 5,
+        "nombre": "Aji de Gallina",
+        "descripcion": "Clásico con crema de ají amarillo y arroz",
+        "precio": 28.5,
+        "tipo": "Plato",
+        "categoria": "Fondo",
+        "imagen": "aji_gallina.jpg",
+        "estado": true
+      },
+      "cantidad": 2,
+      "observaciones": "Sin aceitunas"
+    },
+    {
+      "id_detalle": 102,
+      "id_comanda": {
+        "id_comanda": 1,
+        "id_mesa": 4,
+        "id_mesero": 10,
+        "fecha": "2026-03-26T14:30:00",
+        "estado": "En Cocina"
+      },
+      "id_menu": {
+        "id_menu": 20,
+        "nombre": "Inca Kola 500ml",
+        "descripcion": "Gaseosa personal",
+        "precio": 6.0,
+        "tipo": "Bebida",
+        "categoria": "Gaseosas",
+        "imagen": "inca_kola.jpg",
+        "estado": true
+      },
+      "cantidad": 1,
+      "observaciones": "Helada"
+    }
+  ],
+  "historialComandas": [
+    {
+      "id_historial": 1,
+      "id_comanda": {
+        "id_comanda": 1,
+        "id_mesa": 4,
+        "id_mesero": 10,
+        "fecha": "2026-03-26T14:30:00",
+        "estado": "Listo"
+      },
+      "id_cocinero": {
+        "id_usuario": 50,
+        "nombre": "Leandro",
+        "rol": "Cocinero"
+      },
+      "fecha_preparado": "2026-03-26T15:05:00"
+    }
+  ]
+}
