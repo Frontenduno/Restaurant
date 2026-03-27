@@ -9,7 +9,6 @@ import DeleteInsumoModal from "./components/Insumo/DeleteInsumoModal";
 import FormCategoria from "./components/Categoria/FormCategoria";
 
 export function InventarioPage() {
-  // Ahora useInventario internamente consume useInsumos y useCategorias
   const {
     // Datos y Filtros
     insumos,

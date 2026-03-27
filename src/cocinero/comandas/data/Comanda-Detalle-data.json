@@ -1,0 +1,281 @@
+[
+  {
+    "id_detalle": 201,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 1, "nombre": "Lomo Saltado", "tipo": "Plato" },
+    "cantidad": 2,
+    "observaciones": "Término medio, con bastante jugo"
+  },
+  {
+    "id_detalle": 202,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": {
+      "id_menu": 40,
+      "nombre": "Ceviche de Pescado",
+      "tipo": "Plato"
+    },
+    "cantidad": 1,
+    "observaciones": "Sin picante para niño"
+  },
+  {
+    "id_detalle": 203,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 5, "nombre": "Ají de Gallina", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 204,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": {
+      "id_menu": 15,
+      "nombre": "Papa a la Huancaina",
+      "tipo": "Entrada"
+    },
+    "cantidad": 2,
+    "observaciones": "Extra salsa"
+  },
+  {
+    "id_detalle": 205,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 60, "nombre": "Anticuchos", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": "Bien cocidos"
+  },
+  {
+    "id_detalle": 206,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 80, "nombre": "Tacu Tacu", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 207,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 70, "nombre": "Causa Limeña", "tipo": "Entrada" },
+    "cantidad": 3,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 208,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": {
+      "id_menu": 110,
+      "nombre": "Leche de Tigre",
+      "tipo": "Entrada"
+    },
+    "cantidad": 1,
+    "observaciones": "Cero picante"
+  },
+  {
+    "id_detalle": 209,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": {
+      "id_menu": 51,
+      "nombre": "Chicha Morada Jarra",
+      "tipo": "Bebida"
+    },
+    "cantidad": 1,
+    "observaciones": "Con bastante hielo"
+  },
+  {
+    "id_detalle": 210,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 20, "nombre": "Inca Kola 500ml", "tipo": "Bebida" },
+    "cantidad": 2,
+    "observaciones": "Al polo"
+  },
+  {
+    "id_detalle": 211,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": { "id_menu": 61, "nombre": "Picarones", "tipo": "Postre" },
+    "cantidad": 2,
+    "observaciones": "Con extra miel"
+  },
+  {
+    "id_detalle": 212,
+    "id_comanda": {
+      "id_comanda": 15,
+      "id_mesa": 5,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:30:00Z"
+    },
+    "id_menu": {
+      "id_menu": 101,
+      "nombre": "Ensalada Fresca",
+      "tipo": "Entrada"
+    },
+    "cantidad": 1,
+    "observaciones": "Sin vinagreta"
+  },
+  {
+    "id_detalle": 301,
+    "id_comanda": {
+      "id_comanda": 20,
+      "id_mesa": 12,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Carlos Mesero" },
+      "fecha": "2026-03-27T14:40:00Z"
+    },
+    "id_menu": { "id_menu": 1, "nombre": "Lomo Saltado", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": "Sin cebolla"
+  },
+  {
+    "id_detalle": 302,
+    "id_comanda": {
+      "id_comanda": 20,
+      "id_mesa": 12,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Carlos Mesero" },
+      "fecha": "2026-03-27T14:40:00Z"
+    },
+    "id_menu": { "id_menu": 20, "nombre": "Inca Kola 500ml", "tipo": "Bebida" },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 303,
+    "id_comanda": {
+      "id_comanda": 21,
+      "id_mesa": 3,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Juan Pérez" },
+      "fecha": "2026-03-27T14:42:00Z"
+    },
+    "id_menu": {
+      "id_menu": 40,
+      "nombre": "Ceviche de Pescado",
+      "tipo": "Plato"
+    },
+    "cantidad": 2,
+    "observaciones": "Picante"
+  },
+  {
+    "id_detalle": 304,
+    "id_comanda": {
+      "id_comanda": 21,
+      "id_mesa": 3,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Juan Pérez" },
+      "fecha": "2026-03-27T14:42:00Z"
+    },
+    "id_menu": { "id_menu": 25, "nombre": "Pisco Sour", "tipo": "Bebida" },
+    "cantidad": 2,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 305,
+    "id_comanda": {
+      "id_comanda": 21,
+      "id_mesa": 3,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Juan Pérez" },
+      "fecha": "2026-03-27T14:42:00Z"
+    },
+    "id_menu": {
+      "id_menu": 15,
+      "nombre": "Papa a la Huancaina",
+      "tipo": "Entrada"
+    },
+    "cantidad": 1,
+    "observaciones": "Poca crema"
+  },
+  {
+    "id_detalle": 306,
+    "id_comanda": {
+      "id_comanda": 22,
+      "id_mesa": 1,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:45:00Z"
+    },
+    "id_menu": { "id_menu": 5, "nombre": "Ají de Gallina", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 307,
+    "id_comanda": {
+      "id_comanda": 22,
+      "id_mesa": 1,
+      "estado_comanda": "Pendiente",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T14:45:00Z"
+    },
+    "id_menu": {
+      "id_menu": 51,
+      "nombre": "Chicha Morada Vaso",
+      "tipo": "Bebida"
+    },
+    "cantidad": 1,
+    "observaciones": "Sin hielo"
+  }
+]
