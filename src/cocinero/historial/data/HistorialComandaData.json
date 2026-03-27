@@ -1,0 +1,54 @@
+[
+  {
+    "id_detalle": 501,
+    "id_comanda": {
+      "id_comanda": 30,
+      "id_mesa": 8,
+      "estado_comanda": "Listo",
+      "id_mesero": { "nombre": "Ricardo T." },
+      "fecha": "2026-03-27T15:10:00Z"
+    },
+    "id_menu": { "id_menu": 102, "nombre": "Arroz con Pato", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": "Presa grande, por favor"
+  },
+  {
+    "id_detalle": 601,
+    "id_comanda": {
+      "id_comanda": 31,
+      "id_mesa": 14,
+      "estado_comanda": "Cancelado",
+      "id_mesero": { "nombre": "Sofía L." },
+      "fecha": "2026-03-27T15:15:00Z"
+    },
+    "id_menu": { "id_menu": 90, "nombre": "Pollo a la Brasa", "tipo": "Plato" },
+    "cantidad": 2,
+    "observaciones": "Con todas las cremas"
+  },
+  {
+    "id_detalle": 701,
+    "id_comanda": {
+      "id_comanda": 32,
+      "id_mesa": 2,
+      "estado_comanda": "Listo",
+      "id_mesero": { "nombre": "Marcos R." },
+      "fecha": "2026-03-27T15:25:00Z"
+    },
+    "id_menu": { "id_menu": 12, "nombre": "Seco de Res", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": "Extra arroz"
+  },
+  {
+    "id_detalle": 801,
+    "id_comanda": {
+      "id_comanda": 33,
+      "id_mesa": 20,
+      "estado_comanda": "Cancelado",
+      "id_mesero": { "nombre": "Ana Salas" },
+      "fecha": "2026-03-27T15:40:00Z"
+    },
+    "id_menu": { "id_menu": 45, "nombre": "Jalea Mixta", "tipo": "Plato" },
+    "cantidad": 1,
+    "observaciones": "Para compartir"
+  }
+]

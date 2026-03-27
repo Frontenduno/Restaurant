@@ -5,7 +5,7 @@ type estadoComanda =
   | "Pendiente"
   | "En Cocina"
   | "Listo"
-  | "Cancelada"
+  | "Cancelado"
   | "Transferido";
 export interface comanda {
   id_comanda: number;
