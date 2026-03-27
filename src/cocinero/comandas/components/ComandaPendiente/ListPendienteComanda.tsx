@@ -1,4 +1,4 @@
-import type { comandaDetalle } from "../../types";
+import type { comandaDetalle } from "../../../types";
 import CardComandaPendiente from "./CardComandaPendiente";
 
 interface Props {

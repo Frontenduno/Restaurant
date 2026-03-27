@@ -6,7 +6,7 @@ import FiltroComanda from "./components/FiltroComanda";
 import ListPendienteComanda from "./components/ComandaPendiente/ListPendienteComanda";
 import ListEnCocinaComanda from "./components/ComandaEnCocina/ListEnCocinaComanda";
 import TransferirModal from "./components/ComandaPendiente/TransferirModal";
-import ModalDetalleComanda from "./components/ModalComandaDetalle";
+import ModalDetalleComanda from "../components/ModalComandaDetalle";
 
 function ComandasPage() {
   const {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { comandaDetalle, user } from "../types";
+import type { comandaDetalle, user } from "../../types";
 import ComandaDetalleData from "../data/Comanda-Detalle-data.json";
 
 const COMPAÑEROS_RECIENTES: user[] = [
