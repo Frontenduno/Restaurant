@@ -6,6 +6,7 @@ import FiltroComanda from "./components/FiltroComanda";
 import ListPendienteComanda from "./components/ComandaPendiente/ListPendienteComanda";
 import ListEnCocinaComanda from "./components/ComandaEnCocina/ListEnCocinaComanda";
 import TransferirModal from "./components/ComandaPendiente/TransferirModal";
+import ModalDetalleComanda from "./components/ModalComandaDetalle";
 
 function ComandasPage() {
   const {
@@ -15,6 +16,12 @@ function ComandasPage() {
     setIsOpenTransferir,
     seleccionarComanda,
     onTransferir,
+    onAceptar,
+    obtenerDetallesPorId,
+    seleccionarParaVerDetalle,
+    isOpenDetalle,
+    setIsOpenDetalle,
+    comandaSeleccionada,
   } = useComanda();
   const [activeTab, setActiveTab] = useState("pendientes");
 
@@ -43,10 +50,14 @@ function ComandasPage() {
       {activeTab === "pendientes" ? (
         <ListPendienteComanda
           comandas={comandaPendientes}
+          onAceptar={onAceptar}
           onTransferir={seleccionarComanda}
         />
       ) : (
-        <ListEnCocinaComanda comandas={comandaEnCocina} />
+        <ListEnCocinaComanda
+          comandas={comandaEnCocina}
+          onVerDetalle={seleccionarParaVerDetalle}
+        />
       )}
 
       {/* Modal Transferir */}
@@ -55,6 +66,15 @@ function ComandasPage() {
         onClose={() => setIsOpenTransferir(false)}
         onTransferir={onTransferir}
       />
+
+      {/* Modal Detalle */}
+      {isOpenDetalle && comandaSeleccionada !== null && (
+        <ModalDetalleComanda
+          isOpen={isOpenDetalle}
+          onClose={() => setIsOpenDetalle(false)}
+          detalles={obtenerDetallesPorId(comandaSeleccionada)}
+        />
+      )}
     </div>
   );
 }

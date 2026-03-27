@@ -1,5 +1,5 @@
 import { UserRound } from "lucide-react";
-import type { comanda, comandaDetalle } from "../../types/comanda";
+import type { comandaDetalle } from "../../types/comanda";
 
 const statusColors = {
   Pendiente: "bg-blue-100 text-blue-700",
@@ -10,7 +10,7 @@ const statusColors = {
 interface CardComandaPendienteProps {
   comanda: comandaDetalle;
   comandaDetalles: comandaDetalle[];
-  onAceptar?: () => void;
+  onAceptar: () => void;
   onTransferir: () => void;
 }
 
@@ -48,9 +48,11 @@ function CardComandaPendiente({
     "bg-gray-100 text-gray-700";
 
   return (
-    <div className="w-[320px] bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-300 font-sans">
-      <div className="p-5">
-        {/* Fila superior: Mesa, Estado e ID */}
+    /* Quitamos min-h fijo. h-full permite que la card se estire según el grid */
+    <div className="w-[320px] h-full flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-300 font-sans">
+      {/* flex-1 aquí es la clave: empuja los botones hacia abajo */}
+      <div className="p-5 flex flex-col flex-1">
+        {/* Header (Mesa, Estado, ID) */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-extrabold text-slate-950 tracking-tight">
@@ -65,24 +67,22 @@ function CardComandaPendiente({
           <span className="text-xs font-bold text-slate-400">#{idPedido}</span>
         </div>
 
-        {/* Información del Mesero */}
+        {/* Mesero */}
         <div className="flex items-center gap-2.5 text-slate-600 mb-4">
           <UserRound className="w-5 h-5 stroke-[1.5]" />
           <span className="text-sm font-medium">
-            Mesero : {id_mesero.nombre}
+            Mesero: {id_mesero.nombre}
           </span>
         </div>
 
-        {/* Tipo de Menu y cantidad */}
-        <div className="flex items-center flex-wrap gap-2 mb-4">
+        {/* Resumen de platos (Contenido variable) */}
+        <div className="flex items-center flex-wrap gap-x-2 gap-y-1 mb-4">
           {resumenTipos.map((item, index) => (
             <div key={index} className="flex items-center gap-2">
-              {/* El texto: "4 Platos" */}
               <p className="text-sm font-bold text-slate-500">
-                {item.cantidad} {item.tipo}s
+                {item.cantidad} {item.tipo}
+                {item.cantidad > 1 ? "s" : ""}
               </p>
-
-              {/* Si no es el último elemento, dibujamos el punto separador */}
               {index < resumenTipos.length - 1 && (
                 <span className="text-slate-400 text-xs">•</span>
               )}
@@ -90,22 +90,24 @@ function CardComandaPendiente({
           ))}
         </div>
 
-        {/* Mensaje */}
-        <div className="text-sm text-slate-500 mb-4">
-          <p>Esperando Aprobacion...</p>
+        {/* Espaciador flexible: Este div crecerá para llenar el hueco */}
+        <div className="flex-1 min-h-[20px]">
+          <p className="text-sm text-slate-400 italic">
+            Esperando Aprobación...
+          </p>
         </div>
 
-        {/* Botones de Acción */}
-        <div className="grid grid-cols-2 gap-3 mt-auto">
+        {/* Botones: Siempre pegados abajo */}
+        <div className="grid grid-cols-2 gap-3 mt-4 pt-2">
           <button
             onClick={onAceptar}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-3 px-2 rounded-full transition duration-150 shadow-md active:scale-[0.95]"
+            className="w-full bg-[#1A73E8] hover:bg-[#1557B0] text-white text-sm font-bold py-3.5 rounded-full transition-all shadow-md active:scale-[0.95]"
           >
             Aceptar
           </button>
           <button
-            onClick={() => onTransferir()}
-            className="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm font-bold py-3 px-2 rounded-full transition duration-150 active:scale-[0.95]"
+            onClick={onTransferir}
+            className="w-full bg-[#F1F3F4] hover:bg-[#E8EAED] text-[#5F6368] text-sm font-bold py-3.5 rounded-full transition-all active:scale-[0.95] border border-[#E0E0E0]/50"
           >
             Transferir
           </button>

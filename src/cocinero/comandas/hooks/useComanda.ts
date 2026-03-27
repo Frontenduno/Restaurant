@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { comandaDetalle, user } from "../types";
 import ComandaDetalleData from "../data/Comanda-Detalle-data.json";
+import { set } from "zod";
 
 const COMPAÑEROS_RECIENTES: user[] = [
   { id_usuario: 1, nombre: "Chef Alberto García", rol: "Cocinero" },
@@ -19,6 +20,7 @@ export function useComanda() {
   );
 
   const [isOpenTransferir, setIsOpenTransferir] = useState(false);
+  const [isOpenDetalle, setIsOpenDetalle] = useState(false);
 
   const agruparPorComanda = (detalles: comandaDetalle[]) => {
     const agrupados = detalles.reduce(
@@ -40,6 +42,24 @@ export function useComanda() {
   const comandaEnCocina = agruparPorComanda(
     comandasDetalle.filter((d) => d.id_comanda.estado_comanda === "En Cocina"),
   );
+
+  const onAceptar = (idComanda: number) => {
+    setComandasDetalle((prevDetalles) =>
+      prevDetalles.map((item): comandaDetalle => {
+        if (item.id_comanda.id_comanda === idComanda) {
+          return {
+            ...item,
+            id_comanda: {
+              ...item.id_comanda,
+              estado_comanda: "En Cocina",
+              fecha: new Date().toISOString(),
+            },
+          };
+        }
+        return item;
+      }),
+    );
+  };
 
   const seleccionarComanda = (idComanda: number) => {
     setComandaSeleccionada(idComanda);
@@ -85,6 +105,14 @@ export function useComanda() {
     setIsOpenTransferir(false);
   };
 
+  const obtenerDetallesPorId = (idComanda: number): comandaDetalle[] => {
+    return comandasDetalle.filter((d) => d.id_comanda.id_comanda === idComanda);
+  };
+  const seleccionarParaVerDetalle = (idComanda: number) => {
+    setComandaSeleccionada(idComanda);
+    setIsOpenDetalle(true);
+  };
+
   return {
     comandaPendientes,
     comandaEnCocina,
@@ -95,5 +123,13 @@ export function useComanda() {
     transferirComanda,
     seleccionarComanda,
     onTransferir,
+    // Funciones de aceptar comanda
+    onAceptar,
+    // Detalle Modal
+    obtenerDetallesPorId,
+    seleccionarParaVerDetalle,
+    isOpenDetalle,
+    setIsOpenDetalle,
+    comandaSeleccionada,
   };
 }
