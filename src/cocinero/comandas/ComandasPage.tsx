@@ -1,10 +1,12 @@
 import CocineroHeader from "../components/CocineroHeader";
 import { CalendarArrowUp } from "lucide-react";
+import { useComanda } from "./hooks/useComanda";
 import FiltroComanda from "./components/FiltroComanda";
-import CardComandaPendiente from "./components/CardComandaPendiente";
-import CardComandaEnCocina from "./components/CardComandaEnCocina";
+import ListPendienteComanda from "./components/ComandaPendiente/ListPendienteComanda";
 
 function ComandasPage() {
+  const { comandaPendientes } = useComanda();
+
   return (
     <div>
       <CocineroHeader title="Comandas" icon={CalendarArrowUp} />
@@ -22,8 +24,7 @@ function ComandasPage() {
           <FiltroComanda />
         </div>
       </div>
-      <CardComandaPendiente />
-      <CardComandaEnCocina />
+      <ListPendienteComanda comandas={comandaPendientes} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ export interface comanda {
   id_mesa: number;
   id_mesero: number;
   fecha: string;
-  estado: estadoComanda;
+  estado_comanda: estadoComanda;
 }
 
 export interface comandaDetalle {

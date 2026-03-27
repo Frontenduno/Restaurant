@@ -8,5 +8,5 @@ export interface menu {
   tipo: tipoMenu;
   categoria: string;
   imagen: string;
-  estado: boolean;
+  estado_menu: boolean;
 }
