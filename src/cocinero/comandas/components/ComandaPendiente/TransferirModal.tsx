@@ -1,5 +1,5 @@
 import { Search, User, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import type { user } from "../../types";
 
 interface TransferirModalProps {
@@ -20,7 +20,14 @@ export default function TransferirModal({
   onClose,
   onTransferir,
 }: TransferirModalProps) {
-  const [selectedId, setSelectedId] = useState<number | null>(1); // Alberto por defecto como en tu imagen
+  const [selectedId, setSelectedId] = useState<number | null>(1);
+  const [searchTerm, setSearchTerm] = useState(""); // 1. Estado para el buscador
+
+  const compañerosFiltrados = useMemo(() => {
+    return COMPAÑEROS_RECIENTES.filter((companero) =>
+      companero.nombre.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [searchTerm]);
 
   if (!isOpen) return null;
 
@@ -49,6 +56,8 @@ export default function TransferirModal({
           <input
             type="text"
             placeholder="Buscar compañero cocinero..."
+            value={searchTerm} // 3. Controlamos el input
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-slate-50 border-none rounded-2xl py-3 pl-12 pr-4 text-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
           />
         </div>
@@ -56,46 +65,56 @@ export default function TransferirModal({
         {/* Lista de Compañeros */}
         <div className="space-y-3 mb-8">
           <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-4">
-            Compañeros Recientes
+            {searchTerm ? "Resultados de búsqueda" : "Compañeros Recientes"}
           </h3>
 
           <div className="max-h-[300px] overflow-y-auto pr-1 space-y-3">
-            {COMPAÑEROS_RECIENTES.map((chef) => (
-              <div
-                key={chef.id_usuario}
-                onClick={() => setSelectedId(chef.id_usuario)}
-                className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${
-                  selectedId === chef.id_usuario
-                    ? "border-blue-500 bg-blue-50/30"
-                    : "border-slate-100 hover:border-slate-200"
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                    <User className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">{chef.nombre}</h4>
-                    <p className="text-sm text-slate-400 font-medium">
-                      {chef.rol}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Custom Radio Button */}
+            {compañerosFiltrados.length > 0 ? (
+              compañerosFiltrados.map((chef) => (
                 <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                  key={chef.id_usuario}
+                  onClick={() => setSelectedId(chef.id_usuario)}
+                  className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${
                     selectedId === chef.id_usuario
-                      ? "border-blue-500"
-                      : "border-slate-200"
+                      ? "border-blue-500 bg-blue-50/30"
+                      : "border-slate-100 hover:border-slate-200"
                   }`}
                 >
-                  {selectedId === chef.id_usuario && (
-                    <div className="w-3 h-3 bg-blue-500 rounded-full" />
-                  )}
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                      <User className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">
+                        {chef.nombre}
+                      </h4>
+                      <p className="text-sm text-slate-400 font-medium">
+                        {chef.rol}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                      selectedId === chef.id_usuario
+                        ? "border-blue-500"
+                        : "border-slate-200"
+                    }`}
+                  >
+                    {selectedId === chef.id_usuario && (
+                      <div className="w-3 h-3 bg-blue-500 rounded-full" />
+                    )}
+                  </div>
                 </div>
+              ))
+            ) : (
+              // 4. Estado vacío si no hay resultados
+              <div className="text-center py-8">
+                <p className="text-slate-400 font-medium">
+                  No se encontraron cocineros
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -108,8 +127,9 @@ export default function TransferirModal({
             CANCELAR
           </button>
           <button
-            onClick={() => onTransferir(selectedId!)}
-            className="py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 transition-all active:scale-95"
+            onClick={() => selectedId && onTransferir(selectedId)}
+            disabled={!selectedId}
+            className="py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 transition-all active:scale-95"
           >
             TRANSFERIR
           </button>
