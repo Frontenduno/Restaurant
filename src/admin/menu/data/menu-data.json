@@ -34,7 +34,8 @@
   "tipos": [
     { "id": 1, "detalle": "Platillos" },
     { "id": 2, "detalle": "Bebidas" },
-    { "id": 3, "detalle": "Postres" }
+    { "id": 3, "detalle": "Postres" },
+    { "id": 4, "detalle": "Entradas" }
   ],
   "categorias": [
     { "id": 1, "detalle": "Carnes", "idTipo": 1 },
@@ -46,7 +47,9 @@
     { "id": 7, "detalle": "Jugos", "idTipo": 2 },
     { "id": 8, "detalle": "Gaseosas", "idTipo": 2 },
     { "id": 9, "detalle": "Tortas", "idTipo": 3 },
-    { "id": 10, "detalle": "Helados", "idTipo": 3 }
+    { "id": 10, "detalle": "Helados", "idTipo": 3 },
+    { "id": 11, "detalle": "Entradas Calientes", "idTipo": 4 },
+    { "id": 12, "detalle": "Entradas Frías", "idTipo": 4 }
   ],
   "subcategorias": [
     { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
@@ -62,7 +65,9 @@
     { "id": 81, "detalle": "Clásicas", "idCategoria": 8 },
     { "id": 91, "detalle": "Clásicas", "idCategoria": 9 },
     { "id": 92, "detalle": "Criollas", "idCategoria": 9 },
-    { "id": 101, "detalle": "Especiales", "idCategoria": 10 }
+    { "id": 101, "detalle": "Especiales", "idCategoria": 10 },
+    { "id": 111, "detalle": "Al carbón", "idCategoria": 11 },
+    { "id": 121, "detalle": "Criollas", "idCategoria": 12 }
   ],
   "menuItems": [
     {
@@ -191,9 +196,9 @@
       "nombre": "Anticucho de Corazón",
       "descripcion": "Brochetas de corazón de res marinadas en pasta de ají panca, asadas al carbón con papa dorada y choclo.",
       "precio": 16.00,
-      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
-      "subcategoria": { "id": 12, "detalle": "Al carbón", "idCategoria": 1 },
-      "tipo": { "id": 1, "detalle": "Platillos" },
+      "categoria": { "id": 11, "detalle": "Entradas Calientes", "idTipo": 4 },
+      "subcategoria": { "id": 111, "detalle": "Al carbón", "idCategoria": 11 },
+      "tipo": { "id": 4, "detalle": "Entradas" },
       "ingredientes": [
         { "id": 24, "nombre": "corazón", "cantidad": 200, "unidad": "g" },
         { "id": 25, "nombre": "ají panca", "cantidad": 30, "unidad": "g" },
@@ -335,9 +340,9 @@
       "nombre": "Causa Limeña",
       "descripcion": "Delicadas capas de papa amarilla sazonada con ají y limón, rellenas de pollo y palta cremosa.",
       "precio": 14.00,
-      "categoria": { "id": 1, "detalle": "Carnes", "idTipo": 1 },
-      "subcategoria": { "id": 11, "detalle": "Criollas", "idCategoria": 1 },
-      "tipo": { "id": 1, "detalle": "Platillos" },
+      "categoria": { "id": 12, "detalle": "Entradas Frías", "idTipo": 4 },
+      "subcategoria": { "id": 121, "detalle": "Criollas", "idCategoria": 12 },
+      "tipo": { "id": 4, "detalle": "Entradas" },
       "ingredientes": [
         { "id": 2, "nombre": "papa", "cantidad": 200, "unidad": "g" },
         { "id": 16, "nombre": "pollo", "cantidad": 100, "unidad": "g" },

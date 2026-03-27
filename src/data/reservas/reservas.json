@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "nombre": "Alejandro Vega",
+    "personas": 3,
+    "mesas": [4],
+    "hora": "13:00",
+    "estado": "confirmada",
+    "platos": [1, 11, 17],
+    "meseroId": 4
+  },
+  {
+    "id": 2,
+    "nombre": "María Torres",
+    "personas": 2,
+    "mesas": [5],
+    "hora": "13:30",
+    "estado": "confirmada",
+    "platos": [2, 11, 8],
+    "meseroId": 6
+  },
+  {
+    "id": 3,
+    "nombre": "Carlos Ruiz",
+    "personas": 4,
+    "mesas": [6],
+    "hora": "14:00",
+    "estado": "confirmada",
+    "platos": [1, 2, 16, 16],
+    "meseroId": 7
+  },
+  {
+    "id": 4,
+    "nombre": "Sofía Mendez",
+    "personas": 2,
+    "mesas": [2],
+    "hora": "15:00",
+    "estado": "pendiente",
+    "platos": [],
+    "meseroId": null
+  },
+  {
+    "id": 5,
+    "nombre": "Diego Paredes",
+    "personas": 4,
+    "mesas": [1],
+    "hora": "19:00",
+    "estado": "confirmada",
+    "platos": [3, 11, 11, 17],
+    "meseroId": 8
+  },
+  {
+    "id": 6,
+    "nombre": "Valeria Quispe",
+    "personas": 2,
+    "mesas": [3],
+    "hora": "20:00",
+    "estado": "pendiente",
+    "platos": [],
+    "meseroId": null
+  }
+]

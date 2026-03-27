@@ -5,9 +5,16 @@
     "apellido": "García",
     "email": "admin@restaurant.com",
     "password": "admin123",
-    "rol": { "id": 1, "nombre": "Administrador", "idArea": 5 },
+    "rol": {
+      "id": 1,
+      "nombre": "Administrador",
+      "idArea": 5
+    },
     "sueldo": 15000,
-    "area": { "id": 5, "nombre": "Administración" },
+    "area": {
+      "id": 5,
+      "nombre": "Administración"
+    },
     "isActive": true
   },
   {
@@ -16,9 +23,16 @@
     "apellido": "López",
     "email": "cajero@restaurant.com",
     "password": "cajero123",
-    "rol": { "id": 2, "nombre": "Cajero", "idArea": 3 },
+    "rol": {
+      "id": 2,
+      "nombre": "Cajero",
+      "idArea": 3
+    },
     "sueldo": 8000,
-    "area": { "id": 3, "nombre": "Caja" },
+    "area": {
+      "id": 3,
+      "nombre": "Caja"
+    },
     "isActive": true
   },
   {
@@ -27,9 +41,16 @@
     "apellido": "Martínez",
     "email": "cocinero@restaurant.com",
     "password": "cocinero123",
-    "rol": { "id": 3, "nombre": "Cocinero", "idArea": 1 },
+    "rol": {
+      "id": 3,
+      "nombre": "Cocinero",
+      "idArea": 1
+    },
     "sueldo": 9000,
-    "area": { "id": 1, "nombre": "Cocina" },
+    "area": {
+      "id": 1,
+      "nombre": "Cocina"
+    },
     "isActive": true
   },
   {
@@ -38,9 +59,16 @@
     "apellido": "Hernández",
     "email": "mesero@restaurant.com",
     "password": "mesero123",
-    "rol": { "id": 4, "nombre": "Mesero", "idArea": 2 },
+    "rol": {
+      "id": 4,
+      "nombre": "Mesero",
+      "idArea": 2
+    },
     "sueldo": 7000,
-    "area": { "id": 2, "nombre": "Salón" },
+    "area": {
+      "id": 2,
+      "nombre": "Salón"
+    },
     "isActive": true
   },
   {
@@ -49,9 +77,70 @@
     "apellido": "Sánchez",
     "email": "recepcionista@restaurant.com",
     "password": "recepcion123",
-    "rol": { "id": 5, "nombre": "Recepcionista", "idArea": 4 },
+    "rol": {
+      "id": 5,
+      "nombre": "Recepcionista",
+      "idArea": 4
+    },
     "sueldo": 7500,
-    "area": { "id": 4, "nombre": "Recepción" },
+    "area": {
+      "id": 4,
+      "nombre": "Recepción"
+    },
+    "isActive": true
+  },
+  {
+    "id": 6,
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "email": "juan@restaurant.com",
+    "password": "mesero123",
+    "rol": {
+      "id": 4,
+      "nombre": "Mesero",
+      "idArea": 2
+    },
+    "sueldo": 7000,
+    "area": {
+      "id": 2,
+      "nombre": "Ventana"
+    },
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "nombre": "Luis",
+    "apellido": "Gómez",
+    "email": "luis@restaurant.com",
+    "password": "mesero123",
+    "rol": {
+      "id": 4,
+      "nombre": "Mesero",
+      "idArea": 2
+    },
+    "sueldo": 7000,
+    "area": {
+      "id": 3,
+      "nombre": "Terraza"
+    },
+    "isActive": true
+  },
+  {
+    "id": 8,
+    "nombre": "Gloglo",
+    "apellido": "King",
+    "email": "gloglotiono@restaurant.com",
+    "password": "mesero123",
+    "rol": {
+      "id": 4,
+      "nombre": "Mesero",
+      "idArea": 2
+    },
+    "sueldo": 7000,
+    "area": {
+      "id": 1,
+      "nombre": "Interior"
+    },
     "isActive": true
   }
 ]

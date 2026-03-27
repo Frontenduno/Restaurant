@@ -7,7 +7,7 @@ import type { Mesa } from "@/types";
 interface MesaInfoModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mesa: Mesa | null;
+  mesa: (Mesa & { cliente?: string }) | null;
   onEditClick: () => void;
   onDeleteClick: () => void;
 }
@@ -70,6 +70,18 @@ export function MesaInfoModal({ open, onOpenChange, mesa, onEditClick, onDeleteC
             <InfoField label="Tipo" icon={Package}>
               <SelectMockView value={mesa.shape.detalle.toLowerCase() === 'redonda' ? 'Redonda' : 'Rectangular'} />
             </InfoField>
+
+            {mesa.cliente && (
+              <div className="md:col-span-2 bg-[#EEF2FF] p-4 rounded-xl border border-[#C7D2FE] flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Cliente Actual</p>
+                  <p className="text-lg font-extrabold text-blue-900 italic">👤 {mesa.cliente}</p>
+                </div>
+                <div className="bg-white p-2 rounded-lg shadow-sm">
+                  <span className="text-xs font-bold text-blue-700">Reserva Activa</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex justify-end gap-3 mt-6">

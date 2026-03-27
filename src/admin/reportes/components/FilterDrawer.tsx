@@ -50,7 +50,7 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
               onClick={() => setMode("exact")}
               className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
                 mode === "exact"
-                  ? "border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white"
+                  ? "bg-[#1a1f2e] text-white shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >
@@ -61,7 +61,7 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
               onClick={() => setMode("range")}
               className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
                 mode === "range"
-                  ? "border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white"
+                  ? "bg-[#1a1f2e] text-white shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >
@@ -138,7 +138,7 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
         <div className="px-5 pb-5 pt-3 border-t border-gray-100">
           <button
             onClick={handleApply}
-            className="w-full py-3 border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white font-semibold rounded-xl text-sm transition-colors"
+            className="w-full py-3 bg-[#1a1f2e] hover:bg-[#2d3347] text-white font-semibold rounded-xl text-sm transition-colors"
           >
             Aplicar filtro
           </button>

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "mesaId": 1,
+        "mesaNombre": "Mesa 1",
+        "zona": "Ventana",
+        "tipo": "Boleta",
+        "cliente": "Alejandro Vega",
+        "hora": "14:15",
+        "items": [
+            { "mid": 1, "nombre": "Lomo Saltado", "cantidad": 2, "precio": 19.90 },
+            { "mid": 11, "nombre": "Chicha Morada", "cantidad": 2, "precio": 6.50 }
+        ],
+        "total": 52.80
+    },
+    {
+        "id": 2,
+        "mesaId": 4,
+        "mesaNombre": "Mesa 4",
+        "zona": "Interior",
+        "tipo": "Factura",
+        "cliente": "Empresa SAC",
+        "hora": "15:30",
+        "items": [
+            { "mid": 3, "nombre": "Ceviche Mixto", "cantidad": 1, "precio": 24.90 },
+            { "mid": 16, "nombre": "Inca Kola", "cantidad": 1, "precio": 4.50 }
+        ],
+        "total": 29.40
+    },
+    {
+        "id": 3,
+        "mesaId": 6,
+        "mesaNombre": "Mesa 6",
+        "zona": "Ventana",
+        "tipo": "Boleta",
+        "cliente": "Carlos Ruiz",
+        "hora": "16:45",
+        "items": [
+            { "mid": 2, "nombre": "Ají de Gallina", "cantidad": 3, "precio": 17.50 },
+            { "mid": 12, "nombre": "Limonada Frozen", "cantidad": 3, "precio": 7.00 }
+        ],
+        "total": 73.50
+    }
+]

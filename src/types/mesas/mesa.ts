@@ -9,4 +9,5 @@ export interface Mesa {
   status: Estado;
   location: Area;
   shape: Tipo;
+  meseroId?: number;
 }

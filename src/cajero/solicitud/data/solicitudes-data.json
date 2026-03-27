@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "mesaId": 1,
+    "mesaNombre": "Mesa 1",
+    "tipoDocumento": "pre-cuenta",
+    "meseroNombre": "Carlos M.",
+    "hora": "13:45",
+    "personas": 4,
+    "estado": "pendiente",
+    "items": [
+      { "id": 1, "nombre": "Lomo Saltado", "cantidad": 2, "precioUnitario": 42.00, "nota": "Sin cebolla" },
+      { "id": 11, "nombre": "Chicha Morada", "cantidad": 2, "precioUnitario": 10.00 }
+    ]
+  },
+  {
+    "id": 3,
+    "mesaId": 4,
+    "mesaNombre": "Mesa 4",
+    "tipoDocumento": "boleta-factura",
+    "subTipo": "boleta",
+    "datosCliente": {
+      "nombreRazonSocial": "Juan Pérez",
+      "documentoIdentidad": "71234567"
+    },
+    "datosSunat": {
+      "serie": "B001",
+      "correlativo": "0000405"
+    },
+    "meseroNombre": "Ana R.",
+    "hora": "14:10",
+    "personas": 2,
+    "estado": "pendiente",
+    "items": [
+      { "id": 9, "nombre": "Tacu Tacu con Lomo", "cantidad": 1, "precioUnitario": 26.50 },
+      { "id": 7, "nombre": "Arroz con Mariscos", "cantidad": 1, "precioUnitario": 28.00 },
+      { "id": 11, "nombre": "Chicha Morada", "cantidad": 3, "precioUnitario": 6.50 }
+    ]
+  },
+  {
+    "id": 4,
+    "mesaId": 5,
+    "mesaNombre": "Mesa 5",
+    "tipoDocumento": "boleta-factura",
+    "subTipo": "factura",
+    "datosCliente": {
+      "nombreRazonSocial": "Empresa XYZ SAC",
+      "documentoIdentidad": "20512345678",
+      "direccion": "Av. La Marina 2000",
+      "email": "empresa@xyz.com"
+    },
+    "datosSunat": {
+      "serie": "F001",
+      "correlativo": "0000401",
+      "hashRespuesta": "A3F9-B2C1-D847-E065"
+    },
+    "meseroNombre": "Carlos M.",
+    "hora": "12:55",
+    "personas": 3,
+    "estado": "pendiente",
+    "items": [
+      { "id": 1, "nombre": "Lomo Saltado", "cantidad": 1, "precioUnitario": 42.00, "nota": "Sin cebolla" },
+      { "id": 5, "nombre": "Aji de Gallina", "cantidad": 1, "precioUnitario": 38.00, "nota": "Poco picante" },
+      { "id": 11, "nombre": "Chicha Morada", "cantidad": 2, "precioUnitario": 10.00 }
+    ]
+  }
+]

@@ -34,7 +34,7 @@ export function useInventario() {
   const [insumoToDelete, setInsumoToDelete] = useState<any | null>(null);
   const [isCategoriaModalOpen, setIsCategoriaModalOpen] = useState(false);
 
-  const filteredInsumos = useMemo(() => {
+  const filtrarInsumos = useMemo(() => {
     return allItems.filter((item) => {
       const matchesTab = activeTab === null || item.categoria.id === activeTab;
       const matchesEstado =
@@ -76,7 +76,7 @@ export function useInventario() {
   };
 
   return {
-    insumos: filteredInsumos,
+    insumos: filtrarInsumos,
     categorias,
     estados: allEstados,
     activeTab,
