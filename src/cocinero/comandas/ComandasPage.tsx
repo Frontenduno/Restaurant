@@ -22,6 +22,7 @@ function ComandasPage() {
     isOpenDetalle,
     setIsOpenDetalle,
     comandaSeleccionada,
+    onListo,
   } = useComanda();
   const [activeTab, setActiveTab] = useState("pendientes");
 
@@ -56,6 +57,7 @@ function ComandasPage() {
       ) : (
         <ListEnCocinaComanda
           comandas={comandaEnCocina}
+          onListo={onListo}
           onVerDetalle={seleccionarParaVerDetalle}
         />
       )}

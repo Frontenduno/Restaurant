@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { comandaDetalle, user } from "../types";
 import ComandaDetalleData from "../data/Comanda-Detalle-data.json";
-import { set } from "zod";
 
 const COMPAÑEROS_RECIENTES: user[] = [
   { id_usuario: 1, nombre: "Chef Alberto García", rol: "Cocinero" },
@@ -61,6 +60,24 @@ export function useComanda() {
     );
   };
 
+  const onListo = (idComanda: number) => {
+    setComandasDetalle((prevDetalles) =>
+      prevDetalles.map((item): comandaDetalle => {
+        if (item.id_comanda.id_comanda === idComanda) {
+          return {
+            ...item,
+            id_comanda: {
+              ...item.id_comanda,
+              estado_comanda: "Listo",
+              fecha: new Date().toISOString(),
+            },
+          };
+        }
+        return item;
+      }),
+    );
+  };
+
   const seleccionarComanda = (idComanda: number) => {
     setComandaSeleccionada(idComanda);
     setIsOpenTransferir(true);
@@ -82,7 +99,6 @@ export function useComanda() {
 
       if (!nuevoCocinero) return prevDetalles;
 
-      // Aquí le decimos explícitamente a TypeScript que el resultado es comandaDetalle[]
       return prevDetalles.map((item): comandaDetalle => {
         if (item.id_comanda.id_comanda === idComanda) {
           return {
@@ -131,5 +147,6 @@ export function useComanda() {
     isOpenDetalle,
     setIsOpenDetalle,
     comandaSeleccionada,
+    onListo,
   };
 }
