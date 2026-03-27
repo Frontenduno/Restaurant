@@ -7,9 +7,13 @@ interface Props {
 
 function ListPendienteComanda({ comandas }: Props) {
   return (
-    <div className="grid grid-cols-4 gap-4 justify-items-center w-full mx-auto p-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5 ">
       {comandas.map((item) => (
-        <CardComandaPendiente key={item.id_detalle} comanda={item} />
+        <CardComandaPendiente
+          key={item.id_detalle}
+          comanda={item}
+          comandaDetalles={comandas}
+        />
       ))}
     </div>
   );

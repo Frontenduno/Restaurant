@@ -1,5 +1,5 @@
 import { UserRound } from "lucide-react";
-import type { comandaDetalle } from "../../types/comanda";
+import type { comanda, comandaDetalle } from "../../types/comanda";
 
 const statusColors = {
   Pendiente: "bg-blue-100 text-blue-700",
@@ -9,18 +9,18 @@ const statusColors = {
 
 interface CardComandaPendienteProps {
   comanda: comandaDetalle;
+  comandaDetalles: comandaDetalle[];
   onAceptar?: () => void;
   onTransferir?: () => void;
 }
 
 function CardComandaPendiente({
   comanda,
+  comandaDetalles,
   onAceptar,
   onTransferir,
 }: CardComandaPendienteProps) {
-  // 1. Extraemos los datos del objeto 'comanda' (Destructuring)
-  // Nota: Según tu interfaz, id_comanda es un objeto que tiene la mesa y el estado
-  const { id_comanda, id_menu, cantidad, observaciones } = comanda;
+  const { id_comanda } = comanda;
   const {
     id_mesa,
     estado_comanda,
@@ -28,7 +28,21 @@ function CardComandaPendiente({
     id_mesero,
   } = id_comanda;
 
-  // 2. Obtenemos el color (asegurando el tipo para evitar errores de TS)
+  const detallesDeEstaMesa = comandaDetalles.filter(
+    (item: any) => item.id_comanda?.id_comanda === id_comanda?.id_comanda,
+  );
+
+  const tiposUnicos = Array.from(
+    new Set(detallesDeEstaMesa.map((item: any) => item.id_menu?.tipo)),
+  );
+
+  const resumenTipos = tiposUnicos.map((tipo) => {
+    const cantidad = detallesDeEstaMesa.filter(
+      (item: any) => item.id_menu?.tipo === tipo,
+    ).length;
+    return { tipo, cantidad };
+  });
+
   const colorEstado =
     statusColors[estado_comanda as keyof typeof statusColors] ||
     "bg-gray-100 text-gray-700";
@@ -54,28 +68,32 @@ function CardComandaPendiente({
         {/* Información del Mesero */}
         <div className="flex items-center gap-2.5 text-slate-600 mb-4">
           <UserRound className="w-5 h-5 stroke-[1.5]" />
-          <span className="text-sm font-medium">Mesero ID: {id_mesero}</span>
+          <span className="text-sm font-medium">
+            Mesero : {id_mesero.nombre}
+          </span>
         </div>
 
-        {/* Producto Actual (Lo que el cocinero debe ver) */}
-        <div className="bg-slate-50 p-3 rounded-xl mb-4">
-          <p className="text-sm font-bold text-slate-800">
-            {cantidad}x {id_menu.nombre}
-          </p>
-          <p className="text-[10px] text-slate-500 uppercase">
-            {id_menu.categoria}
-          </p>
+        {/* Tipo de Menu y cantidad */}
+        <div className="flex items-center flex-wrap gap-2 mb-4">
+          {resumenTipos.map((item, index) => (
+            <div key={index} className="flex items-center gap-2">
+              {/* El texto: "4 Platos" */}
+              <p className="text-sm font-bold text-slate-500">
+                {item.cantidad} {item.tipo}s
+              </p>
+
+              {/* Si no es el último elemento, dibujamos el punto separador */}
+              {index < resumenTipos.length - 1 && (
+                <span className="text-slate-400 text-xs">•</span>
+              )}
+            </div>
+          ))}
         </div>
 
-        {/* Nota / Observaciones */}
-        {observaciones && (
-          <div className="mb-6">
-            <p className="text-xs text-slate-400 font-semibold uppercase mb-1">
-              Notas:
-            </p>
-            <p className="text-sm text-slate-600 italic">"{observaciones}"</p>
-          </div>
-        )}
+        {/* Mensaje */}
+        <div className="text-sm text-slate-500 mb-4">
+          <p>Esperando Aprobacion...</p>
+        </div>
 
         {/* Botones de Acción */}
         <div className="grid grid-cols-2 gap-3 mt-auto">

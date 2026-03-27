@@ -4,127 +4,258 @@
     "id_comanda": {
       "id_comanda": 1,
       "id_mesa": 4,
-      "id_mesero": 10,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
       "fecha": "2026-03-27T10:00:00",
       "estado_comanda": "Pendiente"
     },
     "id_menu": {
       "id_menu": 5,
       "nombre": "Aji de Gallina",
-      "descripcion": "Clásico con crema de ají amarillo",
-      "precio": 28.5,
       "tipo": "Plato",
       "categoria": "Fondo",
+      "precio": 28.5,
       "imagen": "aji_gallina.jpg",
       "estado_menu": true
     },
-    "cantidad": 2,
+    "cantidad": 1,
     "observaciones": "Sin aceitunas"
   },
   {
     "id_detalle": 102,
     "id_comanda": {
-      "id_comanda": 2,
-      "id_mesa": 12,
-      "id_mesero": 11,
-      "fecha": "2026-03-27T10:05:00",
+      "id_comanda": 1,
+      "id_mesa": 4,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T10:00:00",
       "estado_comanda": "Pendiente"
     },
     "id_menu": {
       "id_menu": 15,
       "nombre": "Papa a la Huancaina",
-      "descripcion": "Entrada clásica",
-      "precio": 18.0,
       "tipo": "Plato",
       "categoria": "Entrada",
+      "precio": 18.0,
       "imagen": "huancaina.jpg",
       "estado_menu": true
     },
     "cantidad": 1,
-    "observaciones": "Extra salsa"
+    "observaciones": ""
   },
   {
     "id_detalle": 103,
     "id_comanda": {
-      "id_comanda": 3,
-      "id_mesa": 5,
-      "id_mesero": 10,
-      "fecha": "2026-03-27T10:10:00",
+      "id_comanda": 1,
+      "id_mesa": 4,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T10:00:00",
       "estado_comanda": "Pendiente"
     },
     "id_menu": {
       "id_menu": 22,
       "nombre": "Limonada Jarra",
-      "descripcion": "Jarra de 1 litro",
-      "precio": 15.0,
       "tipo": "Bebida",
       "categoria": "Bebidas",
+      "precio": 15.0,
       "imagen": "limonada.jpg",
       "estado_menu": true
     },
     "cantidad": 1,
-    "observaciones": "Baja en azúcar"
+    "observaciones": "Helada"
   },
   {
     "id_detalle": 104,
     "id_comanda": {
-      "id_comanda": 4,
-      "id_mesa": 2,
-      "id_mesero": 12,
-      "fecha": "2026-03-27T09:45:00",
-      "estado_comanda": "En Cocina"
+      "id_comanda": 1,
+      "id_mesa": 4,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T10:00:00",
+      "estado_comanda": "Pendiente"
     },
     "id_menu": {
-      "id_menu": 1,
-      "nombre": "Lomo Saltado",
-      "descripcion": "Fino lomo al jugo con papas",
-      "precio": 35.0,
-      "tipo": "Plato",
-      "categoria": "Fondo",
-      "imagen": "lomo_saltado.jpg",
+      "id_menu": 30,
+      "nombre": "Suspiro a la Limeña",
+      "tipo": "Postre",
+      "categoria": "Postres",
+      "precio": 12.0,
+      "imagen": "suspiro.jpg",
       "estado_menu": true
     },
     "cantidad": 1,
-    "observaciones": "Término medio"
+    "observaciones": "Cero azúcar"
   },
   {
     "id_detalle": 105,
     "id_comanda": {
-      "id_comanda": 5,
+      "id_comanda": 2,
       "id_mesa": 7,
-      "id_mesero": 11,
+      "id_mesero": { "id_usuario": 11, "nombre": "Ana Salas", "rol": "Mesero" },
       "fecha": "2026-03-27T09:50:00",
       "estado_comanda": "En Cocina"
     },
     "id_menu": {
       "id_menu": 8,
       "nombre": "Tallarines Verdes",
-      "descripcion": "Con sábana de lomo",
-      "precio": 32.0,
       "tipo": "Plato",
       "categoria": "Fondo",
+      "precio": 32.0,
       "imagen": "tallarines_verdes.jpg",
       "estado_menu": true
     },
     "cantidad": 1,
-    "observaciones": "Sin queso parmesano"
+    "observaciones": "Con sábana de lomo"
   },
   {
     "id_detalle": 106,
     "id_comanda": {
-      "id_comanda": 6,
-      "id_mesa": 1,
-      "id_mesero": 10,
-      "fecha": "2026-03-27T09:55:00",
+      "id_comanda": 2,
+      "id_mesa": 7,
+      "id_mesero": { "id_usuario": 11, "nombre": "Ana Salas", "rol": "Mesero" },
+      "fecha": "2026-03-27T09:50:00",
       "estado_comanda": "En Cocina"
     },
     "id_menu": {
-      "id_menu": 3,
-      "nombre": "Ceviche Simple",
-      "descripcion": "Pescado del día",
-      "precio": 38.0,
+      "id_menu": 20,
+      "nombre": "Inca Kola 500ml",
+      "tipo": "Bebida",
+      "categoria": "Gaseosas",
+      "precio": 6.0,
+      "imagen": "inca_kola.jpg",
+      "estado_menu": true
+    },
+    "cantidad": 2,
+    "observaciones": "Sin helar"
+  },
+  {
+    "id_detalle": 107,
+    "id_comanda": {
+      "id_comanda": 2,
+      "id_mesa": 7,
+      "id_mesero": { "id_usuario": 11, "nombre": "Ana Salas", "rol": "Mesero" },
+      "fecha": "2026-03-27T09:50:00",
+      "estado_comanda": "En Cocina"
+    },
+    "id_menu": {
+      "id_menu": 32,
+      "nombre": "Crema Volteada",
+      "tipo": "Postre",
+      "categoria": "Postres",
+      "precio": 11.0,
+      "imagen": "crema_volteada.jpg",
+      "estado_menu": true
+    },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 108,
+    "id_comanda": {
+      "id_comanda": 3,
+      "id_mesa": 2,
+      "id_mesero": {
+        "id_usuario": 12,
+        "nombre": "Juan Pérez",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T09:30:00",
+      "estado_comanda": "Listo"
+    },
+    "id_menu": {
+      "id_menu": 1,
+      "nombre": "Lomo Saltado",
+      "tipo": "Plato",
+      "categoria": "Fondo",
+      "precio": 35.0,
+      "imagen": "lomo_saltado.jpg",
+      "estado_menu": true
+    },
+    "cantidad": 1,
+    "observaciones": "Jugoso"
+  },
+  {
+    "id_detalle": 109,
+    "id_comanda": {
+      "id_comanda": 3,
+      "id_mesa": 2,
+      "id_mesero": {
+        "id_usuario": 12,
+        "nombre": "Juan Pérez",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T09:30:00",
+      "estado_comanda": "Listo"
+    },
+    "id_menu": {
+      "id_menu": 25,
+      "nombre": "Pisco Sour",
+      "tipo": "Bebida",
+      "categoria": "Cocteles",
+      "precio": 22.0,
+      "imagen": "pisco_sour.jpg",
+      "estado_menu": true
+    },
+    "cantidad": 2,
+    "observaciones": "Bien batido"
+  },
+  {
+    "id_detalle": 110,
+    "id_comanda": {
+      "id_comanda": 3,
+      "id_mesa": 2,
+      "id_mesero": {
+        "id_usuario": 12,
+        "nombre": "Juan Pérez",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T09:30:00",
+      "estado_comanda": "Listo"
+    },
+    "id_menu": {
+      "id_menu": 35,
+      "nombre": "Tres Leches",
+      "tipo": "Postre",
+      "categoria": "Postres",
+      "precio": 14.0,
+      "imagen": "tres_leches.jpg",
+      "estado_menu": true
+    },
+    "cantidad": 1,
+    "observaciones": ""
+  },
+  {
+    "id_detalle": 111,
+    "id_comanda": {
+      "id_comanda": 4,
+      "id_mesa": 1,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T10:15:00",
+      "estado_comanda": "Pendiente"
+    },
+    "id_menu": {
+      "id_menu": 40,
+      "nombre": "Ceviche de Pescado",
       "tipo": "Plato",
       "categoria": "Entrada",
+      "precio": 38.0,
       "imagen": "ceviche.jpg",
       "estado_menu": true
     },
@@ -132,69 +263,28 @@
     "observaciones": "Poco picante"
   },
   {
-    "id_detalle": 107,
+    "id_detalle": 112,
     "id_comanda": {
-      "id_comanda": 7,
-      "id_mesa": 8,
-      "id_mesero": 10,
-      "fecha": "2026-03-27T09:30:00",
+      "id_comanda": 4,
+      "id_mesa": 1,
+      "id_mesero": {
+        "id_usuario": 10,
+        "nombre": "Carlos Mesero",
+        "rol": "Mesero"
+      },
+      "fecha": "2026-03-27T10:15:00",
       "estado_comanda": "Pendiente"
     },
     "id_menu": {
-      "id_menu": 20,
-      "nombre": "Inca Kola 500ml",
-      "descripcion": "Gaseosa personal",
-      "precio": 6.0,
+      "id_menu": 41,
+      "nombre": "Chicha de Jora",
       "tipo": "Bebida",
-      "categoria": "Gaseosas",
-      "imagen": "inca_kola.jpg",
-      "estado_menu": true
-    },
-    "cantidad": 3,
-    "observaciones": "Heladas"
-  },
-  {
-    "id_detalle": 108,
-    "id_comanda": {
-      "id_comanda": 8,
-      "id_mesa": 3,
-      "id_mesero": 12,
-      "fecha": "2026-03-27T09:20:00",
-      "estado_comanda": "Pendiente"
-    },
-    "id_menu": {
-      "id_menu": 12,
-      "nombre": "Arroz con Pollo",
-      "descripcion": "Con su presa y salsa criolla",
-      "precio": 25.0,
-      "tipo": "Plato",
-      "categoria": "Fondo",
-      "imagen": "arroz_pollo.jpg",
-      "estado_menu": true
-    },
-    "cantidad": 1,
-    "observaciones": "Sin ensalada"
-  },
-  {
-    "id_detalle": 109,
-    "id_comanda": {
-      "id_comanda": 9,
-      "id_mesa": 6,
-      "id_mesero": 11,
-      "fecha": "2026-03-27T09:15:00",
-      "estado_comanda": "Pendiente"
-    },
-    "id_menu": {
-      "id_menu": 30,
-      "nombre": "Suspiro a la Limeña",
-      "descripcion": "Postre tradicional",
-      "precio": 12.0,
-      "tipo": "Postre",
-      "categoria": "Postres",
-      "imagen": "suspiro.jpg",
+      "categoria": "Bebidas",
+      "precio": 8.0,
+      "imagen": "chicha_jora.jpg",
       "estado_menu": true
     },
     "cantidad": 2,
-    "observaciones": "Para llevar"
+    "observaciones": ""
   }
 ]
