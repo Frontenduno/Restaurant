@@ -1,10 +1,10 @@
 import CocineroHeader from "../components/CocineroHeader";
 import { Calendar } from "lucide-react";
-import { useInventario } from "./hooks/useInventario";
+import { useInventario } from "./hooks/useHistorial";
 import FiltroHistorialComanda from "./components/FiltroHistorialComanda";
 import ListHistorialComanda from "./components/ListCardHistorialComanda";
 import ModalDetalleComanda from "../components/ModalComandaDetalle";
-import { set } from "zod";
+
 function HistorialPage() {
   const {
     comandasAgrupadas,
