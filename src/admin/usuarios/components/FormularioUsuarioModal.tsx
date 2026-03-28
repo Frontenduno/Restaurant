@@ -206,6 +206,37 @@ export function FormularioUsuarioModal({
                   </div>
                 )}
               />
+
+              <Controller
+                name="isActive"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div className="space-y-2">
+                    <Label className="text-xs font-semibold text-[#1a1b3c]">
+                      Estado
+                    </Label>
+                    <div className="relative">
+                      <Select
+                        value={field.value ? "Activo" : "Inactivo"}
+                        onValueChange={(v) => field.onChange(v === "Activo")}
+                      >
+                        <SelectTrigger className="bg-white border-slate-200 h-11 rounded-xl font-medium text-slate-600">
+                          <SelectValue placeholder="Seleccione un Estado" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Activo">Activo</SelectItem>
+                          <SelectItem value="Inactivo">Inactivo</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    {fieldState.error && (
+                      <p className="text-xs text-red-500 font-medium">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
             </div>
 
             {/* Right column */}
