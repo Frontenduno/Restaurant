@@ -27,9 +27,11 @@ export interface QuickRange {
 export interface FilterDrawerProps {
   open: boolean;
   onClose: () => void;
-  onApply: (mode: FilterMode, from: string, to: string) => void;
+  onApply: (mode: FilterMode, from: string, to: string, label: string) => void;
 }
 
 export interface ChartPanelProps {
   title: string;
+  from?: string;
+  to?: string;
 }

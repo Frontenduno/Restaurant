@@ -13,7 +13,8 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import { donutData, barData } from "../lib/data";
+import { donutData } from "../lib/data";
+import reportesData from "../data/reportes.json";
 
 export function EmptyChart({ title }: ChartPanelProps) {
   return (
@@ -66,14 +67,113 @@ export function DonutChartPanel({ title }: ChartPanelProps) {
   );
 }
 
-export function BarChartPanel({ title }: ChartPanelProps) {
+const DAYS_ORDER = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+const JS_DAYS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+const WEEK_ORDER = ["1a Sem", "2a Sem", "3a Sem", "4a Sem", "Última Sem"];
+
+function parseLocal(dateStr: string): Date {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function getRangeLabel(from: string, to: string): string {
+  if (!from || !to) return "";
+  const fmt = (d: string) => {
+    const [y, m, day] = d.split("-");
+    return `${day}/${m}/${y}`;
+  };
+  return `${fmt(from)} – ${fmt(to)}`;
+}
+
+function getDaysBetween(from: string, to: string): number {
+  return Math.round(
+    (parseLocal(to).getTime() - parseLocal(from).getTime()) / 86_400_000
+  );
+}
+
+function salesForDay(dayName: string): number {
+  return reportesData.ventasPorDiaSemana.find((v) => v.dia === dayName)?.ventas ?? 0;
+}
+
+function getFilteredBarData(from: string, to: string) {
+  if (!from || !to)
+    return reportesData.ingresosPorMes.map((m) => ({ label: m.mes, ventas: m.ingresos }));
+
+  const days = getDaysBetween(from, to);
+  if (days <= 7) {
+    const cur = parseLocal(from);
+    const end = parseLocal(to);
+    const daySet = new Set<string>();
+    while (cur <= end) {
+      daySet.add(JS_DAYS[cur.getDay()]);
+      cur.setDate(cur.getDate() + 1);
+    }
+    return DAYS_ORDER
+      .filter((d) => daySet.has(d))
+      .map((d) => ({ label: d.slice(0, 3), ventas: salesForDay(d) }));
+  }
+
+  if (days <= 31) {
+    const weekSales: Record<string, number> = {
+      "1a Sem": 0,
+      "2a Sem": 0,
+      "3a Sem": 0,
+      "4a Sem": 0,
+      "Última Sem": 0,
+    };
+    const usedWeeks = new Set<string>();
+    const cur = parseLocal(from);
+    const end = parseLocal(to);
+    while (cur <= end) {
+      const dom = cur.getDate();
+      const week =
+        dom <= 7 ? "1a Sem" :
+          dom <= 14 ? "2a Sem" :
+            dom <= 21 ? "3a Sem" :
+              dom <= 28 ? "4a Sem" :
+                "Última Sem";
+      weekSales[week] += salesForDay(JS_DAYS[cur.getDay()]);
+      usedWeeks.add(week);
+      cur.setDate(cur.getDate() + 1);
+    }
+    return WEEK_ORDER
+      .filter((w) => usedWeeks.has(w))
+      .map((w) => ({ label: w, ventas: weekSales[w] }));
+  }
+
+  const fromDate = parseLocal(from);
+  const toDate = parseLocal(to);
+  const fromMonth = fromDate.getMonth();
+  const toMonth = toDate.getMonth();
+  const fromYear = fromDate.getFullYear();
+  const toYear = toDate.getFullYear();
+
+  return reportesData.ingresosPorMes
+    .filter((_m, idx) =>
+      fromYear === toYear ? idx >= fromMonth && idx <= toMonth : true
+    )
+    .map((m) => ({ label: m.mes, ventas: m.ingresos }));
+}
+
+
+export function BarChartPanel({ title, from = "", to = "" }: ChartPanelProps) {
+  const data = getFilteredBarData(from, to);
+  const rangeLabel = getRangeLabel(from, to);
+
   return (
     <div className="flex-1 bg-white rounded-2xl p-6 shadow-[0_2px_10px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col min-h-[280px]">
-      <h3 className="text-[13px] font-semibold text-gray-700 mb-4">{title}</h3>
+      <div className="flex items-start justify-between mb-4 gap-2">
+        <h3 className="text-[13px] font-semibold text-gray-700">{title}</h3>
+        {rangeLabel && (
+          <span className="text-[11px] font-medium text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
+            {rangeLabel}
+          </span>
+        )}
+      </div>
       <div className="flex-1">
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart
-            data={barData}
+            data={data}
             margin={{ top: 4, right: 8, left: 0, bottom: 0 }}
           >
             <defs>
@@ -84,7 +184,7 @@ export function BarChartPanel({ title }: ChartPanelProps) {
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis
-              dataKey="mes"
+              dataKey="label"
               tick={{ fontSize: 11, fill: "#6B7280" }}
               axisLine={false}
               tickLine={false}
@@ -93,7 +193,9 @@ export function BarChartPanel({ title }: ChartPanelProps) {
               tick={{ fontSize: 10, fill: "#6B7280" }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(v: number) => `S/ ${(v / 1000).toFixed(0)}k`}
+              tickFormatter={(v: number) =>
+                v >= 1000 ? `S/ ${(v / 1000).toFixed(0)}k` : `S/ ${v}`
+              }
             />
             <Tooltip
               formatter={(value) =>
@@ -110,6 +212,7 @@ export function BarChartPanel({ title }: ChartPanelProps) {
     </div>
   );
 }
+
 
 interface OrdersPanelProps extends ChartPanelProps {
   orders: RecentOrder[];

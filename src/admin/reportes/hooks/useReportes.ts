@@ -1,13 +1,26 @@
 import { useState, useRef, useEffect } from "react";
 import type { FilterMode, QuickRange } from "../types";
-import { todayStr, offsetDate, startOfWeek, startOfMonth } from "../lib/dateUtils";
+import {
+  todayStr,
+  offsetDate,
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+} from "../lib/dateUtils";
 
 export function useReportesFiltro() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [appliedMode, setAppliedMode] = useState<FilterMode | null>(null);
+  const [appliedFrom, setAppliedFrom] = useState<string>("");
+  const [appliedTo, setAppliedTo] = useState<string>("");
+  const [appliedLabel, setAppliedLabel] = useState<string>("");
 
-  function handleApply(mode: FilterMode) {
+  function handleApply(mode: FilterMode, from: string, to: string, label: string) {
     setAppliedMode(mode);
+    setAppliedFrom(from);
+    setAppliedTo(to);
+    setAppliedLabel(label);
     setDrawerOpen(false);
   }
 
@@ -15,6 +28,9 @@ export function useReportesFiltro() {
     drawerOpen,
     setDrawerOpen,
     appliedMode,
+    appliedFrom,
+    appliedTo,
+    appliedLabel,
     handleApply,
   };
 }
@@ -22,8 +38,9 @@ export function useReportesFiltro() {
 export function useFilterDrawer(open: boolean, onClose: () => void) {
   const [mode, setMode] = useState<FilterMode>("exact");
   const [exactDate, setExactDate] = useState(todayStr());
-  const [fromDate, setFromDate] = useState(offsetDate(-7));
+  const [fromDate, setFromDate] = useState(offsetDate(-6));
   const [toDate, setToDate] = useState(todayStr());
+  const [quickLabel, setQuickLabel] = useState<string>("");
 
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -38,10 +55,10 @@ export function useFilterDrawer(open: boolean, onClose: () => void) {
   }, [open, onClose]);
 
   const quickRanges: QuickRange[] = [
-    { label: "Esta semana (Lun-Dom)", from: startOfWeek(), to: todayStr() },
-    { label: "Últimos 7 días", from: offsetDate(-6), to: todayStr() },
-    { label: "Este mes", from: startOfMonth(), to: todayStr() },
-    { label: "Últimos 30 días", from: offsetDate(-29), to: todayStr() },
+    { label: "Esta semana (Lun-Dom)", from: startOfWeek(), to: endOfWeek() },
+    { label: "Últimos 7 días",        from: offsetDate(-6),  to: todayStr() },
+    { label: "Este mes",              from: startOfMonth(),  to: endOfMonth() },
+    { label: "Últimos 30 días",       from: offsetDate(-29), to: todayStr() },
   ];
 
   return {
@@ -53,6 +70,8 @@ export function useFilterDrawer(open: boolean, onClose: () => void) {
     setFromDate,
     toDate,
     setToDate,
+    quickLabel,
+    setQuickLabel,
     drawerRef,
     quickRanges,
   };

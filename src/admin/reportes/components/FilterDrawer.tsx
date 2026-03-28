@@ -13,6 +13,8 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
     setFromDate,
     toDate,
     setToDate,
+    quickLabel,
+    setQuickLabel,
     drawerRef,
     quickRanges,
   } = useFilterDrawer(open, onClose);
@@ -20,7 +22,16 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
   if (!open) return null;
 
   function handleApply() {
-    onApply(mode, mode === "exact" ? exactDate : fromDate, mode === "exact" ? exactDate : toDate);
+    const label =
+      mode === "exact"
+        ? "Día exacto"
+        : quickLabel || "Rango personalizado";
+    onApply(
+      mode,
+      mode === "exact" ? exactDate : fromDate,
+      mode === "exact" ? exactDate : toDate,
+      label
+    );
   }
 
   return (
@@ -48,22 +59,20 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
           <div className="grid grid-cols-2 gap-2 bg-gray-100 p-1 rounded-xl">
             <button
               onClick={() => setMode("exact")}
-              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
-                mode === "exact"
-                  ? "bg-[#1a1f2e] text-white shadow-sm"
+              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === "exact"
+                  ? "border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white"
                   : "text-gray-500 hover:text-gray-700"
-              }`}
+                }`}
             >
               <Calendar className="w-3.5 h-3.5" />
               Día exacto
             </button>
             <button
               onClick={() => setMode("range")}
-              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${
-                mode === "range"
-                  ? "bg-[#1a1f2e] text-white shadow-sm"
+              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === "range"
+                  ? "border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white"
                   : "text-gray-500 hover:text-gray-700"
-              }`}
+                }`}
             >
               <BarChart3Icon className="w-3.5 h-3.5" />
               Rango
@@ -94,7 +103,10 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
                   <input
                     type="date"
                     value={fromDate}
-                    onChange={(e) => setFromDate(e.target.value)}
+                    onChange={(e) => {
+                      setFromDate(e.target.value);
+                      setQuickLabel("");
+                    }}
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1a1f2e]/20 bg-white"
                   />
                 </div>
@@ -105,7 +117,10 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
                   <input
                     type="date"
                     value={toDate}
-                    onChange={(e) => setToDate(e.target.value)}
+                    onChange={(e) => {
+                      setToDate(e.target.value);
+                      setQuickLabel("");
+                    }}
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1a1f2e]/20 bg-white"
                   />
                 </div>
@@ -122,10 +137,14 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
                       onClick={() => {
                         setFromDate(q.from);
                         setToDate(q.to);
+                        setQuickLabel(q.label);
                       }}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50 border border-gray-100 transition-colors text-left"
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm border transition-colors text-left ${quickLabel === q.label
+                          ? "bg-indigo-50 border-indigo-200 text-indigo-700 font-semibold"
+                          : "text-gray-600 hover:bg-gray-50 border-gray-100"
+                        }`}
                     >
-                      <Calendar className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                      <Calendar className="w-3.5 h-3.5 shrink-0" />
                       {q.label}
                     </button>
                   ))}
@@ -138,7 +157,7 @@ export function FilterDrawer({ open, onClose, onApply }: FilterDrawerProps) {
         <div className="px-5 pb-5 pt-3 border-t border-gray-100">
           <button
             onClick={handleApply}
-            className="w-full py-3 bg-[#1a1f2e] hover:bg-[#2d3347] text-white font-semibold rounded-xl text-sm transition-colors"
+            className="w-full py-3 border-[#1d14e0] bg-[#1d14e0] hover:bg-blue-800 text-white font-semibold rounded-xl text-sm transition-colors"
           >
             Aplicar filtro
           </button>
