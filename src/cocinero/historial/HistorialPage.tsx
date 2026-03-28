@@ -1,4 +1,4 @@
-import CocineroHeader from "../components/CocineroHeader";
+import { Header } from "@/components/Header";
 import { Calendar } from "lucide-react";
 import { useInventario } from "./hooks/useHistorial";
 import FiltroHistorialComanda from "./components/FiltroHistorialComanda";
@@ -20,7 +20,7 @@ function HistorialPage() {
   } = useInventario();
   return (
     <div>
-      <CocineroHeader title="Historial" icon={Calendar} />
+      <Header title="Historial" icon={Calendar} usuarioId="cocinero123" />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
           <p className="text-neutral-400">Historial de Comandas</p>

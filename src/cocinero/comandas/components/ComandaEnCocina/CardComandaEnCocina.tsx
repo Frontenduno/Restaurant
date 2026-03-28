@@ -21,7 +21,7 @@ function CardComandaEnCocina({
   const tieneMasPlatos = detalles.length > LIMITE_PLATOS;
 
   return (
-    <div className="w-[350px] bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-200 font-sans flex flex-col">
+    <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-200 font-sans flex flex-col h-full">
       <div className="p-5 flex flex-col h-full">
         <div className="flex justify-between items-start mb-4">
           <div>

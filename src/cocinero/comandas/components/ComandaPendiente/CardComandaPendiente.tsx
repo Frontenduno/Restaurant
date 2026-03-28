@@ -49,7 +49,7 @@ function CardComandaPendiente({
 
   return (
     /* Quitamos min-h fijo. h-full permite que la card se estire según el grid */
-    <div className="w-[320px] h-full flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-300 font-sans">
+    <div className="w-full h-full flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-slate-300 font-sans">
       {/* flex-1 aquí es la clave: empuja los botones hacia abajo */}
       <div className="p-5 flex flex-col flex-1">
         {/* Header (Mesa, Estado, ID) */}

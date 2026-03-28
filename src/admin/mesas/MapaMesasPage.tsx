@@ -1,5 +1,5 @@
 import { Table } from "lucide-react";
-import { AdminHeader } from "@/admin/components/AdminHeader";
+import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 
 import { MesaInfoModal } from "./components/MesaInfoModal";
@@ -21,7 +21,7 @@ export function MapaMesasPage() {
 
   return (
     <div className="w-full flex flex-col gap-6 font-sans">
-      <AdminHeader title="Mapa de Mesas" icon={Table} />
+      <Header title="Mapa de Mesas" icon={Table} usuarioId="admin123" />
 
       <div className="px-2">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">

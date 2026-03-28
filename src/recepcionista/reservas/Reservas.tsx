@@ -1,5 +1,5 @@
 import { BookSearch, Search, Clock, Users, Plus } from "lucide-react";
-import { RecepHeader } from "../components/RecepHeader";
+import { Header } from "@/components/Header";
 import { useMesas } from "../pages/hooks/useMesas";
 import { useReservas } from "./hooks/useReservas";
 import { HOY, ESTADO_STYLES } from "./utils/reservasUtils";
@@ -55,7 +55,7 @@ export function Reservas() {
 
   return (
     <div className="w-full flex flex-col font-sans h-screen overflow-hidden bg-slate-50">
-      <RecepHeader title="Reservas" icon={BookSearch} />
+      <Header title="Reservas" icon={BookSearch} usuarioId="recep123" />
       
       <div className="flex flex-col flex-1 overflow-hidden px-2 pt-4">
         {/* TOPBAR RESERVAS */}

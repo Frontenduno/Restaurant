@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/auth";
-import { RecepHeader } from "../components/RecepHeader";
+import { Header } from "@/components/Header";
 import { NotebookTabs } from "lucide-react";
 import { GridEstados } from "./components/GridEstado";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -58,7 +58,7 @@ export function RecepcionistaPage() {
   return (
     <div className="w-full flex flex-col font-sans">
       {/* Header específico de esta página */}
-      <RecepHeader title="Recepcionista" icon={NotebookTabs} />
+      <Header title="Recepcionista" icon={NotebookTabs} usuarioId="recep123" />
       
       {/* Contenido de la página de Recepcionista (ej. layout de Mesas) */}
       <div className="px-2">

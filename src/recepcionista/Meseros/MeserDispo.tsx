@@ -1,4 +1,4 @@
-import { RecepHeader } from "../components/RecepHeader";
+import { Header } from "@/components/Header";
 import { UserSearch } from "lucide-react";
 import { useMesas } from "../pages/hooks/useMesas";
 import usersData from "@/data/usuario/users.json";
@@ -64,7 +64,7 @@ export function MeserDispo() {
 
     return (
         <div className="w-full flex flex-col gap-6 font-sans pb-10">
-            <RecepHeader title="Meseros" icon={UserSearch} />
+            <Header title="Meseros" icon={UserSearch} usuarioId="recep123" />
             <div className="px-2">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                     <div>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { AdminHeader } from "../components/AdminHeader";
+import { Header } from "@/components/Header";
 import { PackageIcon } from "lucide-react";
 import { useInventario } from "./hooks/useInventario";
 import FiltrosInventario from "./components/FiltrosInventario";
@@ -50,7 +50,7 @@ export function InventarioPage() {
 
   return (
     <div className="w-full flex flex-col font-sans">
-      <AdminHeader title="Inventario" icon={PackageIcon} />
+      <Header title="Inventario" icon={PackageIcon} usuarioId="admin123" />
 
       <div className="px-2">
         {/* Header de la sección */}

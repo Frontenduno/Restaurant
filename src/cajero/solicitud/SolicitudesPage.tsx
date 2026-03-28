@@ -1,5 +1,5 @@
 import { Store } from "lucide-react";
-import { CajeroHeader } from "../components/CajeroHeader";
+import { Header } from "@/components/Header";
 import { CajaInfo } from "./components/CajaInfo";
 import { TabsFiltro } from "./components/TabsFiltro";
 import { SolicitudCard } from "./components/SolicitudCard";
@@ -30,7 +30,7 @@ export function SolicitudesPage() {
 
   return (
     <div className="w-full flex flex-col font-sans h-full">
-      <CajeroHeader title="Cajero" icon={<Store className="w-6 h-6 text-black" />} showBell />
+      <Header title="Cajero" icon={<Store className="w-6 h-6 text-black" />} usuarioId="cajero123" />
 
       {/* Título + Caja */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">

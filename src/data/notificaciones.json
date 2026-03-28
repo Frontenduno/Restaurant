@@ -1,0 +1,47 @@
+[
+  {
+    "id": "2",
+    "usuarioId": "admin123",
+    "titulo": "Stock bajo en 4 productos",
+    "mensaje": "Quedan pocas unidades de los productos: Papa amarilla, Pechuga de pollo, Cebolla roja.",
+    "tipo": "warning",
+    "leida": true,
+    "fecha": "2026-03-27T15:30:00Z"
+  },
+  {
+    "id": "3",
+    "usuarioId": "cajero123",
+    "titulo": "Cierre de caja exitoso",
+    "mensaje": "El cierre del turno mañana cuadra perfectamente con las ventas.",
+    "tipo": "success",
+    "leida": false,
+    "fecha": "2026-03-28T14:05:00Z"
+  },
+  {
+    "id": "4",
+    "usuarioId": "cocinero123",
+    "titulo": "Nueva comanda VIP",
+    "mensaje": "Mesa 5 acaba de ordenar. Requiere atención especial (Alergia a mariscos).",
+    "tipo": "warning",
+    "leida": false,
+    "fecha": "2026-03-28T16:50:00Z"
+  },
+  {
+    "id": "5",
+    "usuarioId": "mesero123",
+    "titulo": "Mesa 10 lista",
+    "mensaje": "El pedido de la mesa 10 está listo para retirar de barra.",
+    "tipo": "success",
+    "leida": false,
+    "fecha": "2026-03-28T17:00:00Z"
+  },
+  {
+    "id": "6",
+    "usuarioId": "recep123",
+    "titulo": "Cancelación de reserva",
+    "mensaje": "El cliente Juan Pérez canceló su reserva para las 8:00 PM.",
+    "tipo": "error",
+    "leida": false,
+    "fecha": "2026-03-28T16:20:00Z"
+  }
+]

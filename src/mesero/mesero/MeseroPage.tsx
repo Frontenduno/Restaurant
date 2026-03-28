@@ -13,7 +13,7 @@
  */
 
 import { useAuth } from "@/auth";
-import { MeserHeader } from "@/mesero/components/MeserHeader";
+import { Header } from "@/components/Header";
 import { ChartNetwork } from "lucide-react";
 import { CardMesa } from "./components/CardMese";
 import { PanelMesa } from "./components/PanelMesa";
@@ -54,7 +54,7 @@ export function MeseroPage() {
   return (
     <div className="w-full flex flex-col font-sans h-full">
       {/* Cabecera de la página del mesero */}
-      <MeserHeader title="Mesero" icon={ChartNetwork} />
+      <Header title="Mesero" icon={ChartNetwork} usuarioId="mesero123" />
 
       {/* Contenedor principal: divide la pantalla en zona de grid y panel lateral */}
       <div className="flex flex-1 overflow-hidden">

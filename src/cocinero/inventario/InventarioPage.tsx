@@ -1,4 +1,4 @@
-import CocineroHeader from "../components/CocineroHeader";
+import { Header } from "@/components/Header";
 import { Package } from "lucide-react";
 import { useInventario } from "./hooks/useInventario";
 import FiltroInventario from "./components/FiltroInventario";
@@ -20,7 +20,7 @@ function InventarioPage() {
   } = useInventario();
   return (
     <div>
-      <CocineroHeader title="Inventario" icon={Package} />
+      <Header title="Inventario" icon={Package} usuarioId="cocinero123" />
       <FiltroInventario
         busqueda={busqueda}
         setBusqueda={setBusqueda}

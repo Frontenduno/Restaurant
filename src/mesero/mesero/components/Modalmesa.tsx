@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Plus, Minus, ClipboardCheck, AlertTriangle, Printer } from "lucide-react";
 import menuData from "@/admin/menu/data/menu-data.json";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ModalMesaProps {
     isOpen: boolean;
@@ -80,109 +81,116 @@ export function ModalMesa({
     /* ────────────── VISTA: PRE-CUENTA ────────────── */
     if (view === "precuenta") {
         return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-                <div className="bg-white w-full max-w-[420px] rounded-[2.5rem] shadow-2xl flex flex-col border-4 border-blue-50/50 overflow-hidden">
+            <div 
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+                onMouseDown={(e) => {
+                    if (e.target === e.currentTarget) onClose();
+                }}
+            >
+                <div className="bg-white w-full max-w-[360px] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden max-h-[90vh]">
                     {/* Contenido del Ticket */}
-                    <div className="p-8 flex-1 overflow-y-auto custom-scrollbar">
+                    <div className="p-7 flex-1 flex flex-col overflow-hidden">
                         {/* Header Ticket */}
-                        <div className="text-center mb-8">
-                            <div className="flex items-center justify-center gap-2 mb-1">
-                                <span className="text-2xl">🍽️</span>
-                                <h1 className="text-xl font-black text-[#0b0c2a] tracking-tight">RESTAURANTE</h1>
+                        <div className="text-center mb-6 shrink-0">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <span className="text-3xl">🍽️</span>
+                                <h1 className="text-2xl font-black text-[#0b0c2a] tracking-tight">RESTAURANTE</h1>
                             </div>
-                            <p className="text-[11px] text-gray-400 font-bold uppercase tracking-widest">Jr. Lima 123 · Tel. 01-234-5678</p>
+                            <p className="text-xs text-gray-500 font-bold uppercase tracking-widest">Jr. Lima 123 · Tel. 01-234-5678</p>
                             
-                            <div className="mt-4 inline-block bg-orange-50 text-orange-600 px-6 py-1.5 rounded-full border border-orange-100 text-xs font-black uppercase tracking-widest">
+                            <div className="mt-5 inline-block bg-orange-50 text-orange-600 px-6 py-2 rounded-full border border-orange-100 text-xs font-black uppercase tracking-widest">
                                 Pre-Cuenta
                             </div>
                         </div>
 
                         {/* Divider Dotted */}
-                        <div className="border-t-2 border-dotted border-gray-100 mb-6" />
+                        <div className="border-t-2 border-dotted border-gray-200 mb-5 shrink-0" />
 
                         {/* Info General */}
-                        <div className="space-y-3 mb-8">
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">Mesa</span>
+                        <div className="space-y-3 mb-5 shrink-0 px-1">
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">Mesa</span>
                                 <span className="text-[#0b0c2a] font-black">{mesaName}</span>
                             </div>
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">Mesero</span>
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">Mesero</span>
                                 <span className="text-[#0b0c2a] font-black">{meseroName}</span>
                             </div>
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">Hora</span>
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">Hora</span>
                                 <span className="text-[#0b0c2a] font-black">{hora}</span>
                             </div>
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">Personas</span>
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">Personas</span>
                                 <span className="text-[#0b0c2a] font-black">{carrito.length > 0 ? "4" : "0"}</span>
                             </div>
                         </div>
 
                         {/* Divider Dotted */}
-                        <div className="border-t-2 border-dotted border-gray-100 mb-6" />
+                        <div className="border-t-2 border-dotted border-gray-200 mb-5 shrink-0" />
 
-                        {/* Lista Items */}
-                        <div className="space-y-6 mb-8">
-                            {carrito.map((it, i) => (
-                                <div key={i} className="flex justify-between items-start gap-4">
-                                    <div className="flex-1">
-                                        <h4 className="text-[14px] font-black text-[#0b0c2a]">{it.nombre}</h4>
-                                        <p className="text-[11px] text-gray-400 font-bold mt-0.5">
-                                            {it.cantidad} × S/ {it.precio.toFixed(2)}
-                                        </p>
-                                        {it.nota && (
-                                            <p className="text-[11px] text-orange-500 font-black mt-1 flex items-center gap-1">
-                                                <span>📝</span> {it.nota}
+                        {/* Lista Items (SCROLLABLE AREA with explicit bounds) */}
+                        <div className="flex-1 overflow-y-auto px-1 min-h-[120px] max-h-[35vh] custom-scrollbar mb-2">
+                            <div className="space-y-6">
+                                {carrito.map((it, i) => (
+                                    <div key={i} className="flex justify-between items-start gap-4">
+                                        <div className="flex-1">
+                                            <h4 className="text-[15px] font-black text-[#0b0c2a] mb-1">{it.nombre}</h4>
+                                            <p className="text-xs text-gray-400 font-bold">
+                                                {it.cantidad} × S/ {it.precio.toFixed(2)}
                                             </p>
-                                        )}
+                                            {it.nota && (
+                                                <p className="text-xs text-orange-500 font-black mt-1.5 flex items-center gap-1">
+                                                    <span>📝</span> {it.nota}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <span className="text-[15px] font-black text-[#0b0c2a] whitespace-nowrap">
+                                            S/ {(it.precio * it.cantidad).toFixed(2)}
+                                        </span>
                                     </div>
-                                    <span className="text-[14px] font-black text-[#0b0c2a] whitespace-nowrap">
-                                        S/ {(it.precio * it.cantidad).toFixed(2)}
-                                    </span>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
 
                         {/* Divider Solid */}
-                        <div className="border-t border-gray-100 mb-6" />
+                        <div className="border-t-2 border-gray-100 my-5 shrink-0" />
 
                         {/* Totales */}
-                        <div className="space-y-3 mb-8">
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">Subtotal</span>
-                                <span className="text-gray-400 font-black">S/ {subtotal.toFixed(2)}</span>
+                        <div className="space-y-3 mb-6 shrink-0 px-1">
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">Subtotal</span>
+                                <span className="text-gray-700 font-black">S/ {subtotal.toFixed(2)}</span>
                             </div>
-                            <div className="flex justify-between items-center text-[13px]">
-                                <span className="text-gray-400 font-bold">IGV (18%)</span>
-                                <span className="text-gray-400 font-black">S/ {igv.toFixed(2)}</span>
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-500 font-bold">IGV (18%)</span>
+                                <span className="text-gray-700 font-black">S/ {igv.toFixed(2)}</span>
                             </div>
-                            <div className="pt-2 flex justify-between items-center">
-                                <span className="text-lg font-black text-[#0b0c2a] uppercase tracking-tighter">TOTAL</span>
-                                <span className="text-2xl font-black text-[#0b0c2a]">S/ {total.toFixed(2)}</span>
+                            <div className="pt-4 mt-2 border-t border-dashed border-gray-200 flex justify-between items-center">
+                                <span className="text-xl font-black text-[#0b0c2a] uppercase tracking-tighter">TOTAL</span>
+                                <span className="text-[28px] font-black text-[#0b0c2a]">S/ {total.toFixed(2)}</span>
                             </div>
                         </div>
 
                         {/* Footer Ticket */}
-                        <div className="text-center mt-10">
-                            <p className="text-[11px] text-gray-400 font-bold leading-relaxed px-6">
+                        <div className="text-center shrink-0 mb-2">
+                            <p className="text-[11px] text-gray-400 font-bold leading-relaxed px-2">
                                 Este documento no es un comprobante de pago. Para pagar solicite su boleta o factura.
                             </p>
                         </div>
                     </div>
 
                     {/* Acciones del Modal */}
-                    <div className="p-6 bg-white border-t border-gray-50 grid grid-cols-2 gap-4">
+                    <div className="p-5 bg-gray-50/50 border-t border-gray-100 grid grid-cols-2 gap-3 shrink-0">
                         <button 
                             onClick={onClose}
-                            className="py-4 rounded-2xl border-2 border-gray-100 text-gray-400 font-black text-xs uppercase tracking-widest hover:bg-gray-50 transition-colors"
+                            className="py-3.5 rounded-xl border-2 border-gray-200 text-gray-500 font-black text-[13px] uppercase tracking-widest hover:bg-gray-100 hover:text-gray-700 transition-colors"
                         >
                             Cerrar
                         </button>
                         <button 
                             onClick={() => window.print()}
-                            className="py-4 rounded-2xl bg-[#3461FF] text-white font-black text-xs uppercase tracking-widest hover:bg-blue-700 shadow-xl shadow-blue-100 flex items-center justify-center gap-2 group"
+                            className="py-3.5 rounded-xl bg-[#3461FF] text-white font-black text-[13px] uppercase tracking-widest hover:bg-blue-700 shadow-lg shadow-blue-200 flex items-center justify-center gap-2 group transition-all"
                         >
                             <Printer className="w-4 h-4 group-hover:scale-110 transition-transform" />
                             IMPRIMIR

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MeserHeader } from "../components/MeserHeader";
+import { Header } from "@/components/Header";
 import {
     Trash2,
     Eye,
@@ -328,7 +328,7 @@ export function Comandas() {
     return (
         <div className="w-full flex flex-col font-sans h-full">
             {/* Header global "Mesero" */}
-            <MeserHeader title="Mesero" icon={ChartNetwork} />
+            <Header title="Mesero" icon={ChartNetwork} usuarioId="mesero123" />
 
             <div className="px-2">
                 {/* Título de sección */}

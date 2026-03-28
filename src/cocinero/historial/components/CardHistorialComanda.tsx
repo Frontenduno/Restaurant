@@ -28,7 +28,7 @@ function CardHistorialComanda({
 
   return (
     <div
-      className={`w-[350px] bg-white rounded-2xl shadow-lg overflow-hidden border-t-8 ${config.colorBorde} font-sans flex flex-col`}
+      className={`w-full h-full bg-white rounded-2xl shadow-lg overflow-hidden border-t-8 ${config.colorBorde} font-sans flex flex-col`}
     >
       <div className="p-5 flex flex-col h-full">
         {/* Encabezado: Mesa, ID y Mesero */}

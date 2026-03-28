@@ -1,5 +1,5 @@
 import { LayoutDashboardIcon, ArrowUpRight, Users, Columns2 } from "lucide-react";
-import { AdminHeader } from "../components/AdminHeader";
+import { Header } from "@/components/Header";
 import { StatCard } from "./components/StatCard";
 import { WeeklyChartCard } from "./components/WeeklyChartCard";
 import { AlertCard } from "./components/AlertCard";
@@ -28,7 +28,7 @@ export function DashboardPage() {
   return (
     <div className="w-full flex flex-col font-sans">
       {/* Header aligned with the provided design */}
-      <AdminHeader title="Dashboard" icon={LayoutDashboardIcon} />
+      <Header title="Dashboard" icon={LayoutDashboardIcon} usuarioId="admin123" />
 
       {/* Main Dashboard Grid */}
       <div className="flex flex-col gap-6">

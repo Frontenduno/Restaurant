@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState } from "react";
-import { AdminHeader } from "../components/AdminHeader";
+import { Header } from "@/components/Header";
 import { FiltrosMenu } from "./components/menu/FiltrosMenu";
 import { CardMenu } from "./components/menu/CardMenu";
 import { FormMenu } from "./components/menu/FormMenu";
@@ -62,7 +62,7 @@ export function MenuPage() {
 
     return (
         <div className="w-full flex flex-col font-sans h-[calc(100vh-3rem)] relative overflow-hidden">
-            <AdminHeader title="Gestión Menú" icon={UtensilsCrossedIcon} />
+            <Header title="Gestión Menú" icon={UtensilsCrossedIcon} usuarioId="admin123" />
 
             <FiltrosMenu
                 tipos={tipos}

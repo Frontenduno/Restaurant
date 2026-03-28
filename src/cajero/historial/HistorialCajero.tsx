@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { ClockArrowUp } from "lucide-react";
-import { CajeroHeader } from "../components/CajeroHeader";
+import { Header } from "@/components/Header";
 import { useHistorial } from "./hooks/useHistorial";
 import { SummaryCards } from "./components/SummaryCards";
 import { IncomeChart } from "./components/IncomeChart";
@@ -28,7 +28,7 @@ export function HistorialCajero() {
   if (isLoading) {
     return (
       <div className="w-full flex flex-col font-sans h-full">
-        <CajeroHeader title="Historial" icon={<ClockArrowUp className="w-6 h-6 text-black" />} />
+        <Header title="Historial" icon={<ClockArrowUp className="w-6 h-6 text-black" />} usuarioId="cajero123" />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
         </div>
@@ -40,7 +40,7 @@ export function HistorialCajero() {
 
   return (
     <div className="w-full flex flex-col font-sans h-full">
-      <CajeroHeader title="Historial" icon={<ClockArrowUp className="w-6 h-6 text-black" />} />
+      <Header title="Historial" icon={<ClockArrowUp className="w-6 h-6 text-black" />} usuarioId="cajero123" />
 
       {/* Título + Caja */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MeserHeader } from "../components/MeserHeader";
+import { Header } from "@/components/Header";
 import { ChartNetwork, CheckCircle2, ClockIcon } from "lucide-react";
 import { PanelHistorial } from "./components/PanelHistorial";
 import { type RegistroHistorial, useHistorial } from "./hooks/historial";
@@ -115,7 +115,7 @@ export function Historial() {
 
     return (
         <div className="w-full flex flex-col font-sans h-full">
-            <MeserHeader title="Mesero" icon={ChartNetwork} />
+            <Header title="Mesero" icon={ChartNetwork} usuarioId="mesero123" />
 
             {/* Layout: lista + panel lateral */}
             <div className="flex flex-1 overflow-hidden">
