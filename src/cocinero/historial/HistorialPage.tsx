@@ -4,7 +4,7 @@ import { useInventario } from "./hooks/useInventario";
 import FiltroHistorialComanda from "./components/FiltroHistorialComanda";
 import ListHistorialComanda from "./components/ListCardHistorialComanda";
 import ModalDetalleComanda from "../components/ModalComandaDetalle";
-import { set } from "zod";
+
 function HistorialPage() {
   const {
     comandasAgrupadas,
