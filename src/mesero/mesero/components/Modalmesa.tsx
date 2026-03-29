@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Plus, Minus, ClipboardCheck, AlertTriangle, Printer } from "lucide-react";
 import menuData from "@/admin/menu/data/menu-data.json";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ModalMesaProps {
     isOpen: boolean;
