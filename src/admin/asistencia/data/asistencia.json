@@ -1,0 +1,88 @@
+{
+  "asistencias": [
+    {
+      "id_asistencia": "AS-001",
+      "id_usuario": 201,
+      "user": {
+        "id_usuario": 201,
+        "nombre": "Roberto Gómez",
+        "correo": "roberto@restaurante.com",
+        "rol": {
+          "id_rol": 1,
+          "nombre": "Cocinero",
+          "area": { "id_area": 1, "nombre": "Cocina" }
+        }
+      },
+      "fecha": "2026-04-09",
+      "hora_marcada": "07:55",
+      "hora_salida_marcada": "16:05",
+      "estado": "A Tiempo",
+      "minutos_tardanza": 0,
+      "justificada": false,
+      "id_horario": "H1"
+    },
+    {
+      "id_asistencia": "AS-002",
+      "id_usuario": 202,
+      "user": {
+        "id_usuario": 202,
+        "nombre": "Lucía Méndez",
+        "correo": "lucia@restaurante.com",
+        "rol": {
+          "id_rol": 2,
+          "nombre": "Mesero",
+          "area": { "id_area": 2, "nombre": "Salón" }
+        }
+      },
+      "fecha": "2026-04-09",
+      "hora_marcada": "12:12",
+      "hora_salida_marcada": "22:00",
+      "estado": "Tardanza",
+      "minutos_tardanza": 12,
+      "justificada": false,
+      "id_horario": "H2"
+    },
+    {
+      "id_asistencia": "AS-003",
+      "id_usuario": 203,
+      "user": {
+        "id_usuario": 203,
+        "nombre": "Carlos Rivas",
+        "correo": "carlos@restaurante.com",
+        "rol": {
+          "id_rol": 3,
+          "nombre": "Cajero",
+          "area": { "id_area": 3, "nombre": "Administración" }
+        }
+      },
+      "fecha": "2026-04-09",
+      "hora_marcada": null,
+      "hora_salida_marcada": null,
+      "estado": "Ausente",
+      "minutos_tardanza": 0,
+      "justificada": true,
+      "id_horario": "H1"
+    },
+    {
+      "id_asistencia": "AS-004",
+      "id_usuario": 204,
+      "user": {
+        "id_usuario": 204,
+        "nombre": "Ana Torres",
+        "correo": "ana@restaurante.com",
+        "rol": {
+          "id_rol": 4,
+          "nombre": "Recepcionista",
+          "area": { "id_area": 2, "nombre": "Salón" }
+        }
+      },
+      "fecha": "2026-04-09",
+      "hora_marcada": "11:00",
+      "hora_salida_marcada": null,
+      "estado": "A Tiempo",
+      "minutos_tardanza": 0,
+      "justificada": false,
+      "id_horario": "H3"
+    }
+  ]
+}

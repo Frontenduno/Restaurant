@@ -7,6 +7,7 @@ import { MenuPage } from "@/admin/menu/MenuPage";
 import { UsuariosPage } from "@/admin/usuarios/UsuariosPage";
 import { ReportesPage } from "@/admin/reportes/ReportesPage";
 import { InventarioPage } from "@/admin/inventario/InventarioPage";
+import { AsistenciaPage } from "@/admin/asistencia/AsistenciaPage";
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -23,6 +24,7 @@ export const adminRoutes: RouteObject[] = [
       { path: "usuarios", element: <UsuariosPage /> },
       { path: "reportes", element: <ReportesPage /> },
       { path: "inventario", element: <InventarioPage /> },
+      { path: "asistencia", element: <AsistenciaPage /> },
     ],
   },
 ];

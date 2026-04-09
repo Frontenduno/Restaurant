@@ -17,6 +17,7 @@ import {
   BarChart3Icon,
   PackageIcon,
   LogOutIcon,
+  UserCheck,
 } from "lucide-react";
 
 const adminNavItems = [
@@ -26,6 +27,7 @@ const adminNavItems = [
   { title: "Usuarios", path: "/admin/usuarios", icon: UsersIcon },
   { title: "Reportes", path: "/admin/reportes", icon: BarChart3Icon },
   { title: "Inventario", path: "/admin/inventario", icon: PackageIcon },
+  { title: "Asistencia", path: "/admin/asistencia", icon: UserCheck },
 ];
 
 export function AdminSidebar() {
@@ -43,7 +45,6 @@ export function AdminSidebar() {
 
   return (
     <Sidebar className="border-r border-neutral-100 bg-white text-neutral-700">
-
       {/* Header: logo + brand + role */}
       <SidebarHeader className="px-5 py-6">
         <div className="flex items-center gap-3">
