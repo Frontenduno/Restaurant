@@ -32,8 +32,6 @@ export function useAsistencia() {
     });
   }, [asist, filterStatus, filterRole, filterDate]);
 
-  // 2. Conteos para las Tarjetas (Sobre la data original sin filtrar o filtrada por fecha)
-  // Normalmente las tarjetas muestran el total del día seleccionado
   const counts = useMemo(() => {
     const dataToCount = filterDate
       ? asist.filter((a) => a.fecha === filterDate)
@@ -47,7 +45,6 @@ export function useAsistencia() {
 
         if (curr.estado === "Ausente" && curr.justificada) acc.justificadas++;
 
-        // Sumamos minutos para el promedio de tardanza
         acc.totalMinutosTardanza += curr.minutos_tardanza || 0;
 
         return acc;
@@ -63,9 +60,9 @@ export function useAsistencia() {
   }, [asist, filterDate]);
 
   return {
-    asistencias: filteredAsistencias, // Esta es la que pasas a la Tabla
-    fecha: filterDate, // Fecha elegida en el filtro date
-    counts, // Esta es la que pasas a las Tarjetas
+    asistencias: filteredAsistencias, 
+    fecha: filterDate, 
+    counts,
     filters: {
       status: filterStatus,
       role: filterRole,
